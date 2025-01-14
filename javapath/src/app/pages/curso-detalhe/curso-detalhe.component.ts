@@ -5,7 +5,15 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CommentComponent } from '../../components/comments/comments.component';
+
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {MatInput} from '@angular/material/input';
 
 interface Curso {
   id: number;
@@ -66,12 +74,20 @@ interface Comment {
     MatIconModule,
     MatButtonModule,
     MatProgressBarModule,
-    CommentComponent
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatAccordion,
+    MatExpansionPanel,
+    MatTab,
+    MatInput,
+    MatTabGroup
   ],
   templateUrl: './curso-detalhe.component.html',
   styleUrls: ['./curso-detalhe.component.css']
 })
 export class CursoDetalheComponent implements OnInit {
+  currentLesson: Lesson | undefined; // Add currentLesson
+  progress = 0; // Initialize progress
   curso: Curso = {
     id: 1,
     title: 'Java Completo 2024 - Do Zero ao Profissional',
@@ -90,24 +106,36 @@ export class CursoDetalheComponent implements OnInit {
         title: 'Introdução ao Java',
         duration: '2h',
         lessons: [
-          { id: 1, title: 'Configurando o Ambiente', duration: '15min', isCompleted: true },
-          { id: 2, title: 'Primeiro Programa', duration: '20min', isCompleted: false }
+          {
+            id: 1, title: 'Configurando o Ambiente', duration: '15min', isCompleted: true,
+            description: ''
+          },
+          {
+            id: 2, title: 'Primeiro Programa', duration: '20min', isCompleted: false,
+            description: ''
+          }
         ]
       },
       // Adicione mais módulos conforme necessário
     ]
   };
 
-  progress: number = 35;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      // Aqui você buscaria os dados do curso baseado no ID
-      console.log('Curso ID:', params['id']);
-    });
-  }
+      const cursoId = +params['id'];  // Convert id to number
+      // Fetch the course data.  Replace this with your actual data fetching logic.
+      this.curso = this.getCursoById(cursoId) ?? this.curso; // Keep existing data if not found
+
+
+      this.currentLesson = this.curso.modules[0]?.lessons[0]; // Initialize currentLesson
+
+
+      this.progress = this.calcularProgresso(); // Calculate progress in ngOnInit
+
+    });}
 
   calcularProgresso(): number {
     let totalLessons = 0;
@@ -119,5 +147,15 @@ export class CursoDetalheComponent implements OnInit {
     });
 
     return (completedLessons / totalLessons) * 100;
+  }
+  getCursoById(id:number) : Curso | undefined {
+    // Your code to fetch curso by Id and return it
+    return undefined;
+  }
+
+  selectLesson(lesson: Lesson) {
+    this.currentLesson = lesson;
+    this.progress = this.calcularProgresso();
+
   }
 }

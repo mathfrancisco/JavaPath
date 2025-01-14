@@ -2,7 +2,7 @@
 <section class="relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200 py-16">
   <div class="container mx-auto px-4">
     <h1 class="text-4xl font-bold text-center mb-12 text-gray-800">Entre em Contato</h1>
-    
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <!-- Formulário -->
       <div class="bg-white rounded-xl shadow-xl overflow-hidden">
@@ -26,7 +26,7 @@
                 <div *ngIf="nome.errors?.['required']">Nome é obrigatório</div>
               </div>
             </div>
-            
+
             <div>
               <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
                 Email
@@ -47,7 +47,7 @@
                 <div *ngIf="email.errors?.['email']">Email inválido</div>
               </div>
             </div>
-            
+
             <div>
               <label for="mensagem" class="block text-sm font-semibold text-gray-700 mb-2">
                 Mensagem
@@ -66,7 +66,7 @@
                 <div *ngIf="mensagem.errors?.['required']">Mensagem é obrigatória</div>
               </div>
             </div>
-            
+
             <button
               type="submit"
               [disabled]="!contactForm.valid"
@@ -84,7 +84,7 @@
         <div class="bg-white rounded-xl shadow-xl overflow-hidden">
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-6 text-gray-800">Informações de Contato</h3>
-            
+
             <div class="space-y-6">
               <div class="flex items-start space-x-4">
                 <i class="fas fa-map-marker-alt text-blue-600 text-xl mt-1"></i>
@@ -96,15 +96,15 @@
                   </p>
                 </div>
               </div>
-              
+
               <div class="flex items-start space-x-4">
                 <i class="fas fa-envelope text-blue-600 text-xl mt-1"></i>
                 <div>
                   <h4 class="font-semibold text-gray-700">Email</h4>
-                  <p class="text-gray-600 mt-1">contato@tecverso.com</p>
+                  <p class="text-gray-600 mt-1">contato&#64;javapath.com</p>
                 </div>
               </div>
-              
+
               <div class="flex items-start space-x-4">
                 <i class="fas fa-phone text-blue-600 text-xl mt-1"></i>
                 <div>

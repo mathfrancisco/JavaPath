@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../enviroments/environment';
 
 export interface User {
   id: string;
@@ -151,4 +151,4 @@ async register(data: RegisterData): Promise<boolean> {
     console.error('Registration error:', error);
     throw error;
   }
-}
+}}

@@ -1,0 +1,87 @@
+<!-- pages/instructor/cursos/cursos-list.component.html -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Meus Cursos</h1>
+      <p class="text-gray-600 mt-2">Gerencie todos os seus cursos em um só lugar</p>
+    </div>
+    <button mat-raised-button color="primary" routerLink="/instructor/cursos/novo">
+      <mat-icon class="mr-2">add</mat-icon>
+      Novo Curso
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <table mat-table [dataSource]="cursos" class="w-full">
+      <!-- Título Column -->
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef> Curso </th>
+        <td mat-cell *matCellDef="let curso">
+          <div class="flex items-center">
+            <img [src]="curso.thumbnail" [alt]="curso.titulo"
+                 class="w-12 h-12 rounded object-cover mr-4">
+            <div>
+              <div class="font-medium">{{curso.titulo}}</div>
+              <div class="text-sm text-gray-600">{{curso.totalAulasde aulas
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Alunos Matriculados Column -->
+      <ng-container matColumnDef="alunosMatriculados">
+        <th mat-header-cell *matHeaderCellDef> Alunos </th>
+        <td mat-cell *matCellDef="let curso"> {{ curso.alunosMatriculados }} </td>
+      </ng-container>
+
+      <!-- Avaliação Média Column -->
+      <ng-container matColumnDef="avaliacaoMedia">
+        <th mat-header-cell *matHeaderCellDef> Avaliação </th>
+        <td mat-cell *matCellDef="let curso"> {{ curso.avaliacaoMedia | number:'1.1-1' }} </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let curso">
+          <span
+            [class.text-green-500]="curso.status === 'Ativo'"
+            [class.text-red-500]="curso.status === 'Inativo'"
+          >{{ curso.status }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Última Atualização Column -->
+      <ng-container matColumnDef="ultimaAtualizacao">
+        <th mat-header-cell *matHeaderCellDef> Última Atualização </th>
+        <td mat-cell *matCellDef="let curso"> {{ curso.ultimaAtualizacao | date }} </td>
+      </ng-container>
+
+      <!-- Ações Column -->
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let curso">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/instructor/cursos/{{ curso.id }}/editar">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-menu-item (click)="deleteCurso(curso.id)">
+              <mat-icon>delete</mat-icon>
+              Excluir
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

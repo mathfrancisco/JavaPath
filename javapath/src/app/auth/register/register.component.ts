@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,20 +24,21 @@ import { AuthService } from '../auth.service';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm!: FormGroup;
   isLoading = false;
   errorMsg = '';
   hidePassword = true;
   hideConfirmPassword = true;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, // Inject FormBuilder
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar

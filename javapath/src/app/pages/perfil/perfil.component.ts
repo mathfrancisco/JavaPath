@@ -78,25 +78,39 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userRole = this.authService.currentUserValue?.role || 'student';
+    this.userRole = this.authService.currentUserValue?.role || 'student'; // Use optional chaining here as well
     this.loadUserProfile();
   }
 
   loadUserProfile() {
+    // Use optional chaining and nullish coalescing operator here
     if (this.authService.currentUserValue) {
+      this.userRole = this.authService.currentUserValue.role; // Safe to access here
       if (this.userRole === 'student') {
         this.loadStudentProfile();
       } else {
         this.loadInstructorProfile();
       }
+    } else {
+      // Handle the case where currentUserValue is null
+      // 1. Redirect to login:
+      // this.router.navigate(['/login']);  // Requires injecting Router
+
+      // 2. Set a default profile:
+      // this.userProfile = { /* ... default profile data ... */ };
+
+      // 3. Show a message/spinner:
+      // console.log("User not logged in"); // Or use a loading indicator in your template
     }
   }
 
   private loadStudentProfile() {
+    const currentUser = this.authService.currentUserValue!;  // Non-null assertion
+
     // Simulação de carregamento do perfil do aluno
     this.userProfile = {
       id: 1,
-      username: this.authService.currentUserValue.username,
+      username: currentUser.username,
       nome: 'Nome do Aluno',
       email: 'aluno@email.com',
       avatar: '/assets/avatar-placeholder.jpg',
@@ -125,10 +139,12 @@ export class PerfilComponent implements OnInit {
   }
 
   private loadInstructorProfile() {
+    const currentUser = this.authService.currentUserValue!; // Non-null assertion
+
     // Simulação de carregamento do perfil do instrutor
     this.userProfile = {
       id: 2,
-      username: this.authService.currentUserValue.username,
+      username: currentUser.username,
       nome: 'Nome do Instrutor',
       email: 'instrutor@email.com',
       avatar: '/assets/avatar-placeholder.jpg',

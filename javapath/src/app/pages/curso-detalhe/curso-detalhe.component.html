@@ -7,7 +7,7 @@
         <div class="lg:w-2/3">
           <h1 class="text-4xl font-bold mb-4">{{curso.title}}</h1>
           <p class="text-lg text-blue-100 mb-6">{{curso.description}}</p>
-          
+
           <div class="flex items-center gap-6 mb-6">
             <div class="flex items-center">
               <mat-icon class="text-yellow-400">star</mat-icon>
@@ -24,14 +24,6 @@
             </div>
           </div>
 
-          <div class="flex items-center gap-4 mb-6">
-            <img [src]="curso.instructor.avatar" [alt]="curso.instructor.name" 
-                 class="w-12 h-12 rounded-full ring-2 ring-white/50">
-            <div>
-              <p class="font-medium">{{curso.instructor.name}}</p>
-              <p class="text-sm text-blue-100">Instrutor Principal</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -50,7 +42,7 @@
               <mat-icon class="text-6xl text-white">play_circle</mat-icon>
             </div>
           </div>
-          
+
           <!-- Content Tabs -->
           <mat-tab-group class="p-6">
             <mat-tab label="Conteúdo">
@@ -59,7 +51,7 @@
                 <p class="text-gray-600">{{currentLesson?.description}}</p>
               </div>
             </mat-tab>
-            
+
             <mat-tab label="Materiais">
               <div class="py-6 space-y-4">
                 <div *ngFor="let material of currentLesson?.materials"
@@ -75,10 +67,10 @@
                 </div>
               </div>
             </mat-tab>
-            
+
             <mat-tab label="Exercícios">
               <div class="py-6">
-                <div *ngFor="let exercise of currentLesson?.exercises" 
+                <div *ngFor="let exercise of currentLesson?.exercises"
                      class="mb-6 p-6 bg-gray-50 rounded-lg">
                   <h4 class="text-lg font-bold mb-3">{{exercise.title}}</h4>
                   <p class="text-gray-600 mb-4">{{exercise.description}}</p>
@@ -92,19 +84,19 @@
             <mat-tab label="Comentários">
               <div class="py-6">
                 <div class="mb-6">
-                  <textarea matInput placeholder="Adicione um comentário..." 
+                  <textarea matInput placeholder="Adicione um comentário..."
                             class="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             rows="3"></textarea>
                   <div class="mt-2 flex justify-end">
                     <button mat-raised-button color="primary">Comentar</button>
                   </div>
                 </div>
-                
+
                 <div class="space-y-6">
-                  <div *ngFor="let comment of currentLesson?.comments" 
+                  <div *ngFor="let comment of currentLesson?.comments"
                        class="p-4 bg-gray-50 rounded-lg">
                     <div class="flex items-center gap-3 mb-2">
-                      <img [src]="comment.userAvatar" [alt]="comment.userName" 
+                      <img [src]="comment.userAvatar" [alt]="comment.userName"
                            class="w-8 h-8 rounded-full">
                       <div>
                         <p class="font-medium">{{comment.userName}}</p>
@@ -129,8 +121,8 @@
               <h3 class="font-bold">Seu Progresso</h3>
               <span class="text-blue-600">{{progress}}%</span>
             </div>
-            <mat-progress-bar mode="determinate" 
-                             [value]="progress" 
+            <mat-progress-bar mode="determinate"
+                             [value]="progress"
                              class="rounded-full"></mat-progress-bar>
           </div>
 

@@ -1,0 +1,124 @@
+<!-- pages/instructor/dashboard/dashboard.component.html -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard do Instrutor</h1>
+    <p class="text-gray-600 mt-2">Bem-vindo de volta! Aqui está um resumo das suas atividades.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" *ngIf="stats">
+    <!-- Alunos -->
+    <mat-card class="bg-gradient-to-br from-blue-50 to-blue-100">
+      <div class="p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-blue-600">Total de Alunos</p>
+            <p class="text-2xl font-bold text-gray-900">{{stats.totalAlunos}}</p>
+          </div>
+          <div class="bg-blue-500 rounded-full p-3">
+            <mat-icon class="text-white">groups</mat-icon>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">
+          {{stats.alunosAtivos}} alunos ativos este mês
+        </p>
+      </div>
+    </mat-card>
+
+    <!-- Receita -->
+    <mat-card class="bg-gradient-to-br from-green-50 to-green-100">
+      <div class="p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-green-600">Receita Total</p>
+            <p class="text-2xl font-bold text-gray-900">R$ {{stats.receitaTotal}}</p>
+          </div>
+          <div class="bg-green-500 rounded-full p-3">
+            <mat-icon class="text-white">payments</mat-icon>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">
+          Último mês
+        </p>
+      </div>
+    </mat-card>
+
+    <!-- Avaliação -->
+    <mat-card class="bg-gradient-to-br from-yellow-50 to-yellow-100">
+      <div class="p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-yellow-600">Avaliação Média</p>
+            <p class="text-2xl font-bold text-gray-900">{{stats.avaliacaoMedia}}</p>
+          </div>
+          <div class="bg-yellow-500 rounded-full p-3">
+            <mat-icon class="text-white">star</mat-icon>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">
+          Baseado em {{stats.totalAlunos}} avaliações
+        </p>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Recent Courses -->
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Seus Cursos</h2>
+      <button mat-raised-button color="primary" routerLink="/instructor/cursos/novo">
+        <mat-icon class="mr-2">add</mat-icon>
+        Novo Curso
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <mat-card *ngFor="let curso of cursos" class="hover:shadow-lg transition-shadow duration-300">
+        <img [src]="curso.thumbnail" [alt]="curso.titulo" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-bold text-gray-900">{{curso.titulo}}</h3>
+            <span [class]="'px-3 py-1 rounded-full text-sm ' +
+              (curso.status === 'publicado' ? 'bg-green-100 text-green-800' :
+               curso.status === 'rascunho' ? 'bg-gray-100 text-gray-800' :
+               'bg-yellow-100 text-yellow-800')">
+              {{curso.status | titlecase}}
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Alunos</span>
+              <span class="font-medium">{{curso.alunosMatriculados}}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Avaliação</span>
+              <span class="font-medium flex items-center">
+                <mat-icon class="text-yellow-400 text-sm mr-1">star</mat-icon>
+                {{curso.avaliacaoMedia}}
+              </span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Receita</span>
+              <span class="font-medium">R$ {{curso.estatisticas.receita}}</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mt-6">
+            <button mat-stroked-button color="primary" class="flex-1"
+                    [routerLink]="['/instructor/cursos', curso.id, 'edit']">
+              <mat-icon class="mr-2">edit</mat-icon>
+              Editar
+            </button>
+            <button mat-stroked-button color="accent" class="flex-1"
+                    [routerLink]="['/instructor/cursos', curso.id, 'analytics']">
+              <mat-icon class="mr-2">insights</mat-icon>
+              Análises
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
