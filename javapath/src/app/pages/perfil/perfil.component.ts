@@ -8,13 +8,16 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { CursosService } from '../../services/cursos.service';
 
-interface UserProfile {
+interface BaseProfile {
   id: number;
   username: string;
   nome: string;
   email: string;
   avatar: string;
   bio: string;
+}
+
+interface StudentProfile extends BaseProfile {
   cursosMatriculados: number;
   cursosConcluidos: number;
   certificados: number;
@@ -33,6 +36,24 @@ interface UserProfile {
   };
 }
 
+interface InstructorProfile extends BaseProfile {
+  cursosCriados: number;
+  alunosAtivos: number;
+  avaliacaoMedia: number;
+  cursos: Array<{
+    id: number;
+    titulo: string;
+    alunosMatriculados: number;
+    avaliacaoMedia: number;
+    thumbnail: string;
+  }>;
+  estatisticas: {
+    totalAulas: number;
+    totalHoras: number;
+    totalAlunos: number;
+  };
+}
+
 @Component({
   selector: 'app-perfil',
   standalone: true,
@@ -48,7 +69,8 @@ interface UserProfile {
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-  userProfile: UserProfile | null = null;
+  userProfile: StudentProfile | InstructorProfile | null = null;
+  userRole: 'student' | 'instructor' | 'admin' = 'student';
 
   constructor(
     private authService: AuthService,
@@ -56,41 +78,95 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.userRole = this.authService.currentUserValue?.role || 'student';
     this.loadUserProfile();
   }
 
   loadUserProfile() {
     if (this.authService.currentUserValue) {
-      // Simular carregamento do perfil - substituir por chamada real à API
-      this.userProfile = {
-        id: 1,
-        username: this.authService.currentUserValue.username,
-        nome: 'Nome Completo',
-        email: 'usuario@email.com',
-        avatar: '/assets/avatar-placeholder.jpg',
-        bio: 'Desenvolvedor apaixonado por tecnologia',
-        cursosMatriculados: 5,
-        cursosConcluidos: 3,
-        certificados: 3,
-        progresso: {
-          cursosEmAndamento: [
-            {
-              id: 1,
-              titulo: 'Java Fundamentos',
-              progresso: 75,
-              thumbnail: '/assets/curso1.jpg'
-            }
-          ],
-          certificadosRecentes: [
-            {
-              id: 1,
-              curso: 'Lógica de Programação',
-              dataEmissao: new Date()
-            }
-          ]
-        }
-      };
+      if (this.userRole === 'student') {
+        this.loadStudentProfile();
+      } else {
+        this.loadInstructorProfile();
+      }
     }
+  }
+
+  private loadStudentProfile() {
+    // Simulação de carregamento do perfil do aluno
+    this.userProfile = {
+      id: 1,
+      username: this.authService.currentUserValue.username,
+      nome: 'Nome do Aluno',
+      email: 'aluno@email.com',
+      avatar: '/assets/avatar-placeholder.jpg',
+      bio: 'Estudante dedicado de programação',
+      cursosMatriculados: 5,
+      cursosConcluidos: 3,
+      certificados: 3,
+      progresso: {
+        cursosEmAndamento: [
+          {
+            id: 1,
+            titulo: 'Java Fundamentos',
+            progresso: 75,
+            thumbnail: '/assets/curso1.jpg'
+          }
+        ],
+        certificadosRecentes: [
+          {
+            id: 1,
+            curso: 'Lógica de Programação',
+            dataEmissao: new Date()
+          }
+        ]
+      }
+    };
+  }
+
+  private loadInstructorProfile() {
+    // Simulação de carregamento do perfil do instrutor
+    this.userProfile = {
+      id: 2,
+      username: this.authService.currentUserValue.username,
+      nome: 'Nome do Instrutor',
+      email: 'instrutor@email.com',
+      avatar: '/assets/avatar-placeholder.jpg',
+      bio: 'Instrutor especialista em Java',
+      cursosCriados: 10,
+      alunosAtivos: 150,
+      avaliacaoMedia: 4.8,
+      cursos: [
+        {
+          id: 1,
+          titulo: 'Java Avançado',
+          alunosMatriculados: 50,
+          avaliacaoMedia: 4.9,
+          thumbnail: '/assets/curso2.jpg'
+        }
+      ],
+      estatisticas: {
+        totalAulas: 120,
+        totalHoras: 240,
+        totalAlunos: 500
+      }
+    };
+  }
+
+  isStudent(): boolean {
+    return this.userRole === 'student';
+  }
+
+  isInstructor(): boolean {
+    return this.userRole === 'instructor' || this.userRole === 'admin';
+  }
+
+  getStudentProfile(): StudentProfile {
+    return this.userProfile as StudentProfile;
+  }
+
+  getInstructorProfile(): InstructorProfile {
+    return this.userProfile as InstructorProfile;
   }
 
   logout() {
