@@ -1,9 +1,9 @@
-<!-- perfil.component.html -->
 <div class="bg-gradient-to-b from-white to-gray-100 min-h-screen">
   <div class="container mx-auto px-4 py-12" *ngIf="userProfile">
-    <!-- Profile Header -->
+    <!-- Profile Header (Comum para ambos os perfis) -->
     <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 transform hover:shadow-2xl transition-all duration-300">
       <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <!-- Avatar Section -->
         <div class="relative group">
           <div class="w-36 h-36 rounded-full overflow-hidden ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300">
             <img [src]="userProfile.avatar"
@@ -16,6 +16,7 @@
           </button>
         </div>
 
+        <!-- Info Section -->
         <div class="flex-1">
           <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
             <div class="text-center md:text-left">
@@ -31,86 +32,119 @@
             </button>
           </div>
 
+          <!-- Estatísticas diferentes para cada tipo de usuário -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
-              <div class="text-center">
-                <p class="text-3xl font-bold text-blue-800 mb-2">{{userProfile.cursosMatriculados}}</p>
-                <p class="text-gray-700">Cursos Matriculados</p>
+            <!-- Estatísticas do Aluno -->
+            <ng-container *ngIf="isStudent()">
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-blue-800 mb-2">{{getStudentProfile().cursosMatriculados}}</p>
+                  <p class="text-gray-700">Cursos Matriculados</p>
+                </div>
               </div>
-            </div>
-            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
-              <div class="text-center">
-                <p class="text-3xl font-bold text-green-800 mb-2">{{userProfile.cursosConcluidos}}</p>
-                <p class="text-gray-700">Cursos Concluídos</p>
+              <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-green-800 mb-2">{{getStudentProfile().cursosConcluidos}}</p>
+                  <p class="text-gray-700">Cursos Concluídos</p>
+                </div>
               </div>
-            </div>
-            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
-              <div class="text-center">
-                <p class="text-3xl font-bold text-yellow-800 mb-2">{{userProfile.certificados}}</p>
-                <p class="text-gray-700">Certificados</p>
+              <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-yellow-800 mb-2">{{getStudentProfile().certificados}}</p>
+                  <p class="text-gray-700">Certificados</p>
+                </div>
               </div>
-            </div>
+            </ng-container>
+
+            <!-- Estatísticas do Instrutor -->
+            <ng-container *ngIf="isInstructor()">
+              <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-purple-800 mb-2">{{getInstructorProfile().cursosCriados}}</p>
+                  <p class="text-gray-700">Cursos Criados</p>
+                </div>
+              </div>
+              <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-indigo-800 mb-2">{{getInstructorProfile().alunosAtivos}}</p>
+                  <p class="text-gray-700">Alunos Ativos</p>
+                </div>
+              </div>
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-blue-800 mb-2">{{getInstructorProfile().avaliacaoMedia}}</p>
+                  <p class="text-gray-700">Avaliação Média</p>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Content Tabs -->
+    <!-- Tabs específicas para cada tipo de usuário -->
     <mat-tab-group class="bg-white rounded-2xl shadow-xl overflow-hidden">
-      <mat-tab label="Cursos em Andamento">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-          <div *ngFor="let curso of userProfile.progresso.cursosEmAndamento"
-               class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-2xl hover:scale-105 transition-all duration-300">
-            <div class="relative">
-              <img [src]="curso.thumbnail"
-                   [alt]="curso.titulo"
-                   class="w-full h-48 object-cover">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-4 text-gray-900">{{curso.titulo}}</h3>
-              <div class="space-y-2">
-                <div class="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Progresso</span>
-                  <span>{{curso.progresso}}%</span>
+      <!-- Tabs do Aluno -->
+      <ng-container *ngIf="isStudent()">
+        <mat-tab label="Cursos em Andamento">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+            <div *ngFor="let curso of getStudentProfile().progresso.cursosEmAndamento"
+                 class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-2xl hover:scale-105 transition-all duration-300">
+              <div class="relative">
+                <img [src]="curso.thumbnail"
+                     [alt]="curso.titulo"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-900">{{curso.titulo}}</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Progresso</span>
+                    <span>{{curso.progresso}}%</span>
+                  </div>
+                  <mat-progress-bar mode="determinate"
+                                   [value]="curso.progresso"
+                                   class="rounded-full">
+                  </mat-progress-bar>
                 </div>
-                <mat-progress-bar mode="determinate"
-                                 [value]="curso.progresso"
-                                 class="rounded-full">
-                </mat-progress-bar>
+                <button mat-flat-button 
+                        [routerLink]="['/curso', curso.id]"
+                        class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white rounded-full py-3">
+                  <mat-icon class="mr-2">play_circle</mat-icon>
+                  Continuar
+                </button>
               </div>
-              <button mat-flat-button 
-                      [routerLink]="['/curso', curso.id]"
-                      class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white rounded-full py-3">
-                <mat-icon class="mr-2">play_circle</mat-icon>
-                Continuar
-              </button>
             </div>
           </div>
-        </div>
-      </mat-tab>
+        </mat-tab>
 
-      <mat-tab label="Certificados">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-          <div *ngFor="let cert of userProfile.progresso.certificadosRecentes"
-               class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 transform hover:scale-105 transition-all duration-300">
-            <div class="text-center">
-              <div class="bg-white rounded-full p-4 w-20 h-20 mx-auto mb-6 shadow-lg">
-                <mat-icon class="text-5xl text-green-500">verified</mat-icon>
+        <mat-tab label="Certificados">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+            <div *ngFor="let cert of getStudentProfile().progresso.certificadosRecentes"
+                 class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 transform hover:scale-105 transition-all duration-300">
+              <div class="text-center">
+                <div class="bg-white rounded-full p-4 w-20 h-20 mx-auto mb-6 shadow-lg">
+                  <mat-icon class="text-5xl text-green-500">verified</mat-icon>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">{{cert.curso}}</h3>
+                <p class="text-gray-600 mb-6">
+                  Emitido em {{cert.dataEmissao | date}}
+                </p>
+                <button mat-flat-button 
+                        class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white rounded-full py-3">
+                  <mat-icon class="mr-2">download</mat-icon>
+                  Download
+                </button>
               </div>
-              <h3 class="text-xl font-bold mb-3 text-gray-900">{{cert.curso}}</h3>
-              <p class="text-gray-600 mb-6">
-                Emitido em {{cert.dataEmissao | date}}
-              </p>
-              <button mat-flat-button 
-                      class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white rounded-full py-3">
-                <mat-icon class="mr-2">download</mat-icon>
-                Download
-              </button>
             </div>
           </div>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-</div>
+        </mat-tab>
+      </ng-container>
+
+      <!-- Tabs do Instrutor -->
+      <ng-container *ngIf="isInstructor()">
+        <mat-tab label="Meus Cursos">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+            <div *ngFor="let curso of getInstructorProfile().cursos"
+                 class="bg-white rounded-xl shadow-lg overflow-
