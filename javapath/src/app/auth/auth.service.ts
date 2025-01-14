@@ -18,6 +18,13 @@ export interface User {
   createdAt: Date;
   lastLogin?: Date;
 }
+export interface RegisterData {
+  role: 'student' | 'instructor';
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -123,5 +130,25 @@ export class AuthService {
   refreshToken(): Promise<string> {
     // Implementar lógica de refresh token
     return Promise.resolve('new_token');
+  }
+
+async register(data: RegisterData): Promise<boolean> {
+  try {
+    // Em produção, substitua por uma chamada real à API
+    // const response = await this.http.post<{success: boolean}>
+    //   (`${environment.apiUrl}/auth/register`, data).toPromise();
+
+    // Simulação de delay e validação
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Simular verificação de username/email existente
+    if (Math.random() < 0.1) { // 10% chance de erro
+      throw new Error('Username ou email já existe');
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Registration error:', error);
+    throw error;
   }
 }
