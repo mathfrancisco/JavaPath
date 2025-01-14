@@ -1,0 +1,39 @@
+<!-- curso.component.html -->
+<div class="container mx-auto py-12">
+
+  <h1 class="text-3xl font-bold mb-4">{{ nomeCurso }}</h1>
+
+  <p class="mb-6">{{ descricaoCurso }}</p>
+
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2">
+      <!-- Exibir o vídeo -->
+      <iframe width="560" height="315" [src]="urlVideo" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-4">Tópicos da Aula</h3>
+      <ul>
+        <li *ngFor="let topico of topicosAula" class="mb-2">
+          <a href="#{{ topico.titulo | lowercase }}" class="text-blue-500 hover:underline">{{ topico.titulo }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <div *ngFor="let topico of topicosAula" id="{{ topico.titulo | lowercase }}">
+      <h2 class="text-2xl font-bold mb-2">{{ topico.titulo }}</h2>
+      <p>{{ topico.conteudo }}</p>
+    </div>
+  </div>
+  <app-comments-section [comments]="curso.comments" [itemId]="curso.id"></app-comments-section>
+
+  <div *ngFor="let recurso of curso.recursos">
+    <a href="{{ recurso.downloadUrl }}" download="{{ recurso.nome }}" target="_blank"
+       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mr-2 mb-2">
+      Baixar {{ recurso.nome }}
+    </a>
+
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<!-- home.component.html -->
+<div class="bg-gray-100">
+
+  <section class="hero bg-blue-900 text-white py-20">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl font-bold mb-4">A sua verdadeira conexão com a tecnologia</h1>
+      <p class="text-lg mb-8">O conhecimento para mudar o seu universo. Aprenda, estude, pratique e se especialize em tecnologia.</p>
+      <button class="bg-white text-blue-900 font-bold py-3 px-6 rounded-lg hover:bg-gray-200">Começar Agora</button>
+    </div>
+  </section>
+
+  <section class="cursos-em-destaque py-12">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">Cursos em Destaque</h2>
+      <app-carrossel [cursos]="cursosParaCarrossel"></app-carrossel>
+    </div>
+  </section>
+
+  <section class="mais-populares py-12 bg-blue-900 text-white">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">Mais Populares</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <app-card-curso *ngFor="let curso of cursosPopulares" [curso]="curso"></app-card-curso>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="mais-recentes py-12">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">Mais Recentes</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <app-card-curso *ngFor="let curso of cursosRecentes" [curso]="curso"></app-card-curso>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section class="blog-section py-12">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">Blog Tecverso</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <app-card-blog *ngFor="let post of posts" [post]="post"></app-card-blog>
+      </div>
+    </div>
+
+  </section>
+</div>

@@ -1,0 +1,27 @@
+<!-- search.component.html -->
+<div class="container mx-auto py-12">
+  <h1 class="text-3xl font-bold mb-6 text-center">Buscar</h1>
+
+  <input type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Buscar por cursos e posts"
+         class="w-full px-4 py-2 border rounded-lg mb-6">
+
+  <div *ngIf="cursosEncontrados.length > 0">
+    <h2 class="text-2xl font-bold mb-4">Cursos Encontrados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <app-card-curso *ngFor="let curso of cursosEncontrados" [curso]="curso"></app-card-curso>
+    </div>
+  </div>
+
+  <div *ngIf="postsEncontrados.length > 0" class="mt-8">
+    <h2 class="text-2xl font-bold mb-4">Posts Encontrados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <app-card-blog *ngFor="let post of postsEncontrados" [post]="post"></app-card-blog>
+
+    </div>
+  </div>
+
+  <div *ngIf="cursosEncontrados.length === 0 && postsEncontrados.length === 0 && searchTerm !== ''" class="mt-8">
+    <p>Nenhum resultado encontrado para "{{ searchTerm }}".</p>
+
+  </div>
+</div>
