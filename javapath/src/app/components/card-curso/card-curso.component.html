@@ -1,37 +1,35 @@
-<article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative">
-  <img [src]="curso.imageUrl" [alt]="curso.title" class="w-full h-48 object-cover rounded-t-lg">
+<article class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden flex flex-col">
+  <img [src]="curso.imageUrl" [alt]="curso.title" class="w-full h-56 object-cover rounded-t-xl transform group-hover:scale-105 transition-transform duration-500">
 
-  <span class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+  <span class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
     {{ curso.level || 'Iniciante' }}
   </span>
 
-  <div class="p-6">
-    <h3 class="text-2xl font-semibold mb-2 line-clamp-2">
-      <a [routerLink]="['/curso', curso.id]" class="hover:text-blue-600 transition-colors">
+  <div class="p-6 flex-grow">
+    <h3 class="text-xl font-bold mb-3 line-clamp-2">
+      <a [routerLink]="['/curso', curso.id]" class="hover:text-blue-600 transition-colors duration-300">
         {{ curso.title }}
       </a>
     </h3>
-    <p class="text-gray-700 mb-4 line-clamp-3">{{ curso.description }}</p>
+    <p class="text-gray-600 mb-4 line-clamp-3">{{ curso.description }}</p>
 
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <img [src]="curso.imageUrl || 'default-avatar.jpg'" [alt]="curso.author" class="w-10 h-10 rounded-full mr-3">
         <div>
           <p class="font-medium text-gray-900">{{ curso.author }}</p>
-          <p class="text-sm text-gray-500">
-            {{ curso.duration || '10h' }}
-          </p>
+          <p class="text-sm text-gray-500">{{ curso.duration || '10h' }}</p>
         </div>
       </div>
 
       <div class="flex items-center">
         <mat-icon class="text-yellow-400">star</mat-icon>
-        <span class="ml-1 text-yellow-400 font-medium">{{ curso.rating || 4.5 }}</span>
+        <span class="ml-1 text-yellow-400 font-semibold">{{ curso.rating || 4.5 }}</span>
       </div>
     </div>
   </div>
 
-  <mat-card-actions class="p-4 pt-0 border-t border-gray-200">
-    <button mat-flat-button color="primary" class="w-full">Ver Curso</button>
+  <mat-card-actions class="p-4 pt-0 border-t border-gray-200 mt-auto">
+    <button mat-flat-button color="primary" class="w-full hover:bg-blue-700 transition-colors duration-300">Ver Curso</button>
   </mat-card-actions>
 </article>

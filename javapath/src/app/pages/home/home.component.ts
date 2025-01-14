@@ -60,11 +60,51 @@ export class HomeComponent {
       duration: '12h',
       rating: 4.8
     },
-    // ... mais cursos
+    {
+      id: 2,
+      title: 'Spring Boot Essencial',
+      imageUrl: '/assets/courses/spring-boot-essential.jpg',
+      author: 'Maria Souza',
+      description: 'Crie APIs RESTful com Spring Boot',
+      level: 'Intermediário',
+      duration: '8h',
+      rating: 4.5
+    },
+    {
+      id: 3,
+      title: 'Microsserviços com Spring Cloud',
+      imageUrl: '/assets/courses/microservices.jpg',
+      author: 'Pedro Santos',
+      description: 'Arquitetura de microsserviços com Spring Cloud',
+      level: 'Avançado',
+      duration: '16h',
+      rating: 4.7
+    },
+    // ... more popular courses
   ];
 
   cursosRecentes: Curso[] = [
-    // ... cursos recentes
+    {
+      id: 4,
+      title: 'Angular para Iniciantes',
+      imageUrl: '/assets/courses/angular.jpg',
+      author: 'Ana Oliveira',
+      description: 'Desenvolvimento web com Angular',
+      level: 'Iniciante',
+      duration: '10h',
+      rating: 4.6
+    },
+    {
+      id: 5,
+      title: 'React - O guia completo',
+      imageUrl: '/assets/courses/react.jpg',
+      author: 'Paulo Fernandes',
+      description: 'Aprenda React com projetos práticos',
+      level: 'Intermediário',
+      duration: '14h',
+      rating: 4.9
+    },
+    // ... more recent courses
   ];
 
 
