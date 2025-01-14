@@ -1,38 +1,31 @@
 <!-- curso.component.html -->
-<div class="container mx-auto py-12" *ngIf="curso">  <!-- Add *ngIf -->
+<div class="container mx-auto py-12">
+  <h1 class="text-3xl font-bold mb-8">Nossos Cursos</h1>
 
-  <h1 class="text-3xl font-bold mb-4">{{ curso.title }}</h1>  <!-- Access properties from curso object. -->
-  <p class="mb-6">{{ curso.description }}</p>  <!-- Same here -->
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2">
-      <iframe width="560" height="315" [src]="safeVideoUrl" frameborder="0" allowfullscreen></iframe>  <!-- Use safeVideoUrl -->
-    </div>
-    <div>
-      <h3 class="text-xl font-bold mb-4">Tópicos da Aula</h3>
-      <ul>
-        <li *ngFor="let topico of curso.topicosAula" class="mb-2">
-          <a href="#{{ topico.titulo | lowercase }}" class="text-blue-500 hover:underline">{{ topico.titulo }}</a>
-        </li>
-      </ul>
-    </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <mat-card *ngFor="let curso of cursos" class="curso-card">
+      <img mat-card-image [src]="curso.imageUrl" [alt]="curso.title">
+      <mat-card-content>
+        <h2 class="text-xl font-bold mb-2">{{curso.title}}</h2>
+        <p class="text-gray-600 mb-4">{{curso.description}}</p>
+        <div class="flex items-center mb-2">
+          <mat-icon>person</mat-icon>
+          <span class="ml-2">{{curso.author}}</span>
+        </div>
+        <div class="flex items-center" *ngIf="curso.duration">
+          <mat-icon>access_time</mat-icon>
+          <span class="ml-2">{{curso.duration}}</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a [routerLink]="['/cursos', curso.id]" mat-raised-button color="primary">
+          Ver Detalhes
+        </a>
+      </mat-card-actions>
+    </mat-card>
   </div>
 
-  <div class="mt-8">
-    <div *ngFor="let topico of curso.topicosAula" id="{{ topico.titulo | lowercase }}">
-      <h2 class="text-2xl font-bold mb-2">{{ topico.titulo }}</h2>
-      <p>{{ topico.conteudo }}</p>
-    </div>
-  </div>
-
-  <app-comments-section [comments]="curso.comments ?? []" [itemId]="curso.id"></app-comments-section>
-
-  <div *ngFor="let recurso of curso.recursos">
-    <a href="{{ recurso.downloadUrl }}" download="{{ recurso.nome }}" target="_blank"
-       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mr-2 mb-2">
-      Baixar {{ recurso.nome }}
-    </a>
+  <div *ngIf="cursos.length === 0" class="text-center py-8">
+    Nenhum curso disponível no momento.
   </div>
 </div>
-
-<div *ngIf="!curso">Curso não encontrado.</div> <!-- Add a not found message -->
