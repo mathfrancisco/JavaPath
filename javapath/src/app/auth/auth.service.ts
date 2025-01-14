@@ -151,4 +151,9 @@ async register(data: RegisterData): Promise<boolean> {
     console.error('Registration error:', error);
     throw error;
   }
-}}
+}
+
+  isLoggedOut() {
+    return !this.currentUserValue;
+  }
+}

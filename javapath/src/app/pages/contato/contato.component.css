@@ -1,4 +1,4 @@
-// contato.component.scss
+
 :host {
   display: block;
   width: 100%;
@@ -18,7 +18,7 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-// Adicione animações para feedback visual
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }

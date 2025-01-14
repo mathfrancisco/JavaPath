@@ -63,22 +63,22 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            loadComponent: () => import('./pages/instructor/cursos/cursos-list.component')
+            loadComponent: () => import('./pages/instructor/cursos/cursos-list/cursos-list.component')
               .then(m => m.CursosListComponent)
           },
           {
             path: 'novo',
-            loadComponent: () => import('./pages/instructor/cursos/curso-form.component')
+            loadComponent: () => import('./pages/instructor/cursos/curso-form/curso-form.component')
               .then(m => m.CursoFormComponent)
           },
           {
             path: ':id/edit',
-            loadComponent: () => import('./pages/instructor/cursos/curso-form.component')
+            loadComponent: () => import('./pages/instructor/cursos/curso-form/curso-form.component')
               .then(m => m.CursoFormComponent)
           },
           {
             path: ':id/analytics',
-            loadComponent: () => import('./pages/instructor/cursos/curso-analytics.component')
+            loadComponent: () => import('./pages/instructor/cursos/curso-analytics/curso-analytics.component')
               .then(m => m.CursoAnalyticsComponent)
           }
         ]
@@ -115,7 +115,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./pages/student/dashboard/dashboard.component')
-          .then(m => m.StudentDashboardComponent)
+          .then(m => m.DashboardComponent)
       },
       {
         path: 'meus-cursos',
