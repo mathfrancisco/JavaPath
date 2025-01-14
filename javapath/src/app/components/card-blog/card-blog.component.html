@@ -1,43 +1,37 @@
-<!-- card-blog.component.html -->
-<article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative">
+<article class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 relative overflow-hidden flex flex-col">
   <!-- Image -->
-  <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-48 object-cover">
-  <span class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-        {{ post.category }}
-    </span>
+  <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-500">
 
+  <span class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
+    {{ post.category }}
+  </span>
 
   <!-- Content -->
-  <div class="p-6">
-    <h3 class="text-xl font-bold mb-2 line-clamp-2">
-      <a [routerLink]="['/blog', post.id]" class="hover:text-blue-600 transition-colors">
+  <div class="p-6 flex-grow">
+    <h3 class="text-xl font-bold mb-3 line-clamp-2">
+      <a [routerLink]="['/blog', post.id]" class="hover:text-blue-600 transition-colors duration-300">
         {{ post.title }}
       </a>
     </h3>
     <p class="text-gray-600 mb-4 line-clamp-3">{{ post.excerpt }}</p>
 
     <!-- Author Info -->
-    <div class="flex items-center"> <div class="flex flex-1">
-      <img [src]="post.authorAvatar" [alt]="post.author" class="w-10 h-10 rounded-full mr-3">
-      <div>
-        <p class="font-medium">{{ post.author }}</p>
-        <p class="text-sm text-gray-500">
-          {{ formatDate(post.date) }} · {{ post.readTime }} min de leitura
-        </p>
-      </div>
-    </div>
-
-      <div>
-
-        <!-- Share Button -->
-        <button mat-icon-button [matMenuTriggerFor]="shareMenu" class="ml-auto">
-          <mat-icon>share</mat-icon>
-        </button>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <img [src]="post.authorAvatar" [alt]="post.author" class="w-10 h-10 rounded-full mr-3">
+        <div>
+          <p class="font-medium text-gray-900">{{ post.author }}</p>
+          <p class="text-sm text-gray-500">
+            {{ formatDate(post.date) }} · {{ post.readTime }} min de leitura
+          </p>
+        </div>
       </div>
 
+      <!-- Share Button -->
+      <button mat-icon-button [matMenuTriggerFor]="shareMenu" class="ml-auto">
+        <mat-icon>share</mat-icon>
+      </button>
     </div>
-
-
   </div>
 </article>
 

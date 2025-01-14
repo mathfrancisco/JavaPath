@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { CardCursoComponent, Curso } from '../../components/card-curso/card-curso.component';
-import {CarouselItem, CarrosselComponent} from '../../components/carrossel/carrossel.component';
+
 import {CommonModule, NgForOf} from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatAnchor, MatButton} from '@angular/material/button';
@@ -9,7 +9,18 @@ import {MatIcon} from '@angular/material/icon';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {RouterLink} from '@angular/router';
-
+import {CardBlogComponent} from '../../components/card-blog/card-blog.component';
+interface BlogPost {
+  id: number;
+  title: string;
+  imageUrl: string;
+  date: Date;
+  author: string;
+  excerpt: string;
+  authorAvatar: string;
+  readTime: number;
+  category: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -18,12 +29,12 @@ import {RouterLink} from '@angular/router';
   imports: [
     NgForOf,
     CardCursoComponent,
-    CarrosselComponent, MatTabsModule, CommonModule, HeroComponent, MatButton, MatIcon, NavbarComponent, FooterComponent, RouterLink, MatAnchor
+     MatTabsModule, CommonModule, HeroComponent, MatIcon, NavbarComponent, FooterComponent, RouterLink, MatAnchor, CardBlogComponent
   ],
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  blogPosts: any[] = [];  // Initialize as empty array
+    // Initialize as empty array
   cursos: any[] = [];
   trilhas = [
     {
@@ -105,6 +116,42 @@ export class HomeComponent {
       rating: 4.9
     },
     // ... more recent courses
+  ];
+  blogPosts: BlogPost[] = [
+    {
+      id: 1,
+      title: 'Introdução ao Java',
+      imageUrl: '/assets/images/blog/java-intro.jpg',
+      date: new Date('2023-10-01'),
+      author: 'Carlos Silva',
+      excerpt: 'Descubra os conceitos básicos de Java e como começar a programar.',
+      authorAvatar: '/assets/images/authors/carlos.jpg',
+      readTime: 5,
+      category: 'Java'
+    },
+    {
+      id: 2,
+      title: 'Spring Boot para Iniciantes',
+      imageUrl: '/assets/images/blog/spring-boot.jpg',
+      date: new Date('2023-09-15'),
+      author: 'Mariana Costa',
+      excerpt: 'Aprenda a criar aplicações web com Spring Boot de forma simples e prática.',
+      authorAvatar: '/assets/images/authors/mariana.jpg',
+      readTime: 7,
+      category: 'Spring Boot'
+    },
+    {
+      id: 3,
+      title: 'Desenvolvimento Web com Angular',
+      imageUrl: '/assets/images/blog/angular-web.jpg',
+      date: new Date('2023-09-10'),
+      author: 'Lucas Pereira',
+      excerpt: 'Explore o desenvolvimento de aplicações web modernas com Angular.',
+      authorAvatar: '/assets/images/authors/lucas.jpg',
+      readTime: 6,
+      category: 'Angular'
+    },
+    // ... mais posts de blog
   ];
 
 

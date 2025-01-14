@@ -45,6 +45,18 @@
   </div>
 </section>
 
+<section class="py-16 bg-gradient-to-b from-gray-200 to-gray-300">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900">Blog em Destaque</h2>
+      <a href="/blog" class="text-blue-700 hover:text-blue-900 font-semibold transition-colors duration-300">Ver todos →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <app-card-blog *ngFor="let post of blogPosts" [post]="post"></app-card-blog>
+    </div>
+  </div>
+</section>
+
 <section class="relative overflow-hidden bg-gradient-to-r from-blue-900 to-blue-700 py-24 text-white">
   <div class="absolute inset-0 z-0">
     <div class="opacity-30">
