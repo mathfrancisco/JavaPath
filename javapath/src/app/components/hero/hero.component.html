@@ -1,26 +1,66 @@
-<section class="relative overflow-hidden">
-  <div class="bg-gradient-to-r from-blue-900 to-blue-700 py-24"> <!-- Simplified gradient background -->
-    <div class="absolute inset-0 z-0">
-      <div class="opacity-20">
-        <svg  class="absolute bottom-0 left-0 opacity-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,250.7C672,267,768,245,864,202.7C960,160,1056,96,1152,90.7C1248,85,1344,139,1392,165.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-      </div>
-
+<!-- Hero Section -->
+<section class="relative overflow-hidden min-h-screen flex items-center">
+  <!-- Background Elements -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_70%)]"></div>
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg class="w-full opacity-10" viewBox="0 0 1440 320">
+        <path fill="#ffffff" d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,250.7C672,267,768,245,864,202.7C960,160,1056,96,1152,90.7C1248,85,1344,139,1392,165.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
     </div>
-    <div class="container relative z-10 mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-          Sua jornada em Java<br> <span class="text-yellow-400">começa aqui.</span>
-        </h1>
-        <p class="text-lg sm:text-xl mb-8">
-          Aprenda Java e todo o seu ecossistema com cursos práticos, mentoria e uma comunidade ativa de desenvolvedores.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button mat-raised-button color="accent" class="text-lg px-8 py-3 w-full sm:w-auto"> <!-- Accent color button -->
-            Começar Agora
-          </button>
-          <a href="/cursos" mat-stroked-button class="text-lg px-8 py-3 border-white text-white w-full sm:w-auto"> <!-- Link to courses -->
-            Ver Cursos
-          </a>
+    <!-- Floating Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-20 left-20 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+      <div class="absolute top-40 right-20 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+      <div class="absolute bottom-20 left-1/2 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="container relative z-10 mx-auto px-4 py-24">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-white space-y-8">
+          <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+            Sua jornada em
+            <span class="relative">
+              <span class="relative z-10">Java</span>
+              <span class="absolute bottom-0 left-0 w-full h-3 bg-yellow-400 opacity-50 -rotate-2"></span>
+            </span>
+            começa aqui
+          </h1>
+          <p class="text-xl text-blue-100">
+            Aprenda Java e todo o seu ecossistema com cursos práticos, mentoria e uma comunidade ativa de desenvolvedores.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button mat-raised-button class="bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105">
+              Começar Agora
+            </button>
+            <a routerLink="/cursos" class="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-white text-white text-lg font-semibold hover:bg-white/10 transition-all">
+              Ver Cursos
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 transform hover:-translate-y-2 transition-all">
+            <div class="w-12 h-12 bg-yellow-400/20 rounded-xl flex items-center justify-center mb-4">
+              <mat-icon class="text-yellow-400">school</mat-icon>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">Cursos Práticos</h3>
+            <p class="text-blue-100 text-sm">Aprenda com projetos reais e exemplos práticos do mercado</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 transform hover:-translate-y-2 transition-all">
+            <div class="w-12 h-12 bg-blue-400/20 rounded-xl flex items-center justify-center mb-4">
+              <mat-icon class="text-blue-400">groups</mat-icon>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">Comunidade</h3>
+            <p class="text-blue-100 text-sm">Conecte-se com outros devs e cresça junto</p>
+          </div>
         </div>
       </div>
     </div>
