@@ -14,3 +14,12 @@
   animation-delay: 4s;
 }
 
+@media (min-width: 768px) {
+  .mobile-menu-container {
+    display: none !important;
+  }
+
+  .mat-mdc-menu-panel {
+    display: none !important;
+  }
+}

@@ -38,31 +38,33 @@
         </ng-template>
 
         <!-- Mobile Menu -->
-        <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="block md:hidden">
-          <mat-icon>menu</mat-icon>
-        </button>
+        <div class="mobile-menu-container block md:hidden">
+          <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="block md:hidden">
+            <mat-icon>menu</mat-icon>
+          </button>
 
-        <mat-menu #mobileMenu="matMenu">
-          <button mat-menu-item routerLink="/cursos">Cursos</button>
-          <button mat-menu-item routerLink="/blog">Blog</button>
-          <button mat-menu-item routerLink="/sobre">Sobre</button>
-          <button mat-menu-item routerLink="/contato">Contato</button>
-          <button mat-menu-item routerLink="/faq">FAQ</button>
+          <mat-menu #mobileMenu="matMenu">
+            <button mat-menu-item routerLink="/cursos">Cursos</button>
+            <button mat-menu-item routerLink="/blog">Blog</button>
+            <button mat-menu-item routerLink="/sobre">Sobre</button>
+            <button mat-menu-item routerLink="/contato">Contato</button>
+            <button mat-menu-item routerLink="/faq">FAQ</button>
 
-          <ng-container *ngIf="isLoggedOut(); else mobileUserMenu">
-            <button mat-menu-item routerLink="/auth/login">Entrar</button>
-            <button mat-menu-item routerLink="/auth/register">Começar Agora</button>
-          </ng-container>
-
-          <ng-template #mobileUserMenu>
-            <ng-container *ngIf="currentUser$ | async as user">
-              <a routerLink="/perfil" mat-menu-item>
-                Olá, {{ user.name.split(' ')[0] }}
-              </a>
-              <button mat-menu-item (click)="logout()">Sair</button>
+            <ng-container *ngIf="isLoggedOut(); else mobileUserMenu">
+              <button mat-menu-item routerLink="/auth/login">Entrar</button>
+              <button mat-menu-item routerLink="/auth/register">Começar Agora</button>
             </ng-container>
-          </ng-template>
-        </mat-menu>
+
+            <ng-template #mobileUserMenu>
+              <ng-container *ngIf="currentUser$ | async as user">
+                <a routerLink="/perfil" mat-menu-item>
+                  Olá, {{ user.name.split(' ')[0] }}
+                </a>
+                <button mat-menu-item (click)="logout()">Sair</button>
+              </ng-container>
+            </ng-template>
+          </mat-menu>
+        </div>
       </div>
     </div>
   </div>
