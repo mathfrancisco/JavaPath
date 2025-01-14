@@ -1,48 +1,133 @@
-<div class="container mx-auto py-12">
-  <h1 class="text-3xl font-bold mb-6 text-center">Entre em Contato</h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div>
-      <!-- Formulário de Contato -->
-      <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-        <div class="mb-4">
-          <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
-          <input type="text" id="nome" name="nome" ngModel required class="mt-1 px-3 py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+<!-- contato.component.html -->
+<section class="relative overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200 py-16">
+  <div class="container mx-auto px-4">
+    <h1 class="text-4xl font-bold text-center mb-12 text-gray-800">Entre em Contato</h1>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Formulário -->
+      <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+        <div class="p-8">
+          <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="space-y-6">
+            <div>
+              <label for="nome" class="block text-sm font-semibold text-gray-700 mb-2">
+                Nome
+              </label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                [(ngModel)]="formData.nome"
+                required
+                #nome="ngModel"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300"
+                [class.border-red-500]="nome.invalid && (nome.dirty || nome.touched)"
+              >
+              <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="text-red-500 text-sm mt-1">
+                <div *ngIf="nome.errors?.['required']">Nome é obrigatório</div>
+              </div>
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="formData.email"
+                required
+                email
+                #email="ngModel"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300"
+                [class.border-red-500]="email.invalid && (email.dirty || email.touched)"
+              >
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500 text-sm mt-1">
+                <div *ngIf="email.errors?.['required']">Email é obrigatório</div>
+                <div *ngIf="email.errors?.['email']">Email inválido</div>
+              </div>
+            </div>
+            
+            <div>
+              <label for="mensagem" class="block text-sm font-semibold text-gray-700 mb-2">
+                Mensagem
+              </label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                [(ngModel)]="formData.mensagem"
+                required
+                #mensagem="ngModel"
+                rows="5"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300"
+                [class.border-red-500]="mensagem.invalid && (mensagem.dirty || mensagem.touched)"
+              ></textarea>
+              <div *ngIf="mensagem.invalid && (mensagem.dirty || mensagem.touched)" class="text-red-500 text-sm mt-1">
+                <div *ngIf="mensagem.errors?.['required']">Mensagem é obrigatória</div>
+              </div>
+            </div>
+            
+            <button
+              type="submit"
+              [disabled]="!contactForm.valid"
+              class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300"
+              [class.opacity-50]="!contactForm.valid"
+            >
+              Enviar Mensagem
+            </button>
+          </form>
         </div>
+      </div>
 
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email" ngModel required email class="mt-1 px-3 py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-        </div>
-
-        <div class="mb-4">
-          <label for="mensagem" class="block text-sm font-medium text-gray-700">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" ngModel required rows="4" class="mt-1 px-3 py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-blue-500 focus:ring-blue-500"></textarea>
-        </div>
-
-        <button type="submit" [disabled]="!contactForm.valid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Enviar Mensagem
-        </button>
-      </form>
-    </div>
-    <div>
       <!-- Informações de Contato -->
-      <h3 class="text-xl font-bold mb-4">Informações de Contato</h3>
-      <p>
-        <strong>Endereço:</strong><br>
-        Rua Exemplo, 123<br>
-        Cidade, Estado - CEP
-      </p>
-      <p class="mt-4">
-        <strong>Email:</strong><br>
-        contato&#64;tecverso.com
-      </p>
-      <p class="mt-4">
-        <strong>Telefone:</strong><br>
-        (XX) XXXXX-XXXX
-      </p>
-      <!-- Adicione outras informações de contato, se necessário, como redes sociais -->
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">Informações de Contato</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <i class="fas fa-map-marker-alt text-blue-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="font-semibold text-gray-700">Endereço</h4>
+                  <p class="text-gray-600 mt-1">
+                    Rua Exemplo, 123<br>
+                    Cidade, Estado - CEP
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <i class="fas fa-envelope text-blue-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="font-semibold text-gray-700">Email</h4>
+                  <p class="text-gray-600 mt-1">contato@tecverso.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-4">
+                <i class="fas fa-phone text-blue-600 text-xl mt-1"></i>
+                <div>
+                  <h4 class="font-semibold text-gray-700">Telefone</h4>
+                  <p class="text-gray-600 mt-1">(XX) XXXXX-XXXX</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horário de Atendimento -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-xl overflow-hidden text-white">
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-4">Horário de Atendimento</h3>
+            <div class="space-y-2">
+              <p>Segunda a Sexta: {{horarios.segundaSexta}}</p>
+              <p>Sábado: {{horarios.sabado}}</p>
+              <p>Domingo: {{horarios.domingo}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
+</section>
