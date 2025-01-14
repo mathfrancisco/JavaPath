@@ -10,6 +10,8 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {RouterLink} from '@angular/router';
 import {CardBlogComponent} from '../../components/card-blog/card-blog.component';
+
+import {AuthService} from '../../auth/auth.service';
 interface BlogPost {
   id: number;
   title: string;
@@ -29,8 +31,9 @@ interface BlogPost {
   imports: [
     NgForOf,
     CardCursoComponent,
-     MatTabsModule, CommonModule, HeroComponent, MatIcon, NavbarComponent, FooterComponent, RouterLink, MatAnchor, CardBlogComponent
+     MatTabsModule, CommonModule, HeroComponent, MatIcon, FooterComponent, RouterLink, MatAnchor, CardBlogComponent,NavbarComponent
   ],
+  providers: [AuthService],
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {

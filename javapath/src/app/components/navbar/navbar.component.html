@@ -1,46 +1,67 @@
 <mat-toolbar class="bg-white/80 backdrop-blur-lg border-b sticky top-0 z-50 transition-all duration-300">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between w-full py-2">
-      <div class="flex items-center gap-8">
-        <a routerLink="/" class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-            <span class="text-2xl font-bold text-white">J</span>
+      <!-- Logo with J and square -->
+      <a routerLink="/" class="flex items-center gap-2">
+        <div class="flex items-center">
+          <div class="w-8 h-8 border-2 border-blue-600 flex items-center justify-center rounded">
+            <span class="text-xl font-bold text-blue-600">J</span>
           </div>
-          <span class="text-2xl font-bold bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent">
-            JavaPath
-          </span>
-        </a>
-        <nav class="hidden md:flex items-center gap-8">
-          <a routerLink="/cursos" class="text-gray-700 hover:text-blue-900 font-medium relative group">
-            Cursos
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a routerLink="/blog" class="text-gray-700 hover:text-blue-900 font-medium relative group">
-            Blog
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a routerLink="/contato" class="text-gray-700 hover:text-blue-900 font-medium relative group">
-            Contato
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
-          </a>
-        </nav>
-      </div>
+        </div>
+        <span class="text-xl font-bold">JavaPath</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a routerLink="/cursos" mat-button>Cursos</a>
+        <a routerLink="/blog" mat-button>Blog</a>
+        <a routerLink="/sobre" mat-button>Sobre</a>
+      </nav>
+
       <div class="flex items-center gap-4">
-        <button mat-button class="hidden md:block hover:bg-blue-50 px-6 py-2 rounded-full transition-colors">
-          Entrar
-        </button>
-        <button mat-raised-button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
-          Começar Agora
-        </button>
-        <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="md:hidden">
+        <ng-container *ngIf="isLoggedOut(); else userMenu">
+          <a routerLink="/auth/login" mat-button class="hidden md:block hover:bg-blue-50 px-6 py-2 rounded-full transition-colors">
+            Entrar
+          </a>
+          <a routerLink="/auth/register" mat-raised-button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+            Cadastrar
+          </a>
+        </ng-container>
+
+        <ng-template #userMenu>
+          <ng-container *ngIf="currentUser$ | async as user">
+            <a routerLink="/perfil" mat-button class="hover:bg-blue-50 px-4 py-2 rounded-full transition-colors">
+              Olá, {{ user.name.split(' ')[0] }}
+            </a>
+            <button mat-button (click)="logout()">Sair</button>
+          </ng-container>
+        </ng-template>
+
+        <!-- Mobile Menu -->
+        <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="block md:hidden">
           <mat-icon>menu</mat-icon>
         </button>
+
         <mat-menu #mobileMenu="matMenu">
           <button mat-menu-item routerLink="/cursos">Cursos</button>
           <button mat-menu-item routerLink="/blog">Blog</button>
+          <button mat-menu-item routerLink="/sobre">Sobre</button>
           <button mat-menu-item routerLink="/contato">Contato</button>
-          <button mat-menu-item>Entrar</button>
-          <button mat-menu-item>Começar Agora</button>
+          <button mat-menu-item routerLink="/faq">FAQ</button>
+
+          <ng-container *ngIf="isLoggedOut(); else mobileUserMenu">
+            <button mat-menu-item routerLink="/auth/login">Entrar</button>
+            <button mat-menu-item routerLink="/auth/register">Começar Agora</button>
+          </ng-container>
+
+          <ng-template #mobileUserMenu>
+            <ng-container *ngIf="currentUser$ | async as user">
+              <a routerLink="/perfil" mat-menu-item>
+                Olá, {{ user.name.split(' ')[0] }}
+              </a>
+              <button mat-menu-item (click)="logout()">Sair</button>
+            </ng-container>
+          </ng-template>
         </mat-menu>
       </div>
     </div>
