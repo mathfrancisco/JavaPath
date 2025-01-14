@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {BlogPost, CardBlogComponent} from '../../components/card-blog/card-blog.component';
 import {CardCursoComponent, Curso} from '../../components/card-curso/card-curso.component';
 import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 
 
@@ -15,7 +15,8 @@ import {NgIf} from '@angular/common';
     CardCursoComponent,
     FormsModule,
     NgIf,
-    CardBlogComponent
+    CardBlogComponent,
+    NgForOf
   ],
   styleUrls: ['./search.component.scss']
 })
