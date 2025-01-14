@@ -147,4 +147,112 @@
         <mat-tab label="Meus Cursos">
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
             <div *ngFor="let curso of getInstructorProfile().cursos"
-                 class="bg-white rounded-xl shadow-lg overflow-
+                 class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-2xl hover:scale-105 transition-all duration-300">
+              <div class="relative">
+                <img [src]="curso.thumbnail"
+                     [alt]="curso.titulo"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-900">{{curso.titulo}}</h3>
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <span class="text-gray-600">Alunos</span>
+                    <span class="font-semibold">{{curso.alunosMatriculados}}</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-gray-600">Avaliação</span>
+                    <div class="flex items-center">
+                      <mat-icon class="text-yellow-400 mr-1">star</mat-icon>
+                      <span class="font-semibold">{{curso.avaliacaoMedia}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex gap-2 mt-6">
+                  <button mat-flat-button 
+                          [routerLink]="['/instructor/curso', curso.id, 'edit']"
+                          class="flex-1 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white rounded-full py-3">
+                    <mat-icon class="mr-2">edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-flat-button 
+                          [routerLink]="['/instructor/curso', curso.id, 'analytics']"
+                          class="flex-1 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white rounded-full py-3">
+                    <mat-icon class="mr-2">analytics</mat-icon>
+                    Análises
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão para adicionar novo curso -->
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 flex items-center justify-center cursor-pointer transform hover:scale-105 transition-all duration-300"
+                 [routerLink]="['/instructor/curso/new']">
+              <div class="text-center">
+                <div class="bg-white rounded-full p-4 w-20 h-20 mx-auto mb-6 shadow-lg flex items-center justify-center">
+                  <mat-icon class="text-5xl text-blue-500">add_circle</mat-icon>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900">Novo Curso</h3>
+                <p class="text-gray-600 mt-2">Criar um novo curso</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Estatísticas">
+          <div class="p-8">
+            <div class="grid md:grid-cols-3 gap-8">
+              <!-- Total de Aulas -->
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8">
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="text-lg font-semibold text-gray-700">Total de Aulas</h4>
+                  <mat-icon class="text-blue-500">school</mat-icon>
+                </div>
+                <p class="text-3xl font-bold text-blue-800">
+                  {{getInstructorProfile().estatisticas.totalAulas}}
+                </p>
+              </div>
+
+              <!-- Total de Horas -->
+              <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8">
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="text-lg font-semibold text-gray-700">Total de Horas</h4>
+                  <mat-icon class="text-green-500">schedule</mat-icon>
+                </div>
+                <p class="text-3xl font-bold text-green-800">
+                  {{getInstructorProfile().estatisticas.totalHoras}}
+                </p>
+              </div>
+
+              <!-- Total de Alunos -->
+              <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8">
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="text-lg font-semibold text-gray-700">Total de Alunos</h4>
+                  <mat-icon class="text-purple-500">groups</mat-icon>
+                </div>
+                <p class="text-3xl font-bold text-purple-800">
+                  {{getInstructorProfile().estatisticas.totalAlunos}}
+                </p>
+              </div>
+            </div>
+
+            <!-- Gráficos poderiam ser adicionados aqui -->
+            <div class="mt-8 bg-white rounded-xl shadow-lg p-8">
+              <h3 class="text-xl font-bold mb-6 text-gray-900">Futuros Gráficos</h3>
+              <p class="text-gray-600">
+                Esta seção pode incluir gráficos de:
+              </p>
+              <ul class="list-disc list-inside mt-4 space-y-2 text-gray-600">
+                <li>Progresso dos alunos ao longo do tempo</li>
+                <li>Distribuição de avaliações dos cursos</li>
+                <li>Engajamento dos alunos por curso</li>
+                <li>Receita mensal</li>
+              </ul>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+</div>
