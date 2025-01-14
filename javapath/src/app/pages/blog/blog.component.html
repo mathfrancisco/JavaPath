@@ -1,22 +1,156 @@
+<!-- blog.component.html -->
+<div *ngIf="post; else semPost" class="relative">
+  <!-- Hero Section -->
+  <div class="relative h-[70vh] min-h-[500px] w-full">
+    <div class="absolute inset-0">
+      <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative h-full flex items-end pb-16">
+      <div class="max-w-3xl text-white">
+        <div class="mb-6 space-y-2">
+          <span class="inline-block px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
+            {{post.category}}
+          </span>
+          <div class="flex items-center space-x-2 text-sm">
+            <span>{{post.readTime}} min de leitura</span>
+            <span>•</span>
+            <span>{{post.date | date:'longDate'}}</span>
+          </div>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{{post.title}}</h1>
+        <p *ngIf="post.subtitle" class="text-xl md:text-2xl text-gray-200">{{post.subtitle}}</p>
+      </div>
+    </div>
+  </div>
 
-<div *ngIf="post; else semPost">
-  <div class="container mx-auto py-12">
+  <!-- Floating Header (aparece ao rolar) -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md transform transition-transform duration-300"
+       [class.translate-y-0]="isHeaderVisible"
+       [class.translate-y-[-100%]]="!isHeaderVisible">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <h2 class="text-lg font-semibold truncate max-w-md">{{post.title}}</h2>
+      <div class="flex items-center space-x-4">
+        <button (click)="sharePost('twitter')" class="text-gray-600 hover:text-blue-500">
+          <i class="fab fa-twitter"></i>
+        </button>
+        <button (click)="sharePost('facebook')" class="text-gray-600 hover:text-blue-500">
+          <i class="fab fa-facebook"></i>
+        </button>
+        <button (click)="sharePost('linkedin')" class="text-gray-600 hover:text-blue-500">
+          <i class="fab fa-linkedin"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-64 object-cover mb-6">
+  <!-- Conteúdo Principal -->
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <!-- Coluna Principal -->
+      <main class="lg:col-span-8">
+        <!-- Autor Info -->
+        <div class="flex items-center space-x-4 mb-8 p-6 bg-gray-50 rounded-xl">
+          <img [src]="post.authorAvatar" [alt]="post.author" class="w-16 h-16 rounded-full">
+          <div>
+            <h3 class="font-semibold">{{post.author}}</h3>
+            <p class="text-gray-600 text-sm">Autor de {{post.category}}</p>
+          </div>
+        </div>
 
-    <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
-    <p class="text-gray-600 mb-4">
-      Por {{ post.author }} em {{ post.date | date }}
-    </p>
+        <!-- Conteúdo do Post -->
+        <article class="prose prose-lg max-w-none">
+          <div [innerHtml]="post.content"></div>
+        </article>
 
-    <div [innerHtml]="post.content"></div>  </div>
+        <!-- Tags -->
+        <div class="mt-8 flex flex-wrap gap-2" *ngIf="post.tags">
+          <span *ngFor="let tag of post.tags" 
+                class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+            #{{tag}}
+          </span>
+        </div>
 
-  <app-comments-section *ngIf="post && post.comments" [comments]="post.comments" [itemId]="post.id"></app-comments-section>
+        <!-- Compartilhar -->
+        <div class="mt-12 p-6 bg-gray-50 rounded-xl">
+          <h3 class="text-xl font-semibold mb-4">Compartilhe este artigo</h3>
+          <div class="flex space-x-4">
+            <button (click)="sharePost('twitter')" 
+                    class="flex-1 py-3 bg-[#1DA1F2] text-white rounded-lg hover:bg-opacity-90 transition-all">
+              <i class="fab fa-twitter mr-2"></i> Twitter
+            </button>
+            <button (click)="sharePost('facebook')" 
+                    class="flex-1 py-3 bg-[#4267B2] text-white rounded-lg hover:bg-opacity-90 transition-all">
+              <i class="fab fa-facebook mr-2"></i> Facebook
+            </button>
+            <button (click)="sharePost('linkedin')" 
+                    class="flex-1 py-3 bg-[#0077B5] text-white rounded-lg hover:bg-opacity-90 transition-all">
+              <i class="fab fa-linkedin mr-2"></i> LinkedIn
+            </button>
+          </div>
+        </div>
+      </main>
 
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4 space-y-8">
+        <!-- Índice -->
+        <div class="sticky top-24 bg-white p-6 rounded-xl shadow-sm">
+          <h3 class="text-lg font-semibold mb-4">Neste artigo</h3>
+          <nav class="space-y-2">
+            <a href="#section1" 
+               class="block text-gray-600 hover:text-blue-600 transition-colors"
+               [class.text-blue-600]="currentSection === 'section1'">
+              Introdução
+            </a>
+            <!-- Adicione mais links conforme necessário -->
+          </nav>
+        </div>
+
+        <!-- Posts Relacionados -->
+        <div *ngIf="post.relatedPosts" class="bg-white p-6 rounded-xl shadow-sm">
+          <h3 class="text-lg font-semibold mb-4">Posts Relacionados</h3>
+          <div class="space-y-4">
+            <a *ngFor="let related of post.relatedPosts" 
+               [routerLink]="['/blog', related.id]" 
+               class="block group">
+              <div class="aspect-video rounded-lg overflow-hidden mb-2">
+                <img [src]="related.imageUrl" [alt]="related.title" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              </div>
+              <h4 class="font-medium group-hover:text-blue-600 transition-colors">{{related.title}}</h4>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Seção de Comentários -->
+    <app-comments-section *ngIf="post.comments" 
+                         [comments]="post.comments" 
+                         [itemId]="post.id"
+                         class="mt-12">
+    </app-comments-section>
+  </div>
+
+  <!-- Botão Voltar ao Topo -->
+  <button (click)="scrollToTop()" 
+          class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+          [class.opacity-100]="isHeaderVisible"
+          [class.opacity-0]="!isHeaderVisible">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 </div>
 
 <ng-template #semPost>
-  <p>Post não encontrado.</p>
-
+  <div class="container mx-auto px-4 py-12">
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Post não encontrado</h2>
+      <p class="text-gray-600 mb-8">O post que você está procurando não existe ou foi removido.</p>
+      <a routerLink="/blog" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+        Voltar para o Blog
+      </a>
+    </div>
+  </div>
 </ng-template>
-
