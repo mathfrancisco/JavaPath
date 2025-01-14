@@ -1,0 +1,30 @@
+// contato.component.scss
+:host {
+  display: block;
+  width: 100%;
+}
+
+.form-control.ng-touched.ng-invalid {
+  border-color: rgb(239, 68, 68);
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+button[type="submit"]:disabled {
+  cursor: not-allowed;
+}
+
+// Adicione animações para feedback visual
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.ng-invalid.ng-touched:not(form) {
+  animation: shake 0.3s ease-in-out;
+}
