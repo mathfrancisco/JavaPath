@@ -1,1 +1,123 @@
-<p>register works!</p>
+<div class="register-container">
+  <div class="register-card">
+    <!-- Header -->
+    <div class="register-header">
+      <img src="assets/logo.png" alt="JavaPath Logo" class="logo">
+      <h2>Crie sua conta no JavaPath</h2>
+      <p>
+        Ou 
+        <a routerLink="/login">faça login se já possui uma conta</a>
+      </p>
+    </div>
+
+    <!-- Registration Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <!-- Role Selection -->
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de Conta</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="student">Aluno</mat-option>
+          <mat-option value="instructor">Instrutor</mat-option>
+        </mat-select>
+        <mat-error *ngIf="registerForm.get('role')?.hasError('required')">
+          Selecione o tipo de conta
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Full Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nome Completo</mat-label>
+        <input matInput formControlName="fullName" type="text">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="registerForm.get('fullName')?.hasError('required')">
+          Nome completo é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Username -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nome de usuário</mat-label>
+        <input matInput formControlName="username" type="text">
+        <mat-icon matPrefix>account_circle</mat-icon>
+        <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+          Nome de usuário é obrigatório
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('username')?.hasError('minlength')">
+          Nome de usuário deve ter no mínimo 3 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-icon matPrefix>email</mat-icon>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+          Email é obrigatório
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+          Email inválido
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+          Senha é obrigatória
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+          Senha deve ter no mínimo 6 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Confirm Password -->
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmar Senha</mat-label>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
+          Confirme sua senha
+        </mat-error>
+        <mat-error *ngIf="registerForm.hasError('passwordMismatch')">
+          As senhas não conferem
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Terms and Conditions -->
+      <div class="terms-container">
+        <mat-checkbox formControlName="acceptTerms" class="terms-checkbox">
+          Li e aceito os 
+          <a href="/terms" target="_blank" class="terms-link">termos e condições</a>
+        </mat-checkbox>
+        <mat-error *ngIf="registerForm.get('acceptTerms')?.hasError('required') && 
+                         registerForm.get('acceptTerms')?.touched" 
+                  class="terms-error">
+          Você precisa aceitar os termos e condições
+        </mat-error>
+      </div>
+
+      <!-- Submit Button -->
+      <button mat-raised-button color="primary" 
+              class="submit-button"
+              [disabled]="registerForm.invalid || isLoading" 
+              type="submit">
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span>{{ isLoading ? 'Registrando...' : 'Criar Conta' }}</span>
+      </button>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMsg" class="error-message">
+        {{ errorMsg }}
+      </div>
+    </form>
+  </div>
+</div>
