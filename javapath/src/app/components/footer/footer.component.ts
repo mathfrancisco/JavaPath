@@ -43,7 +43,7 @@ export class FooterComponent {
     {
       title: 'Contato',
       links: [
-        { text: 'contato@tecverso.com', url: 'mailto:contato@tecverso.com' },
+        { text: 'contato@javapath.com', url: 'mailto:contato@javapath.com' },
         { text: 'Suporte', url: '/suporte' },
         { text: 'Carreiras', url: '/carreiras' },
         { text: 'Parcerias', url: '/parcerias' }

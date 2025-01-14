@@ -2,7 +2,8 @@
 import { Component, Input } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
-import {CommentsComponent} from '../comments/comments.component';
+import {CommentComponent} from '../comments/comments.component';
+
 
 @Component({
   selector: 'app-comments-section',
@@ -11,7 +12,7 @@ import {CommentsComponent} from '../comments/comments.component';
   imports: [
     FormsModule,
     NgForOf,
-    CommentsComponent
+    CommentComponent
   ],
 
   styleUrls: ['./comments-section.component.scss']
@@ -19,7 +20,7 @@ import {CommentsComponent} from '../comments/comments.component';
 
 export class CommentsSectionComponent {
   @Input() comments: any[] = [];
-  @Input() itemId: number = 0; // Id do curso ou do post
+  @Input() itemId: number = 0;// Add this line //
   newComment = { author: '', content: '' };
 
 

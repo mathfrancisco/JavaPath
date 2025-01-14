@@ -1,18 +1,26 @@
+<app-navbar></app-navbar>
 <app-hero></app-hero>
 
 <section class="py-16 bg-gray-50">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12">Trilhas de Aprendizado</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div *ngFor="let trilha of trilhas" class="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-          <mat-icon [class]="trilha.icon" class="text-blue-900 text-3xl">{{trilha.icon}}</mat-icon>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let trilha of trilhas" class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all overflow-hidden relative group">
+        <img [src]="trilha.imageUrl" alt="{{ trilha.title }}" class="w-full h-48 object-cover rounded-t-lg transform group-hover:scale-105 transition-transform duration-300">
+        <div class="p-6">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto relative z-10">
+            <mat-icon [class]="trilha.icon" class="text-blue-900 text-3xl">{{ trilha.icon }}</mat-icon>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-center">{{ trilha.title }}</h3>
+          <p class="text-gray-700 mb-6 text-center line-clamp-3">{{ trilha.description }}</p>
+
+          <div class="text-center">
+            <a [routerLink]="trilha.link" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 inline-block">
+              Começar trilha
+            </a>
+          </div>
         </div>
-        <h3 class="text-xl font-bold mb-2">{{trilha.title}}</h3>
-        <p class="text-gray-600 mb-4">{{trilha.description}}</p>
-        <a href="#" class="text-blue-900 font-medium hover:text-blue-700">
-          Começar trilha →
-        </a>
+        <div class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-25 rounded-lg transition-opacity duration-300"></div>
       </div>
     </div>
   </div>
@@ -22,33 +30,48 @@
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-8">
       <h2 class="text-3xl font-bold">Cursos em Destaque</h2>
-      <a href="/cursos" class="text-blue-900 hover:text-blue-700">Ver todos →</a>
+      <a href="/cursos" class="text-blue-700 hover:text-blue-900 font-medium">Ver todos →</a>
     </div>
-    <mat-tab-group>
+    <mat-tab-group animationDuration="0ms"> <!--- disable animation to avoid bug -->
       <mat-tab label="Mais Populares">
-        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           <app-card-curso *ngFor="let curso of cursosPopulares" [curso]="curso">
           </app-card-curso>
         </div>
       </mat-tab>
       <mat-tab label="Recém Adicionados">
-        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           <app-card-curso *ngFor="let curso of cursosRecentes" [curso]="curso">
           </app-card-curso>
         </div>
       </mat-tab>
     </mat-tab-group>
   </div>
+
+  <app-carrossel *ngIf="blogPosts.length > 0" ... > </app-carrossel>
+  <app-carrossel *ngIf="cursos.length > 0" ... > </app-carrossel>
+
 </section>
 
-<section class="py-16 bg-blue-900 text-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold mb-8">Comece sua jornada hoje</h2>
-    <p class="text-xl mb-8 max-w-2xl mx-auto">
-      Junte-se a milhares de desenvolvedores que já estão transformando suas carreiras com o JavaPath
-    </p>
-    <button mat-raised-button color="accent" class="text-lg px-8 py-3">
-      Criar conta grátis
-    </button>
+<section class="relative overflow-hidden bg-gradient-to-r from-blue-900 to-blue-700 py-24 text-white">
+  <div class="absolute inset-0 z-0">
+    <div class="opacity-20">
+      <svg class="absolute bottom-0 left-0 opacity-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff" fill-opacity="1" d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,250.7C672,267,768,245,864,202.7C960,160,1056,96,1152,90.7C1248,85,1344,139,1392,165.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container relative z-10 mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Comece sua jornada<br><span class="text-yellow-400">em Java hoje!</span></h2>
+      <p class="text-lg sm:text-xl mb-8">Aprenda Java e todo o seu ecossistema com cursos práticos, mentoria e uma comunidade ativa de desenvolvedores.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a [routerLink]="['/cursos']" mat-stroked-button class="text-lg px-8 py-3 border-white text-white w-full sm:w-auto">Ver Cursos</a>
+      </div>
+    </div>
   </div>
 </section>
+
+<app-footer></app-footer>
+

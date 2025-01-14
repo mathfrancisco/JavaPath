@@ -11,7 +11,7 @@
 
     <div [innerHtml]="post.content"></div>  </div>
 
-  <app-comments-section [comments]="post.comments" [itemId]="post.id"></app-comments-section>
+  <app-comments-section *ngIf="post && post.comments" [comments]="post.comments" [itemId]="post.id"></app-comments-section>
 
 </div>
 

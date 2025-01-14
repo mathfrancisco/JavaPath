@@ -7,22 +7,32 @@ import {LowerCasePipe, NgForOf} from '@angular/common';
 import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
+import { NgIf } from '@angular/common';
 
-export interface Curso {
+interface Curso {
+  topicosAula: TopicoAula[];
   id: number;
   title: string;
   imageUrl: string;
   author: string;
   description: string;
+  videoUrl: string; // Corrected property name
   duration?: string;
   level?: string;
   rating?: number;
+  comments?: any[];
+  recursos: Recurso[];
 }
 
 
-class TopicoAula {
+interface TopicoAula {
+  titulo: string;
+  conteudo: string;
+}
 
-
+interface Recurso {
+  nome: string;
+  downloadUrl: string;
 }
 
 @Component({
@@ -33,17 +43,15 @@ class TopicoAula {
     LowerCasePipe,
     NgForOf,
     CommentsSectionComponent,
-    MatCardModule, MatButtonModule, MatIconModule
+    MatCardModule, MatButtonModule, MatIconModule,
+    NgIf
   ],
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
-  idCurso!: number;
-  nomeCurso: string = '';  // ou title
-  descricaoCurso: string = '';
-  urlVideo: SafeResourceUrl = '';
+  curso!: Curso;
+  safeVideoUrl: SafeResourceUrl = '';
   topicosAula: TopicoAula[] = [];
-
 
 
   constructor(
@@ -51,53 +59,43 @@ export class CursoComponent implements OnInit {
     private sanitizer: DomSanitizer // Injetando DomSanitizer
   ) { }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
-      if (idParam) {
-        this.idCurso = parseInt(idParam);
-        this.carregarDadosCurso(); // Chame a função para carregar os dados
+      if (idParam !== null) {
+        const id = parseInt(idParam, 10);
+        this.buscarCurso(id).then(curso => { this.curso = curso!;
+          if (this.curso && this.curso.videoUrl) {
+            this.topicosAula = this.curso.topicosAula || [];
+            this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.curso.videoUrl);
+          }
+
+        });
       }
-
-
     });
   }
 
+  async buscarCurso(id: number): Promise<Curso | undefined> {
+    const cursos: Curso[] = [
+      // Example data. Update this with your actual data.
+      {
+        topicosAula: [{ titulo: 'Introdução', conteudo: '...' }],
+        id: 1,
+        title: 'Curso 1',
+        imageUrl: '',
+        author: '',
+        description: '',
+        videoUrl: 'https://www.youtube.com/embed/your-video-id', // Use a valid YouTube embed URL. Update according to your course
+        recursos: [{ nome: 'Recurso 1', downloadUrl: '...' }]
+      }
+      // ... more courses
+    ];
 
-  carregarDadosCurso() {
-    // Simulando a busca dos dados do curso (substitua pela sua lógica de API)
-    // simulando um backend, troque por uma chamada de api quando tiver o backend
-
-    switch (this.idCurso) {
-      case 1:
-        this.nomeCurso = 'Curso de Angular';
-        this.descricaoCurso = 'Aprenda os fundamentos do Angular e crie aplicações web modernas.';
-        this.urlVideo = this.sanitizer.bypassSecurityTrustResourceUrl('URL_DO_VÍDEO_DO_YOUTUBE_1'); // Sanitizando a URL do vídeo
-        this.topicosAula = [
-          { titulo: 'Introdução ao Angular', conteudo: 'Conteúdo do tópico 1...' },
-          { titulo: 'Componentes', conteudo: 'Conteúdo do tópico 2...' },
-          // ... mais tópicos
-        ];
-        break;
-      case 2:
-        this.nomeCurso = 'Curso de React';
-        this.descricaoCurso = 'Domine o desenvolvimento web com React e crie interfaces ricas e interativas.';
-        this.urlVideo = this.sanitizer.bypassSecurityTrustResourceUrl('URL_DO_VÍDEO_DO_YOUTUBE_2'); // Sanitizando a URL do vídeo
-        this.topicosAula = [
-          { titulo: 'Introdução ao React', conteudo: 'Conteúdo do tópico 1...' },
-          { titulo: 'Componentes', conteudo: 'Conteúdo do tópico 2...' },
-          // ... mais tópicos
-        ];
-        break;
-
-      // Adicione casos para outros cursos
-      default:
-        this.nomeCurso = 'Curso Não Encontrado';
-        this.descricaoCurso = 'O curso que você está procurando não foi encontrado.';
-        break; // ou redirecione para uma página 404
-    }
+    return cursos.find(c => c.id === id);
   }
 }
+
+
+
 
 

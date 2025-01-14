@@ -64,12 +64,26 @@ export class AuthService {
   }
 
   updateUserProfile(updates: Partial<User>): Promise<User> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => { // Add reject for error handling
       const currentUser = this.currentUserValue;
-      const updatedUser = { ...currentUser, ...updates };
+
+      if (!currentUser) {
+        return reject("User not logged in."); // Reject if no user
+      }
+
+      const updatedUser: User = { ...currentUser, ...updates }; // Type assertion
+
       this.currentUserSubject.next(updatedUser);
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
       resolve(updatedUser);
-    });
+    });}
+
+  isAuthenticated() {
+    return false;
   }
+
+  isLoggedOut() {
+    return undefined;
+  }
+
 }

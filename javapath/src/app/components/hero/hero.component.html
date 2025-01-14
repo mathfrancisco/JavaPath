@@ -1,22 +1,27 @@
-<section class="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white py-24 overflow-hidden">
-  <div class="absolute inset-0">
-    <div class="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-10"></div>
-  </div>
-  <div class="container mx-auto px-4 relative">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-        Sua jornada em Java começa aqui
-      </h1>
-      <p class="text-xl mb-8 text-blue-100">
-        Aprenda Java e todo seu ecossistema com cursos práticos, mentoria e uma comunidade ativa de desenvolvedores.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button mat-raised-button color="primary" class="text-lg px-8 py-3">
-          Começar Agora
-        </button>
-        <button mat-stroked-button class="text-lg px-8 py-3 border-white text-white">
-          Ver Cursos
-        </button>
+<section class="relative overflow-hidden">
+  <div class="bg-gradient-to-r from-blue-900 to-blue-700 py-24"> <!-- Simplified gradient background -->
+    <div class="absolute inset-0 z-0">
+      <div class="opacity-20">
+        <svg  class="absolute bottom-0 left-0 opacity-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,250.7C672,267,768,245,864,202.7C960,160,1056,96,1152,90.7C1248,85,1344,139,1392,165.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+      </div>
+
+    </div>
+    <div class="container relative z-10 mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          Sua jornada em Java<br> <span class="text-yellow-400">começa aqui.</span>
+        </h1>
+        <p class="text-lg sm:text-xl mb-8">
+          Aprenda Java e todo o seu ecossistema com cursos práticos, mentoria e uma comunidade ativa de desenvolvedores.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button mat-raised-button color="accent" class="text-lg px-8 py-3 w-full sm:w-auto"> <!-- Accent color button -->
+            Começar Agora
+          </button>
+          <a href="/cursos" mat-stroked-button class="text-lg px-8 py-3 border-white text-white w-full sm:w-auto"> <!-- Link to courses -->
+            Ver Cursos
+          </a>
+        </div>
       </div>
     </div>
   </div>

@@ -1,37 +1,27 @@
-<!-- footer.component.html -->
 <footer class="bg-gray-900 text-white py-12">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <!-- Logo and Description -->
-      <div class="col-span-1">
-        <h2 class="text-2xl font-bold mb-4">TecVerso</h2>
+      <div class="md:col-span-1">
+        <h2 class="text-2xl font-bold mb-4 text-blue-500">JavaPath</h2>
         <p class="text-gray-400 mb-4">A sua verdadeira conexão com a tecnologia</p>
         <div class="flex space-x-4">
-          <a *ngFor="let social of socialLinks"
-             [href]="social.url"
-             class="text-gray-400 hover:text-white transition-colors">
-            <mat-icon>{{social.icon}}</mat-icon>
+          <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer"
+             class="text-gray-400 hover:text-blue-300 transition-colors">
+            <mat-icon>{{ social.icon }}</mat-icon>
           </a>
         </div>
       </div>
-
-      <!-- Dynamic Sections -->
-      <div *ngFor="let section of sections" class="col-span-1">
-        <h3 class="text-lg font-semibold mb-4">{{section.title}}</h3>
+      <div *ngFor="let section of sections" class="md:col-span-1">
+        <h3 class="text-lg font-semibold mb-4 text-gray-300">{{ section.title }}</h3>
         <ul class="space-y-2">
           <li *ngFor="let link of section.links">
-            <a [routerLink]="link.url"
-               class="text-gray-400 hover:text-white transition-colors">
-              {{link.text}}
-            </a>
+            <a [routerLink]="link.url" class="text-gray-400 hover:text-blue-300 transition-colors">{{ link.text }}</a>
           </li>
         </ul>
       </div>
     </div>
-
-    <!-- Bottom Bar -->
-    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-      <p>© {{currentYear}} TecVerso. Todos os direitos reservados.</p>
+    <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
+      <p>&copy; {{ currentYear }} JavaPath. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

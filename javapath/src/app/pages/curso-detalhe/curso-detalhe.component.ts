@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CommentsComponent } from '../../components/comments/comments.component';
+import { CommentComponent } from '../../components/comments/comments.component';
 
 interface Curso {
   id: number;
@@ -44,7 +44,7 @@ interface Lesson {
     MatIconModule,
     MatButtonModule,
     MatProgressBarModule,
-    CommentsComponent
+    CommentComponent
   ],
   templateUrl: './curso-detalhe.component.html',
   styleUrls: ['./curso-detalhe.component.css']

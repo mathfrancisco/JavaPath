@@ -1,18 +1,25 @@
-<mat-toolbar class="bg-white border-b">
+<mat-toolbar class="bg-white border-b sticky top-0 z-50">
   <div class="container mx-auto px-4 flex items-center justify-between">
-    <div class="flex items-center gap-8">
-      <a routerLink="/" class="text-2xl font-bold text-blue-900">JavaPath</a>
-      <nav class="hidden md:flex items-center gap-6">
-        <a routerLink="/cursos" class="text-gray-700 hover:text-blue-900">Cursos</a>
-        <a routerLink="/blog" class="text-gray-700 hover:text-blue-900">Blog</a>
-        <a routerLink="/comunidade" class="text-gray-700 hover:text-blue-900">Comunidade</a>
+    <div class="flex items-center gap-4 md:gap-8">
+      <a routerLink="/" class="text-xl md:text-2xl font-bold text-blue-900">
+        JavaPath  <!-- Just the name -->
+      </a>
+      <nav class="hidden md:flex items-center gap-4 md:gap-6">
+        <a routerLink="/cursos" class="text-gray-700 hover:text-blue-900 font-medium">Cursos</a>
+        <a routerLink="/blog" class="text-gray-700 hover:text-blue-900 font-medium">Blog</a>
+        <a routerLink="/contato" class="text-gray-700 hover:text-blue-900 font-medium">Contato</a> <!-- Added Contato -->
       </nav>
     </div>
     <div class="flex items-center gap-4">
-      <button mat-icon-button>
-        <mat-icon>search</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Menu">
+        <mat-icon>account_circle</mat-icon>
       </button>
-      <button mat-flat-button color="primary">Entrar</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/login">
+          <mat-icon>login</mat-icon>
+          <span>Entrar</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 </mat-toolbar>

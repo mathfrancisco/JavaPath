@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-hero',
   standalone: true,
   imports: [MatButtonModule],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './hero.component.html',
+  styleUrl: './hero.component.css'
 })
 export class HeroComponent {}

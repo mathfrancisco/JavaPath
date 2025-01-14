@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/authservice.service';
+import { AuthService } from '../../auth/auth.service';
 import { CursosService } from '../../services/cursos.service';
 
 interface UserProfile {

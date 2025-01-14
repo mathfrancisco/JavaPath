@@ -1,22 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgIf, DatePipe } from '@angular/common'; // Import DatePipe
+import { CommentsSectionComponent } from '../../components/comments-section/comments-section.component';
 
-import {NgIf} from '@angular/common';
-import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component';
-import {BlogPost, CardBlogComponent} from '../../components/card-blog/card-blog.component'; // Importe a interface BlogPost
 
+//updated
+interface BlogPost {
+  id: number;
+  title: string;
+  imageUrl: string;
+  date: Date;
+  author: string;
+  excerpt: string;
+  content: string;
+  authorAvatar: string;
+  readTime: number;
+  category: string;
+  comments?: any[]; //add optional comments field
+}
+
+
+
+// Import the interface
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
   standalone: true,
   imports: [
     NgIf,
-    CommentsSectionComponent
+    CommentsSectionComponent,
+    DatePipe // Add DatePipe to imports
   ],
   styleUrls: ['./blog.component.scss']
 })
-
 export class BlogComponent implements OnInit {
+
   post!: BlogPost | undefined;
 
   constructor(private route: ActivatedRoute) { }

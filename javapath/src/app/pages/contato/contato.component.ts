@@ -12,15 +12,9 @@ import {FormsModule, NgForm} from '@angular/forms';
   styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent {
+  private form: any;
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      // Lógica para enviar os dados do formulário (ex: para um backend)
-      console.log('Formulário enviado:', form.value);
-
-
-      // Limpar o formulário
-      form.resetForm();
-    }
+  onSubmit() { // Update method signature
+    console.log("Form submitted:", this.form.value);
   }
 }
