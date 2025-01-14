@@ -1,90 +1,116 @@
 <!-- perfil.component.html -->
-<div class="container mx-auto px-4 py-8" *ngIf="userProfile">
-  <!-- Profile Header -->
-  <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-      <div class="relative">
-        <img [src]="userProfile.avatar"
-             [alt]="userProfile.nome"
-             class="w-32 h-32 rounded-full object-cover">
-        <button mat-mini-fab color="primary"
-                class="absolute bottom-0 right-0">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-
-      <div class="flex-1">
-        <div class="flex justify-between items-start">
-          <div>
-            <h1 class="text-3xl font-bold mb-2">{{userProfile.nome}}</h1>
-            <p class="text-gray-600 mb-4">{{userProfile.bio}}</p>
+<div class="bg-gradient-to-b from-white to-gray-100 min-h-screen">
+  <div class="container mx-auto px-4 py-12" *ngIf="userProfile">
+    <!-- Profile Header -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 transform hover:shadow-2xl transition-all duration-300">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <div class="relative group">
+          <div class="w-36 h-36 rounded-full overflow-hidden ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300">
+            <img [src]="userProfile.avatar"
+                 [alt]="userProfile.nome"
+                 class="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500">
           </div>
-          <button mat-raised-button color="primary" (click)="logout()">
-            Sair
+          <button mat-mini-fab 
+                  class="absolute bottom-0 right-0 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900">
+            <mat-icon>edit</mat-icon>
           </button>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-          <div class="text-center p-4 bg-gray-50 rounded">
-            <p class="text-2xl font-bold">{{userProfile.cursosMatriculados}}</p>
-            <p class="text-gray-600">Cursos Matriculados</p>
+        <div class="flex-1">
+          <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
+            <div class="text-center md:text-left">
+              <h1 class="text-4xl font-bold mb-2 text-gray-900">{{userProfile.nome}}</h1>
+              <p class="text-lg text-gray-600 mb-4">{{userProfile.bio}}</p>
+              <p class="text-blue-600 font-medium">{{userProfile.email}}</p>
+            </div>
+            <button mat-raised-button 
+                    class="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white px-6 py-2 rounded-full"
+                    (click)="logout()">
+              <mat-icon class="mr-2">exit_to_app</mat-icon>
+              Sair
+            </button>
           </div>
-          <div class="text-center p-4 bg-gray-50 rounded">
-            <p class="text-2xl font-bold">{{userProfile.cursosConcluidos}}</p>
-            <p class="text-gray-600">Cursos Concluídos</p>
-          </div>
-          <div class="text-center p-4 bg-gray-50 rounded">
-            <p class="text-2xl font-bold">{{userProfile.certificados}}</p>
-            <p class="text-gray-600">Certificados</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+              <div class="text-center">
+                <p class="text-3xl font-bold text-blue-800 mb-2">{{userProfile.cursosMatriculados}}</p>
+                <p class="text-gray-700">Cursos Matriculados</p>
+              </div>
+            </div>
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+              <div class="text-center">
+                <p class="text-3xl font-bold text-green-800 mb-2">{{userProfile.cursosConcluidos}}</p>
+                <p class="text-gray-700">Cursos Concluídos</p>
+              </div>
+            </div>
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+              <div class="text-center">
+                <p class="text-3xl font-bold text-yellow-800 mb-2">{{userProfile.certificados}}</p>
+                <p class="text-gray-700">Certificados</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Content Tabs -->
-  <mat-tab-group>
-    <mat-tab label="Cursos em Andamento">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 py-6">
-        <div *ngFor="let curso of userProfile.progresso.cursosEmAndamento"
-             class="bg-white rounded-lg shadow-lg overflow-hidden">
-          <img [src]="curso.thumbnail"
-               [alt]="curso.titulo"
-               class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-bold mb-2">{{curso.titulo}}</h3>
-            <div class="mb-2">
-              <mat-progress-bar mode="determinate"
-                                [value]="curso.progresso">
-              </mat-progress-bar>
+    <!-- Content Tabs -->
+    <mat-tab-group class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <mat-tab label="Cursos em Andamento">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+          <div *ngFor="let curso of userProfile.progresso.cursosEmAndamento"
+               class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <div class="relative">
+              <img [src]="curso.thumbnail"
+                   [alt]="curso.titulo"
+                   class="w-full h-48 object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
-            <p class="text-right text-gray-600">
-              {{curso.progresso}}% concluído
-            </p>
-            <button mat-button color="primary"
-                    [routerLink]="['/curso', curso.id]"
-                    class="w-full mt-4">
-              Continuar
-            </button>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-4 text-gray-900">{{curso.titulo}}</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                  <span>Progresso</span>
+                  <span>{{curso.progresso}}%</span>
+                </div>
+                <mat-progress-bar mode="determinate"
+                                 [value]="curso.progresso"
+                                 class="rounded-full">
+                </mat-progress-bar>
+              </div>
+              <button mat-flat-button 
+                      [routerLink]="['/curso', curso.id]"
+                      class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white rounded-full py-3">
+                <mat-icon class="mr-2">play_circle</mat-icon>
+                Continuar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </mat-tab>
+      </mat-tab>
 
-    <mat-tab label="Certificados">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 py-6">
-        <div *ngFor="let cert of userProfile.progresso.certificadosRecentes"
-             class="bg-white rounded-lg shadow-lg p-6">
-          <mat-icon class="text-6xl text-green-500 mb-4">verified</mat-icon>
-          <h3 class="text-xl font-bold mb-2">{{cert.curso}}</h3>
-          <p class="text-gray-600">
-            Emitido em {{cert.dataEmissao | date}}
-          </p>
-          <button mat-button color="primary" class="w-full mt-4">
-            Download
-          </button>
+      <mat-tab label="Certificados">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+          <div *ngFor="let cert of userProfile.progresso.certificadosRecentes"
+               class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 transform hover:scale-105 transition-all duration-300">
+            <div class="text-center">
+              <div class="bg-white rounded-full p-4 w-20 h-20 mx-auto mb-6 shadow-lg">
+                <mat-icon class="text-5xl text-green-500">verified</mat-icon>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-900">{{cert.curso}}</h3>
+              <p class="text-gray-600 mb-6">
+                Emitido em {{cert.dataEmissao | date}}
+              </p>
+              <button mat-flat-button 
+                      class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white rounded-full py-3">
+                <mat-icon class="mr-2">download</mat-icon>
+                Download
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
