@@ -161,6 +161,82 @@ npm run build
 └── README.md
 ```
 
+## 📦 Deploy
+### Deploy do Backend (Render)
+### Preparação do Projeto
+
+### Configurar Scripts no package.json
+
+{
+  "scripts": {
+    "start:prod": "node dist/main",
+    "build": "nest build"
+  }
+}
+
+### Configurar Variáveis de Ambiente
+### Crie um arquivo .env com as seguintes variáveis:
+
+SUPABASE_URL=https://your-supabase-url.supabase.co
+SUPABASE_ANON_KEY=your-anon-public-key
+SUPABASE_SECRET_KEY=your-service-role-key
+PORT=3000
+JWT_SECRET=your_jwt_secret
+
+### Configurar main.ts
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`Application is running on: ${await app.getUrl()}`);
+}
+bootstrap();
+
+## Deploy no Render
+
+### Preparar Repositório
+
+git init
+git add .
+git commit -m "Deploy para Render"
+git branch -M main
+git remote add origin https://github.com/<seu-usuario>/seu-repo.git
+git push -u origin main
+
+### Configurar no Render
+
+
+- Acesse render.com
+- Crie novo Web Service
+- Conecte ao repositório GitHub
+- Configure o serviço:
+
+- Build Command: npm run build
+- Start Command: npm run start:prod
+
+
+### Configurar Variáveis de Ambiente no Render
+
+SUPABASE_URL
+SUPABASE_ANON_KEY
+SUPABASE_SECRET_KEY
+JWT_SECRET
+PORT (opcional)
+
+
+### CORS para Produção
+
+// main.ts
+app.enableCors({
+  origin: ['https://seu-frontend.netlify.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  credentials: true,
+});
+
+### Após o deploy, sua API estará disponível em:
+[Copyhttps://seu-projeto.onrender.com](https://seu-projeto.onrender.com)
+
 ## 🤝 Contribuindo
 
 1. Fork o projeto
