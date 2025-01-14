@@ -3,12 +3,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-interface User {
+export interface User {
+  id: string;
   username: string;
-  // ... outras informações do usuário
+  email: string;
+  name: string;
+  avatar?: string;
+  role: 'student' | 'instructor';
+  enrolledCourses?: number[];
+  completedCourses?: number[];
+  progress?: { [courseId: number]: number };
+  createdAt: Date;
 }
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -17,49 +23,53 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
-
-
   constructor(private router: Router) {
-    let user = localStorage.getItem('currentUser')
-
-    this.currentUserSubject = new BehaviorSubject<User | null>(user ? JSON.parse(user) : null);
+    const storedUser = localStorage.getItem('currentUser');
+    this.currentUserSubject = new BehaviorSubject<User | null>(
+      storedUser ? JSON.parse(storedUser) : null
+    );
     this.currentUser = this.currentUserSubject.asObservable();
-
   }
-
-
 
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
   }
 
+  login(username: string, password: string): Promise<boolean> {
+    // Simulação de login - substitua por chamada real à API
+    return new Promise((resolve) => {
+      const mockUser: User = {
+        id: '1',
+        username,
+        email: `${username}@example.com`,
+        name: 'Nome do Usuário',
+        avatar: '/assets/avatar-placeholder.png',
+        role: 'student',
+        enrolledCourses: [1, 2, 3],
+        completedCourses: [1],
+        progress: { 1: 100, 2: 45, 3: 10 },
+        createdAt: new Date()
+      };
 
-
-  login(username: string) {  // , password: string - removido, pois não há backend
-    // Simulação de login (substitua pela sua lógica de autenticação)
-    const user: User = { username };
-    this.currentUserSubject.next(user);
-    localStorage.setItem('currentUser', JSON.stringify(user)); // Armazena os dados do usuário no localStorage
-    this.router.navigate(['/perfil']);
+      this.currentUserSubject.next(mockUser);
+      localStorage.setItem('currentUser', JSON.stringify(mockUser));
+      resolve(true);
+    });
   }
 
-
-  logout() {
-    // Remove os dados do usuário do localStorage
-    localStorage.removeItem('currentUser')
-
+  logout(): void {
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
-
   }
 
-
-  // registro(username: string, password: string) {
-  //     // Simulação de registro (substitua pela sua lógica de registro)
-  //     this.users.push({ username, password }); // Simulando um banco de dados de usuários
-  //     this.login(username, password);
-  // }
-
+  updateUserProfile(updates: Partial<User>): Promise<User> {
+    return new Promise((resolve) => {
+      const currentUser = this.currentUserValue;
+      const updatedUser = { ...currentUser, ...updates };
+      this.currentUserSubject.next(updatedUser);
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+      resolve(updatedUser);
+    });
+  }
 }
-
-

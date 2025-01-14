@@ -1,7 +1,7 @@
 // search.component.ts
 import { Component } from '@angular/core';
-import {BlogPost, CardBlogComponent} from '../../components/card-blog/card-blog.component';
-import {CardCursoComponent, Curso} from '../../components/card-curso/card-curso.component';
+import {BlogPost, CardBlogComponent} from '../card-blog/card-blog.component';
+import {CardCursoComponent, Curso} from '../card-curso/card-curso.component';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 
@@ -45,7 +45,10 @@ export class SearchComponent {
         date: new Date(),
         author: 'Autor 1',
         excerpt: 'Resumo do post 1',
-        content: '<p>Conteúdo completo do Post 1.</p>'
+        content: '<p>Conteúdo completo do Post 1.</p>',
+        authorAvatar: '',
+        readTime: 0,
+        category: ''
       },
       {
         id: 2,
@@ -54,7 +57,10 @@ export class SearchComponent {
         date: new Date(),
         author: 'Autor 2',
         excerpt: 'Resumo do post 2',
-        content: '<p>Conteúdo completo do Post 2.</p>'
+        content: '<p>Conteúdo completo do Post 2.</p>',
+        authorAvatar: '',
+        readTime: 0,
+        category: ''
       },
 
       // Adicione mais posts aqui
@@ -75,7 +81,7 @@ export class SearchComponent {
     this.postsEncontrados = this.allPosts.filter(post =>
       post.title.toLowerCase().includes(searchTermLower) ||
       post.excerpt.toLowerCase().includes(searchTermLower) ||
-      post.content.toLowerCase().includes(searchTermLower)
+      post.content?.toLowerCase().includes(searchTermLower)
     );
 
   }

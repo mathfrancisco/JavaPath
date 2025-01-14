@@ -20,6 +20,11 @@ export interface Curso {
 }
 
 
+class TopicoAula {
+
+
+}
+
 @Component({
   selector: 'app-curso',
   templateUrl: './curso.component.html',
@@ -38,6 +43,7 @@ export class CursoComponent implements OnInit {
   descricaoCurso: string = '';
   urlVideo: SafeResourceUrl = '';
   topicosAula: TopicoAula[] = [];
+
 
 
   constructor(

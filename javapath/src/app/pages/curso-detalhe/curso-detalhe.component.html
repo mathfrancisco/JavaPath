@@ -1,1 +1,91 @@
-<p>curso-detalhe works!</p>
+<!-- curso-detalhe.component.html -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Header do Curso -->
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Informações do Curso -->
+      <div>
+        <h1 class="text-3xl font-bold mb-4">{{curso.title}}</h1>
+        <p class="text-gray-600 mb-4">{{curso.description}}</p>
+
+        <div class="flex items-center mb-4">
+          <mat-icon class="text-yellow-400">star</mat-icon>
+          <span class="ml-1">{{curso.rating}}</span>
+          <span class="ml-2 text-gray-600">({{curso.totalStudents}} alunos)</span>
+        </div>
+
+        <div class="flex items-center mb-4">
+          <img [src]="curso.imageUrl" alt="Instrutor" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <p class="font-medium">{{curso.instructor}}</p>
+            <p class="text-sm text-gray-600">Instrutor</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="flex items-center">
+            <mat-icon>access_time</mat-icon>
+            <span class="ml-2">{{curso.duration}}</span>
+          </div>
+          <div class="flex items-center">
+            <mat-icon>school</mat-icon>
+            <span class="ml-2">{{curso.level}}</span>
+          </div>
+          <div class="flex items-center">
+            <mat-icon>update</mat-icon>
+            <span class="ml-2">Última atualização: {{curso.lastUpdate | date}}</span>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" class="w-full">
+          Continuar Curso
+        </button>
+      </div>
+
+      <!-- Preview do Curso -->
+      <div class="relative">
+        <img [src]="curso.imageUrl" alt="Preview do curso" class="w-full rounded-lg shadow">
+        <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
+          <button mat-icon-button class="text-white transform scale-150">
+            <mat-icon>play_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progresso do Curso -->
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4">Seu Progresso</h2>
+    <mat-progress-bar mode="determinate" [value]="progress" class="mb-4"></mat-progress-bar>
+    <p class="text-center">{{progress}}% completo</p>
+  </div>
+
+  <!-- Conteúdo do Curso -->
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-bold mb-4">Conteúdo do Curso</h2>
+
+    <div *ngFor="let module of curso.modules" class="mb-6">
+      <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg mb-2">
+        <h3 class="font-medium">{{module.title}}</h3>
+        <span class="text-gray-600">{{module.duration}}</span>
+      </div>
+
+      <div class="space-y-2">
+        <div *ngFor="let lesson of module.lessons"
+             class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+          <div class="flex items-center">
+            <mat-icon [class.text-green-500]="lesson.isCompleted">
+              {{lesson.isCompleted ? 'check_circle' : 'play_circle'}}
+            </mat-icon>
+            <span class="ml-3">{{lesson.title}}</span>
+          </div>
+          <span class="text-gray-600">{{lesson.duration}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Comentários -->
+  <app-comment></app-comment>
+</div>

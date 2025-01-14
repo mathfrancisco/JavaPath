@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogPost } from '../../components/card-blog/card-blog.component';
+
 import {NgIf} from '@angular/common';
-import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component'; // Importe a interface BlogPost
+import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component';
+import {BlogPost, CardBlogComponent} from '../../components/card-blog/card-blog.component'; // Importe a interface BlogPost
 
 @Component({
   selector: 'app-blog',
@@ -47,7 +48,10 @@ export class BlogComponent implements OnInit {
         date: new Date(),
         author: 'Autor 1',
         excerpt: 'Resumo do post 1',
-        content: '<p>Conteúdo completo do Post 1.</p>'
+        content: '<p>Conteúdo completo do Post 1.</p>',
+        authorAvatar: '',
+        readTime: 0,
+        category: ''
       },
       {
         id: 2,
@@ -56,7 +60,10 @@ export class BlogComponent implements OnInit {
         date: new Date(),
         author: 'Autor 2',
         excerpt: 'Resumo do post 2',
-        content: '<p>Conteúdo completo do Post 2.</p>'
+        content: '<p>Conteúdo completo do Post 2.</p>',
+        authorAvatar: '',
+        readTime: 0,
+        category: ''
       },
 
       // Adicione mais posts aqui

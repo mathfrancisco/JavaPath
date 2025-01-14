@@ -1,11 +1,14 @@
 // contato.component.ts
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-contato',
   templateUrl: './contato.component.html',
   standalone: true,
+  imports: [
+    FormsModule
+  ],
   styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent {
