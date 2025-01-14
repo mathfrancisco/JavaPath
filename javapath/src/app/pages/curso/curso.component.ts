@@ -1,15 +1,24 @@
 // curso.component.ts
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {Component, Input, OnInit} from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import {LowerCasePipe, NgForOf} from '@angular/common';
-import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component'; // Para sanitizar URLs de vídeo
+import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
 
-
-interface TopicoAula {
-  titulo: string;
-  conteudo: string;
+export interface Curso {
+  id: number;
+  title: string;
+  imageUrl: string;
+  author: string;
+  description: string;
+  duration?: string;
+  level?: string;
+  rating?: number;
 }
+
 
 @Component({
   selector: 'app-curso',
@@ -18,7 +27,8 @@ interface TopicoAula {
   imports: [
     LowerCasePipe,
     NgForOf,
-    CommentsSectionComponent
+    CommentsSectionComponent,
+    MatCardModule, MatButtonModule, MatIconModule
   ],
   styleUrls: ['./curso.component.scss']
 })

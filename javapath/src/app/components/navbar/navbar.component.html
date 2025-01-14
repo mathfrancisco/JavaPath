@@ -1,21 +1,18 @@
-<header class="bg-blue-900 text-white p-4">
-  <div class="container mx-auto flex justify-between items-center">
-    <div class="text-2xl font-bold"> <!-- Substitua pelo seu logo ou nome da marca -->
-      JavaPath
+<mat-toolbar class="bg-white border-b">
+  <div class="container mx-auto px-4 flex items-center justify-between">
+    <div class="flex items-center gap-8">
+      <a routerLink="/" class="text-2xl font-bold text-blue-900">JavaPath</a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a routerLink="/cursos" class="text-gray-700 hover:text-blue-900">Cursos</a>
+        <a routerLink="/blog" class="text-gray-700 hover:text-blue-900">Blog</a>
+        <a routerLink="/comunidade" class="text-gray-700 hover:text-blue-900">Comunidade</a>
+      </nav>
     </div>
-    <nav>
-      <ul class="flex space-x-4">
-        <li><a routerLink="/" class="hover:underline">Home</a></li>
-        <li><a routerLink="/cursos" class="hover:underline">Cursos</a></li>
-        <li><a routerLink="/blog" class="hover:underline">Blog</a></li>
-        <li><a routerLink="/contato" class="hover:underline">Contato</a></li>
-        <!-- Adicione mais links conforme necessário -->
-      </ul>
-    </nav>
-    <div class="flex space-x-4">
-      <a href="#"><i class="fas fa-search"></i></a> <!-- Ícone de busca (requer FontAwesome) -->
-      <a href="#"><i class="fas fa-user"></i></a> <!-- Ícone de usuário -->
-      <a href="#"><i class="fas fa-bell"></i></a> <!-- Ícone de notificações -->
+    <div class="flex items-center gap-4">
+      <button mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-flat-button color="primary">Entrar</button>
     </div>
   </div>
-</header>
+</mat-toolbar>

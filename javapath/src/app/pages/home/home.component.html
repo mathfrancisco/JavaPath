@@ -1,49 +1,54 @@
-<!-- home.component.html -->
-<div class="bg-gray-100">
+<app-hero></app-hero>
 
-  <section class="hero bg-blue-900 text-white py-20">
-    <div class="container mx-auto text-center">
-      <h1 class="text-5xl font-bold mb-4">A sua verdadeira conexão com a tecnologia</h1>
-      <p class="text-lg mb-8">O conhecimento para mudar o seu universo. Aprenda, estude, pratique e se especialize em tecnologia.</p>
-      <button class="bg-white text-blue-900 font-bold py-3 px-6 rounded-lg hover:bg-gray-200">Começar Agora</button>
-    </div>
-  </section>
-
-  <section class="cursos-em-destaque py-12">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">Cursos em Destaque</h2>
-      <app-carrossel [cursos]="cursosParaCarrossel"></app-carrossel>
-    </div>
-  </section>
-
-  <section class="mais-populares py-12 bg-blue-900 text-white">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">Mais Populares</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <app-card-curso *ngFor="let curso of cursosPopulares" [curso]="curso"></app-card-curso>
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Trilhas de Aprendizado</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div *ngFor="let trilha of trilhas" class="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all">
+        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <mat-icon [class]="trilha.icon" class="text-blue-900 text-3xl">{{trilha.icon}}</mat-icon>
+        </div>
+        <h3 class="text-xl font-bold mb-2">{{trilha.title}}</h3>
+        <p class="text-gray-600 mb-4">{{trilha.description}}</p>
+        <a href="#" class="text-blue-900 font-medium hover:text-blue-700">
+          Começar trilha →
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-
-  <section class="mais-recentes py-12">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">Mais Recentes</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <app-card-curso *ngFor="let curso of cursosRecentes" [curso]="curso"></app-card-curso>
-
-      </div>
+<section class="py-16">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold">Cursos em Destaque</h2>
+      <a href="/cursos" class="text-blue-900 hover:text-blue-700">Ver todos →</a>
     </div>
+    <mat-tab-group>
+      <mat-tab label="Mais Populares">
+        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+          <app-card-curso *ngFor="let curso of cursosPopulares" [curso]="curso">
+          </app-card-curso>
+        </div>
+      </mat-tab>
+      <mat-tab label="Recém Adicionados">
+        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+          <app-card-curso *ngFor="let curso of cursosRecentes" [curso]="curso">
+          </app-card-curso>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>
 
-  </section>
-
-  <section class="blog-section py-12">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">Blog Tecverso</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <app-card-blog *ngFor="let post of posts" [post]="post"></app-card-blog>
-      </div>
-    </div>
-
-  </section>
-</div>
+<section class="py-16 bg-blue-900 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-8">Comece sua jornada hoje</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">
+      Junte-se a milhares de desenvolvedores que já estão transformando suas carreiras com o JavaPath
+    </p>
+    <button mat-raised-button color="accent" class="text-lg px-8 py-3">
+      Criar conta grátis
+    </button>
+  </div>
+</section>
