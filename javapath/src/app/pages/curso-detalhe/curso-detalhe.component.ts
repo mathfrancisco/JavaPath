@@ -32,8 +32,30 @@ interface CourseModule {
 interface Lesson {
   id: number;
   title: string;
+  description: string;
   duration: string;
   isCompleted: boolean;
+  materials?: Material[];
+  exercises?: Exercise[];
+  comments?: Comment[];
+}
+
+interface Material {
+  title: string;
+  type: 'pdf' | 'exercise';
+  url: string;
+}
+
+interface Exercise {
+  title: string;
+  description: string;
+}
+
+interface Comment {
+  userName: string;
+  userAvatar: string;
+  content: string;
+  date: Date;
 }
 
 @Component({
