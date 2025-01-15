@@ -1,9 +1,8 @@
-// blog-detalhe.component.scss
+
 :host {
   display: block;
 }
 
-// Estilos para o conteúdo do artigo
 .prose {
   h2 {
     @apply text-3xl font-bold text-gray-900 mt-12 mb-6;
@@ -11,4 +10,5 @@
   }
 
   h3 {
-    @apply text-2xl font-bold text-gray-800 mt
+    @apply text-2xl font-bold text-gray-800 ; }
+}
