@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../enviroments/environment';
 
@@ -26,6 +26,11 @@ export interface RegisterData {
   password: string;
 }
 
+interface AuthResponse {
+  access_token: string;
+  user: User;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,9 +39,9 @@ export class AuthService {
   public currentUser$: Observable<User | null>;
   private tokenKey = 'javapath_token';
   public isLoggedOut$: Observable<boolean>;
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private router: Router, private http: HttpClient) {
-    // Initialize with stored user
     const storedUser = this.getUserFromStorage();
     this.currentUserSubject = new BehaviorSubject<User | null>(storedUser);
     this.currentUser$ = this.currentUserSubject.asObservable();
@@ -45,11 +50,12 @@ export class AuthService {
 
   private getUserFromStorage(): User | null {
     const storedUser = localStorage.getItem('currentUser');
-    if (!storedUser) return null;
-
+    const storedToken = localStorage.getItem(this.tokenKey);
+    
+    if (!storedUser || !storedToken) return null;
+    
     try {
       const user = JSON.parse(storedUser);
-      // Ensure dates are properly parsed
       if (user) {
         user.createdAt = new Date(user.createdAt);
         if (user.lastLogin) user.lastLogin = new Date(user.lastLogin);
@@ -57,7 +63,7 @@ export class AuthService {
       return user;
     } catch (e) {
       console.error('Error parsing stored user:', e);
-      localStorage.removeItem('currentUser');
+      this.logout();
       return null;
     }
   }
@@ -72,29 +78,30 @@ export class AuthService {
 
   async login(username: string, password: string, role: string): Promise<boolean> {
     try {
-      const mockUser: User = {
-        id: crypto.randomUUID(),
+      const response = await this.http.post<AuthResponse>(`${this.apiUrl}/login`, {
         username,
-        email: `${username}@example.com`,
-        name: 'Nome do Usuário',
-        avatar: '/assets/avatar-placeholder.png',
-        role: role as 'student' | 'instructor' | 'admin',
-        enrolledCourses: role === 'student' ? [1, 2, 3] : undefined,
-        completedCourses: role === 'student' ? [1] : undefined,
-        progress: role === 'student' ? { 1: 100, 2: 45, 3: 10 } : undefined,
-        createdAt: new Date(),
-        lastLogin: new Date()
-      };
+        password,
+        role
+      }).toPromise();
 
-      const mockToken = 'mock_jwt_token_' + Math.random();
-
-      localStorage.setItem('currentUser', JSON.stringify(mockUser));
-      localStorage.setItem(this.tokenKey, mockToken);
-      this.currentUserSubject.next(mockUser);
-
-      return true;
+      if (response && response.access_token) {
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        localStorage.setItem(this.tokenKey, response.access_token);
+        this.currentUserSubject.next(response.user);
+        return true;
+      }
+      throw new Error('Login failed');
     } catch (error) {
       console.error('Login error:', error);
+      throw error;
+    }
+  }
+
+  async register(registrationData: RegisterData): Promise<void> {
+    try {
+      await this.http.post(`${this.apiUrl}/register`, registrationData).toPromise();
+    } catch (error) {
+      console.error('Registration error:', error);
       throw error;
     }
   }
@@ -103,7 +110,7 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);
-    this.router.navigate(['/auth/login']); // Fixed the route
+    this.router.navigate(['/auth/login']);
   }
 
   isAuthenticated(): boolean {
@@ -116,10 +123,5 @@ export class AuthService {
 
   isInRole(role: string): boolean {
     return this.currentUserValue?.role === role;
-  }
-
-  async register(registrationData: Omit<any, "acceptTerms" | "confirmPassword">) {
-
-
   }
 }
