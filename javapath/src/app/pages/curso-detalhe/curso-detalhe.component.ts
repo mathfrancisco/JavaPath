@@ -37,37 +37,19 @@ import {CourseService} from '../../services/cursos.service';
   styleUrls: ['./curso-detalhe.component.css']
 })
 export class CursoDetalheComponent implements OnInit {
-  courses: Course[] = [];
-  loading = false;
-  error?: string;
+  curso: Course | null = null;
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private courseService: CourseService
+  ) {}
 
   ngOnInit() {
-    this.loadCourses();
-  }
-
-  loadCourses(search?: string, categoryId?: string) {
-    this.loading = true;
-    this.courseService.getCourses(search, categoryId)
-      .subscribe({
-        next: (courses) => {
-          this.courses = courses;
-          this.loading = false;
-        },
-        error: (error) => {
-          this.error = 'Error loading courses';
-          this.loading = false;
-          console.error('Error loading courses:', error);
-        }
-      });
-  }
-
-  onSearch(search: string) {
-    this.loadCourses(search);
-  }
-
-  onCategoryChange(categoryId: string) {
-    this.loadCourses(undefined, categoryId);
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.courseService.getCourseById(id).subscribe(
+        course => this.curso = course
+      );
+    }
   }
 }
