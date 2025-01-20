@@ -234,6 +234,175 @@ app.enableCors({
   credentials: true,
 });
 
+# Plano de Implementação JavaPath
+
+## Fase 1: Configuração Inicial e Autenticação (2 semanas)
+
+### Semana 1: Setup do Projeto
+1. Configuração do ambiente de desenvolvimento
+   - Instalação das dependências
+   - Configuração do PostgreSQL via Supabase
+   - Setup inicial do NestJS e Angular
+   - Configuração do ESLint e Prettier
+
+2. Implementação da estrutura base do banco de dados
+   - Criação das migrations iniciais
+   - Configuração do Supabase
+   - Implementação das entidades base
+
+### Semana 2: Sistema de Autenticação
+1. Backend (auth module)
+   - Implementação do registro de usuários
+   - Implementação do login
+   - Configuração do JWT Guard
+   - Endpoints de recuperação de senha
+
+2. Frontend (auth module)
+   - Implementação dos componentes de login
+   - Implementação do registro
+   - Telas de recuperação de senha
+   - Guardas de rota Angular
+
+## Fase 2: Módulo de Cursos (3 semanas)
+
+### Semana 3: Backend de Cursos
+1. Implementação do módulo de cursos
+   - CRUD completo de cursos
+   - Relacionamentos com usuários
+   - Sistema de categorias
+   - Endpoints para listagem e filtragem
+
+2. Testes unitários e de integração
+   - Testes dos controllers
+   - Testes dos services
+   - Testes de integração
+
+### Semana 4-5: Frontend de Cursos
+1. Implementação das páginas de cursos
+   - Lista de cursos com filtros
+   - Página de detalhes do curso
+   - Sistema de busca
+   - Componentes de card e carrossel
+
+2. Área do instrutor
+   - Dashboard de gerenciamento
+   - CRUD de cursos
+   - Upload de materiais
+   - Análise de engajamento
+
+## Fase 3: Blog e Comentários (2 semanas)
+
+### Semana 6: Backend de Blog e Comentários
+1. Implementação do módulo de blog
+   - CRUD de posts
+   - Sistema de tags
+   - Endpoints para listagem e filtragem
+
+2. Implementação do módulo de comentários
+   - CRUD de comentários
+   - Sistema de moderação
+   - Notificações
+
+### Semana 7: Frontend de Blog e Comentários
+1. Implementação das páginas de blog
+   - Lista de posts
+   - Página de post individual
+   - Sistema de comentários
+   - Moderação de comentários
+
+## Fase 4: Áreas Específicas e Refinamentos (3 semanas)
+
+### Semana 8: Área do Aluno
+1. Backend
+   - Progress tracking
+   - Sistema de notas
+   - Histórico de atividades
+
+2. Frontend
+   - Dashboard do aluno
+   - Visualização de progresso
+   - Lista de cursos matriculados
+
+### Semana 9: Área Administrativa
+1. Backend
+   - Métricas e relatórios
+   - Gerenciamento de usuários
+   - Configurações do sistema
+
+2. Frontend
+   - Dashboard administrativo
+   - Relatórios e análises
+   - Configurações gerais
+
+### Semana 10: Refinamentos e Deploy
+1. Otimizações
+   - Performance do frontend
+   - Caching no backend
+   - Otimização de queries
+
+2. Deploy
+   - Configuração do CI/CD
+   - Deploy no Render (backend)
+   - Deploy no Netlify (frontend)
+   - Testes em produção
+
+## Tarefas Contínuas (Durante todo o desenvolvimento)
+
+1. Documentação
+   - Atualização do README
+   - Documentação da API (Swagger)
+   - Documentação técnica
+   - Guias de usuário
+
+2. Testes
+   - Testes unitários
+   - Testes de integração
+   - Testes end-to-end
+   - Testes de usabilidade
+
+3. Segurança
+   - Implementação de CORS
+   - Validação de inputs
+   - Proteção contra ataques comuns
+   - Auditoria de segurança
+
+## Dependências Técnicas
+
+### Backend
+- NestJS
+- PostgreSQL (Supabase)
+- JWT para autenticação
+- Jest para testes
+- Swagger para documentação
+
+### Frontend
+- Angular 18
+- Tailwind CSS
+- NgRx para gerenciamento de estado
+- Jasmine/Karma para testes
+
+## Marcos do Projeto
+
+1. MVP (Semana 5)
+   - Sistema de autenticação completo
+   - CRUD básico de cursos
+   - Interface básica do usuário
+
+2. Beta (Semana 8)
+   - Blog implementado
+   - Sistema de comentários
+   - Área do aluno funcional
+
+3. Release Candidate (Semana 9)
+   - Todas as funcionalidades implementadas
+   - Testes completos
+   - Documentação atualizada
+
+4. Produção (Semana 10)
+   - Deploy completo
+   - Monitoramento configurado
+   - Sistema em produção
+
 ### Após o deploy, sua API estará disponível em:
 [Copyhttps://seu-projeto.onrender.com](https://seu-projeto.onrender.com)
 
