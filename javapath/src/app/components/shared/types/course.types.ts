@@ -73,17 +73,38 @@ export interface CursoConteudo {
   duracao?: number;
 }
 
-export interface CursoAnalytics {
+eexport interface CursoAnalytics {
   visualizacoes: number;
+  crescimentoVisualizacoes: number;
   alunosAtivos: number;
+  crescimentoAlunos: number;
   avaliacaoMedia: number;
-  receitaTotal: number;
+  totalAvaliacoes: number;
   taxaConclusao: number;
-  engajamentoPorAula: {
-    aulaId: number;
-    visualizacoes: number;
-    tempoMedio: number;
-  }[];
+  alunosConcluintes: number;
+  engajamentoPorAula: EngajamentoAula[];
+  progressoAlunos: ProgressoAluno[];
+  receitaMensal: ReceitaMensal[];
+}
+
+export interface EngajamentoAula {
+  aulaId: number;
+  titulo: string;
+  visualizacoes: number;
+  tempoMedio: number;
+  taxaConclusao: number;
+}
+
+export interface ProgressoAluno {
+  data: string;
+  percentual: number;
+  totalAlunos: number;
+}
+
+export interface ReceitaMensal {
+  mes: string;
+  valor: number;
+  crescimento: number;
 }
 
 export interface InstructorStats {
