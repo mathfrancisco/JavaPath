@@ -47,3 +47,16 @@ export interface Exercise {
   description: string;
   points: number;
 }
+interface InstructorStats {
+  totalAlunos: number;
+  totalCursos: number;
+  avaliacaoMedia: number;
+  receitaTotal: number;
+  alunosAtivos: number;
+  visualizacoesTotais: number;
+} interface CursoInstructor {
+  id: number;
+  titulo: string;
+  // ... other fields
+  status: 'rascunho' | 'publicado' | 'revisao';
+}
