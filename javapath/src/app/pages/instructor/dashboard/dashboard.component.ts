@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { InstructorService, InstructorStats, CursoInstructor } from '../../../services/instructor.service';
-
+import { InstructorService } from '../../services/instructor.service';
+import { InstructorStats, Curso } from '../../models/instructor.models';
 @Component({
   selector: 'app-instructor-dashboard',
   standalone: true,
@@ -18,29 +19,18 @@ import { InstructorService, InstructorStats, CursoInstructor } from '../../../se
   ],
   templateUrl: './dashboard.component.html'
 })
-export class InstructorDashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   stats: InstructorStats | null = null;
-  cursos: CursoInstructor[] = []; // Initialize as an empty array
-  isLoading = true;
-  error = '';
+  cursos: Curso[] = [];
 
   constructor(private instructorService: InstructorService) {}
 
   ngOnInit() {
-    this.loadDashboardData();
+    this.loadData();
   }
 
-  private loadDashboardData() {
-    this.isLoading = true;
-    Promise.all([
-      this.instructorService.getStats().toPromise(),
-      this.instructorService.getCursos().toPromise()
-    ]).then(([stats, cursos]) => {
-      this.stats = stats!;
-      this.cursos = cursos!;
-      this.isLoading = false;
-    }).catch(error => {
-      this.error = 'Erro ao carregar dados do dashboard';
-      this.isLoading = false;
-    });}
+  private loadData() {
+    this.instructorService.getStats().subscribe(stats => this.stats = stats);
+    this.instructorService.getCursos().subscribe(cursos => this.cursos = cursos);
+  }
 }
