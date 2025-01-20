@@ -1,9 +1,29 @@
-import { Component } from '@angular/core';
+// curso-form.component.ts
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InstructorService } from '../../../services/instructor.service';
+import { Course } from '../../../components/shared/types/course.types';
 
 @Component({
   selector: 'app-curso-form',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatIconModule],
   templateUrl: './curso-form.component.html',
   styleUrl: './curso-form.component.css'
 })
