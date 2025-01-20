@@ -22,16 +22,10 @@ import {CourseService} from '../../services/cursos.service';
   standalone: true,
   imports: [
     CommonModule,
-    MatIconModule,
-    MatButtonModule,
+    MatTabsModule,
     MatProgressBarModule,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatAccordion,
-    MatExpansionPanel,
-    MatTab,
-    MatInput,
-    MatTabGroup
+    CarrosselComponent,
+    MatIconModule
   ],
   templateUrl: './curso-detalhe.component.html',
   styleUrls: ['./curso-detalhe.component.css']
