@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from './enviroments/environment.ts';
-import { InstructorStats, Curso, CursoAnalytics } from '../models/instructor.models';
+import { environment } from '../enviroments/environment';
+import { InstructorStats, Course, CursoAnalytics } from '../components/shared/types/course.types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +16,20 @@ export class InstructorService {
     return this.http.get<InstructorStats>(`${this.apiUrl}/stats`);
   }
 
-  getCursos(): Observable<Curso[]> {
-    return this.http.get<Curso[]>(`${this.apiUrl}/cursos`);
+  getCursos(): Observable<Course[]> {
+    return this.http.get<Course[]>(`${this.apiUrl}/cursos`);
   }
 
-  getCursoById(id: number): Observable<Curso> {
-    return this.http.get<Curso>(`${this.apiUrl}/cursos/${id}`);
+  getCursoById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.apiUrl}/cursos/${id}`);
   }
 
-  createCurso(curso: Partial<Curso>): Observable<Curso> {
-    return this.http.post<Curso>(`${this.apiUrl}/cursos`, curso);
+  createCurso(curso: Partial<Course>): Observable<Course> {
+    return this.http.post<Course>(`${this.apiUrl}/cursos`, curso);
   }
 
-  updateCurso(id: number, curso: Partial<Curso>): Observable<Curso> {
-    return this.http.put<Curso>(`${this.apiUrl}/cursos/${id}`, curso);
+  updateCurso(id: number, curso: Partial<Course>): Observable<Course> {
+    return this.http.put<Course>(`${this.apiUrl}/cursos/${id}`, curso);
   }
 
   deleteCurso(id: number): Observable<void> {

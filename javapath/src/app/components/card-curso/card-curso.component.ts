@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {RouterLink, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {Course} from '../shared/types/course.types';
 
 @Component({
   selector: 'app-card-curso',
@@ -12,11 +13,12 @@ import {CommonModule} from '@angular/common';
     RouterModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+    RouterLink],
   templateUrl: './card-curso.component.html',
   styleUrl: './card-curso.component.css'
 })
 export class CardCursoComponent {
-  @Input() curso!: Curso;
+  @Input() curso!: Course;
 }
 

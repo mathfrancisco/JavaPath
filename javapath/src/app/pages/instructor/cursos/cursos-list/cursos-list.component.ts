@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { InstructorService, CursoInstructor } from '../../../../services/instructor.service';
+import { InstructorService } from '../../../../services/instructor.service';
+import {Course, CursoInstructor} from '../../../../components/shared/types/course.types';
 
 @Component({
   selector: 'app-cursos-list',
@@ -27,7 +28,7 @@ import { InstructorService, CursoInstructor } from '../../../../services/instruc
 })
 export class CursosListComponent implements OnInit {
   displayedColumns: string[] = ['titulo', 'alunosMatriculados', 'avaliacaoMedia', 'status', 'ultimaAtualizacao', 'acoes'];
-  cursos: CursoInstructor[] = [];
+  cursos: CursoInstructor [] = [];
   isLoading = true;
 
   constructor(private instructorService: InstructorService) {}

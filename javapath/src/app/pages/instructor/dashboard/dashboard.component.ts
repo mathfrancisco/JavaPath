@@ -4,9 +4,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { InstructorService, InstructorStats, CursoInstructor } from '../../../services/instructor.service';
-import { InstructorService } from '../../services/instructor.service';
-import { InstructorStats, Curso } from '../../models/instructor.models';
+import { InstructorService } from '../../../services/instructor.service';
+import {Course, InstructorStats} from '../../../components/shared/types/course.types';
+
+
 @Component({
   selector: 'app-instructor-dashboard',
   standalone: true,
@@ -21,7 +22,7 @@ import { InstructorStats, Curso } from '../../models/instructor.models';
 })
 export class DashboardComponent implements OnInit {
   stats: InstructorStats | null = null;
-  cursos: Curso[] = [];
+  cursos: Course[] = [];
 
   constructor(private instructorService: InstructorService) {}
 
