@@ -45,4 +45,25 @@ export class InstructorService {
     formData.append('file', file);
     return this.http.post<{ url: string }>(`${this.apiUrl}/cursos/${cursoId}/materiais`, formData);
   }
+  getDetailedAnalytics(cursoId: number): Observable<CursoAnalytics> {
+    return this.http.get<CursoAnalytics>(`${this.apiUrl}/cursos/${cursoId}/detailed-analytics`);
+  }
+
+  getEngagementByLesson(cursoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/cursos/${cursoId}/lesson-engagement`);
+  }
+
+  getStudentProgress(cursoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/cursos/${cursoId}/student-progress`);
+  }
+
+  getRevenueAnalytics(cursoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}/revenue-analytics`);
+  }
+
+  exportAnalyticsReport(cursoId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/cursos/${cursoId}/export-analytics`, {
+      responseType: 'blob'
+    });
+  }
 }
