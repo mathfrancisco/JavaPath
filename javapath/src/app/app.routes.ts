@@ -59,6 +59,15 @@ export const routes: Routes = [
           .then(m => m.InstructorDashboardComponent)
       },
       {
+    path: 'instructor',
+    canActivate: [authGuard, () => roleGuard(['instructor', 'admin'])()],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/instructor/dashboard/dashboard.component')
+          .then(m => m.InstructorDashboardComponent)
+      },
+      {
         path: 'cursos',
         children: [
           {
@@ -75,6 +84,11 @@ export const routes: Routes = [
             path: ':id/edit',
             loadComponent: () => import('./pages/instructor/cursos/curso-form/curso-form.component')
               .then(m => m.CursoFormComponent)
+          },
+          {
+            path: ':id/materiais',
+            loadComponent: () => import('./pages/instructor/cursos/material-upload/material-upload.component')
+              .then(m => m.MaterialUploadComponent)
           },
           {
             path: ':id/analytics',
