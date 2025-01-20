@@ -54,9 +54,37 @@ interface InstructorStats {
   receitaTotal: number;
   alunosAtivos: number;
   visualizacoesTotais: number;
-} interface CursoInstructor {
+}  
+interface CursoInstructor {
   id: number;
   titulo: string;
   // ... other fields
   status: 'rascunho' | 'publicado' | 'revisao';
+}
+export interface CursoConteudo {
+  id?: number;
+  titulo: string;
+  tipo: 'video' | 'pdf' | 'quiz';
+  url: string;
+  duracao?: number;
+}
+
+export interface CursoAnalytics {
+  visualizacoes: number;
+  alunosAtivos: number;
+  avaliacaoMedia: number;
+  receitaTotal: number;
+  taxaConclusao: number;
+  engajamentoPorAula: {
+    aulaId: number;
+    visualizacoes: number;
+    tempoMedio: number;
+  }[];
+} export interface InstructorStats {
+  totalAlunos: number;
+  totalCursos: number;
+  avaliacaoMedia: number;
+  receitaTotal: number;
+  alunosAtivos: number;
+  visualizacoesTotais: number;
 }
