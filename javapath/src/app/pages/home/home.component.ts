@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
-import { CardCursoComponent, Curso } from '../../components/card-curso/card-curso.component';
+import { CardCursoComponent } from '../../components/card-curso/card-curso.component';
 
 import {CommonModule, NgForOf} from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -10,8 +10,8 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {RouterLink} from '@angular/router';
 import {CardBlogComponent} from '../../components/card-blog/card-blog.component';
-
 import {AuthService} from '../../auth/auth.service';
+import {Course} from '../../components/shared/types/course.types';
 interface BlogPost {
   id: number;
   title: string;
@@ -31,7 +31,7 @@ interface BlogPost {
   imports: [
     NgForOf,
     CardCursoComponent,
-     MatTabsModule, CommonModule, HeroComponent, MatIcon, FooterComponent, RouterLink, MatAnchor, CardBlogComponent,NavbarComponent
+     MatTabsModule, CommonModule, HeroComponent, MatIcon, FooterComponent, RouterLink, MatAnchor, CardBlogComponent
   ],
   providers: [AuthService],
   styleUrls: ['./home.component.scss']
@@ -63,7 +63,7 @@ export class HomeComponent {
     }
   ];
 
-  cursosPopulares: Curso[] = [
+  cursosPopulares: Course[] = [
     {
       id: 1,
       title: 'Java Fundamentos',
@@ -97,7 +97,7 @@ export class HomeComponent {
     // ... more popular courses
   ];
 
-  cursosRecentes: Curso[] = [
+  cursosRecentes: Course[] = [
     {
       id: 4,
       title: 'Angular para Iniciantes',

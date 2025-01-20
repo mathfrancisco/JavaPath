@@ -1,16 +1,10 @@
 // curso-detalhe.component.ts
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CourseService } from '../../services/course.service';
-import { Course } from '../../../shared/types/course.types';
-import { CourseCardComponent } from '../course-card/course-card.component';
-import { CourseSearchComponent } from '../course-search/course-search.component';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -19,6 +13,8 @@ import {
 } from '@angular/material/expansion';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MatInput} from '@angular/material/input';
+import {Course} from '../../components/shared/types/course.types';
+import {CourseService} from '../../services/cursos.service';
 
 
 @Component({

@@ -7,32 +7,8 @@ import {NgForOf} from '@angular/common';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import { NgIf } from '@angular/common';
+import {Course, Lesson} from '../../components/shared/types/course.types';
 
-interface Curso {
-  topicosAula: TopicoAula[];
-  id: number;
-  title: string;
-  imageUrl: string;
-  author: string;
-  description: string;
-  videoUrl: string;
-  duration?: string;
-  level?: string;
-  rating?: number;
-  comments?: any[];
-  recursos: Recurso[];
-}
-
-
-interface TopicoAula {
-  titulo: string;
-  conteudo: string;
-}
-
-interface Recurso {
-  nome: string;
-  downloadUrl: string;
-}
 
 @Component({
   selector: 'app-curso',
@@ -46,9 +22,9 @@ interface Recurso {
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
-  cursos: Curso[] = [];
+  cursos: Course[] = [];
   safeVideoUrl: SafeResourceUrl = '';
-  topicosAula: TopicoAula[] = [];
+  topicosAula: Lesson[] = [];
   loading = false;  // Add loading state
   error: string | null = null; // Add error state
 
@@ -70,13 +46,13 @@ export class CursoComponent implements OnInit {
     }
   }
 
-  async buscarTodosCursos(): Promise<Curso[]> {
+  async buscarTodosCursos(): Promise<Course[]> {
     try {
       const response = await fetch('/api/cursos'); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json() as Curso[];
+      return await response.json() as Course[];
     } catch (error) {
       console.error('Error fetching courses:', error);
       throw error; // Re-throw the error to be caught by the caller
