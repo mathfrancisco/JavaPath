@@ -1,1 +1,58 @@
-<p>curso-form works!</p>
+<div class="p-4">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ isEditMode ? 'Editar Curso' : 'Novo Curso' }}</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <mat-form-field>
+              <mat-label>Título</mat-label>
+              <input matInput formControlName="title" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Descrição</mat-label>
+              <textarea matInput formControlName="description" rows="4" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nível</mat-label>
+              <mat-select formControlName="level" required>
+                <mat-option value="beginner">Iniciante</mat-option>
+                <mat-option value="intermediate">Intermediário</mat-option>
+                <mat-option value="advanced">Avançado</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Preço</mat-label>
+              <input matInput type="number" formControlName="price" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Duração (em horas)</mat-label>
+              <input matInput type="number" formControlName="duration" required>
+            </mat-form-field>
+
+            <div class="file-upload">
+              <button type="button" mat-raised-button (click)="fileInput.click()">
+                <mat-icon>cloud_upload</mat-icon>
+                Upload de Imagem
+              </button>
+              <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
+              <span *ngIf="selectedFileName" class="ml-2">{{selectedFileName}}</span>
+            </div>
+
+            <div class="actions mt-4">
+              <button mat-raised-button color="primary" type="submit" [disabled]="!cursoForm.valid">
+                {{ isEditMode ? 'Atualizar' : 'Criar' }} Curso
+              </button>
+              <button mat-button type="button" (click)="onCancel()" class="ml-2">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
