@@ -4,23 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 
-export interface Curso {
-
-  id: number;
-  title: string;
-  imageUrl: string;
-  author: string;
-  description: string;
-  duration?: string;
-  level?: string;
-  rating?: number;
-}
-
-
 @Component({
   selector: 'app-card-curso',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, RouterLink],
+  imports: [CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule],
   templateUrl: './card-curso.component.html',
   styleUrl: './card-curso.component.css'
 })
