@@ -1,35 +1,8 @@
-// services/instructor.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { environment } from '../enviroments/environment';
-
-export interface InstructorStats {
-  totalAlunos: number;
-  totalCursos: number;
-  avaliacaoMedia: number;
-  receitaTotal: number;
-  alunosAtivos: number;
-  visualizacoesTotais: number;
-}
-
-export interface CursoInstructor {
-  id: number;
-  titulo: string;
-  descricao: string;
-  thumbnail: string;
-  alunosMatriculados: number;
-  avaliacaoMedia: number;
-  totalAulas: number;
-  preco: number;
-  status: 'rascunho' | 'publicado' | 'revisao';
-  ultimaAtualizacao: Date;
-  estatisticas: {
-    visualizacoes: number;
-    concluidos: number;
-    receita: number;
-  };
-}
+import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+import { InstructorStats, Curso, CursoAnalytics } from '../models/instructor.models';
 
 @Injectable({
   providedIn: 'root'
@@ -43,23 +16,33 @@ export class InstructorService {
     return this.http.get<InstructorStats>(`${this.apiUrl}/stats`);
   }
 
-  getCursos(): Observable<CursoInstructor[]> {
-    return this.http.get<CursoInstructor[]>(`${this.apiUrl}/cursos`);
+  getCursos(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.apiUrl}/cursos`);
   }
 
-  getCursoById(id: number): Observable<CursoInstructor> {
-    return this.http.get<CursoInstructor>(`${this.apiUrl}/cursos/${id}`);
+  getCursoById(id: number): Observable<Curso> {
+    return this.http.get<Curso>(`${this.apiUrl}/cursos/${id}`);
   }
 
-  createCurso(curso: Partial<CursoInstructor>): Observable<CursoInstructor> {
-    return this.http.post<CursoInstructor>(`${this.apiUrl}/cursos`, curso);
+  createCurso(curso: Partial<Curso>): Observable<Curso> {
+    return this.http.post<Curso>(`${this.apiUrl}/cursos`, curso);
   }
 
-  updateCurso(id: number, curso: Partial<CursoInstructor>): Observable<CursoInstructor> {
-    return this.http.put<CursoInstructor>(`${this.apiUrl}/cursos/${id}`, curso);
+  updateCurso(id: number, curso: Partial<Curso>): Observable<Curso> {
+    return this.http.put<Curso>(`${this.apiUrl}/cursos/${id}`, curso);
   }
 
   deleteCurso(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/cursos/${id}`);
+  }
+
+  getCursoAnalytics(id: number): Observable<CursoAnalytics> {
+    return this.http.get<CursoAnalytics>(`${this.apiUrl}/cursos/${id}/analytics`);
+  }
+
+  uploadMaterial(cursoId: number, file: File): Observable<{ url: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ url: string }>(`${this.apiUrl}/cursos/${cursoId}/materiais`, formData);
   }
 }
