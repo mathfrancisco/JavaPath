@@ -1,1 +1,33 @@
-<p>recuperar-senha works!</p>
+ <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+          <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+            Recuperar Senha
+          </h2>
+          <p class="mt-2 text-sm text-gray-600">
+            Digite seu e-mail para receber as instruções
+          </p>
+        </div>
+        
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email">
+            <mat-error *ngIf="form.get('email')?.hasError('required')">
+              E-mail é obrigatório
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">
+              E-mail inválido
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary"
+                  class="w-full"
+                  [disabled]="form.invalid || isLoading"
+                  type="submit">
+            <mat-spinner *ngIf="isLoading" [diameter]="20" class="mr-2"></mat-spinner>
+            <span>{{ isLoading ? 'Enviando...' : 'Enviar' }}</span>
+          </button>
+        </form>
+      </div>
+    </div>
