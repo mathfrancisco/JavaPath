@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {CommentComponent} from '../comments/comments.component';
-
+import { BlogService, Post } from './blog.service';
+import { CardBlogComponent } from './card-blog.component';
 
 @Component({
   selector: 'app-comments-section',
