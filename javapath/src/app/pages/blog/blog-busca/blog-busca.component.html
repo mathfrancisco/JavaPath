@@ -1,1 +1,24 @@
-<p>blog-busca works!</p>
+ <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold">Blog</h1>
+        <div class="mt-4 flex gap-4">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearch()"
+            placeholder="Buscar posts..."
+            class="px-4 py-2 border rounded-lg flex-1"
+          />
+          <div class="flex gap-2">
+            <button
+              *ngFor="let tag of availableTags"
+              (click)="toggleTag(tag)"
+              [class.bg-blue-500]="selectedTags.includes(tag)"
+              [class.text-white]="selectedTags.includes(tag)"
+              class="px-3 py-1 rounded-full border hover:bg-blue-100"
+            >
+              {{tag}}
+            </button>
+          </div>
+        </div>
+      </div>
