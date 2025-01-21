@@ -1,31 +1,63 @@
-<!-- comments-section.component.html -->
-<div class="comments-section">
-  <h3 class="text-xl font-bold mb-4">Comentários</h3>
+ <div class="mt-8">
+      <h2 class="text-2xl font-bold mb-4">Comentários</h2>
+      
+      <div class="mb-8">
+        <textarea
+          [(ngModel)]="newComment"
+          placeholder="Escreva seu comentário..."
+          class="w-full p-4 border rounded-lg"
+          rows="4"
+        ></textarea>
+        <button
+          (click)="addComment()"
+          class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        >
+          Comentar
+        </button>
+      </div>
 
-  <div *ngFor="let comment of comments">
-    <app-comment [comment]="comment"></app-comment>
-  </div>
-
-
-  <form (ngSubmit)="addComment()" #commentForm="ngForm">
-
-    <div class="mb-4">
-      <label for="author" class="block text-sm font-medium text-gray-700">Nome</label>
-      <input type="text" id="author" name="author" [(ngModel)]="newComment.author" required
-             class="mt-1 px-3 py-2 block w-full rounded-md bg-gray-100 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      <div class="space-y-6">
+        <div
+          *ngFor="let comment of comments"
+          class="p-4 bg-gray-50 rounded-lg"
+          [class.border-yellow-500]="!comment.moderado"
+          [class.border-2]="!comment.moderado"
+        >
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-2">
+              <img
+                [src]="comment.author.avatar || '/assets/default-avatar.png'"
+                [alt]="comment.author.name"
+                class="w-8 h-8 rounded-full"
+              />
+              <span class="font-medium">{{comment.author.name}}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-gray-500">
+                {{comment.createdAt | date:'short'}}
+              </span>
+              <button
+                *ngIf="isAdmin && !comment.moderado"
+                (click)="moderateComment(comment.id, true)"
+                class="text-sm text-blue-500 hover:text-blue-600"
+              >
+                Aprovar
+              </button>
+              <button
+                *ngIf="canEditComment(comment)"
+                (click)="deleteComment(comment.id)"
+                class="text-sm text-red-500 hover:text-red-600"
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+          <p [class.text-gray-400]="!comment.moderado">
+            {{comment.content}}
+          </p>
+          <div *ngIf="!comment.moderado" class="mt-2 text-sm text-yellow-600">
+            Aguardando moderação
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mb-4">
-      <label for="content" class="block text-sm font-medium text-gray-700">Comentário</label>
-      <textarea id="content" name="content" [(ngModel)]="newComment.content" required rows="3"
-                class="mt-1 px-3 py-2 block w-full rounded-md bg-gray-100 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
-    </div>
-
-
-    <button type="submit" [disabled]="!commentForm.valid"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Adicionar Comentário
-    </button>
-
-  </form>
-
-</div>
