@@ -18,44 +18,51 @@ import {CommentComponent} from '../comments/comments.component';
   styleUrls: ['./comments-section.component.scss']
 })
 
-export class CommentsSectionComponent {
-  @Input() comments: any[] = [];
-  @Input() itemId: number = 0;// Add this line //
-  newComment = { author: '', content: '' };
+@Input() postId!: string;
+  comments: any[] = [];
+  newComment = '';
+  isAdmin = false; // Deve ser definido baseado no usuário atual
 
+  constructor(private comentariosService: ComentariosService) {}
 
-  constructor() { }
+  ngOnInit() {
+    this.loadComments();
+  }
 
-
+  loadComments() {
+    this.comentariosService
+      .findAllByPost(this.postId)
+      .subscribe(comments => this.comments = comments);
+  }
 
   addComment() {
-    let comments = localStorage.getItem(`comments-${this.itemId}`)
+    if (!this.newComment.trim()) return;
 
-    if (!comments) {
-      localStorage.setItem(`comments-${this.itemId}`, JSON.stringify([this.newComment]))
-    } else {
-      localStorage.setItem(`comments-${this.itemId}`, JSON.stringify([...JSON.parse(comments), this.newComment]))
-    }
-
-
-    if (this.newComment.author !== '' || this.newComment.content !== '') {
-      this.comments.push({
-        author: this.newComment.author,
-        content: this.newComment.content,
-
-        date: new Date()
+    this.comentariosService
+      .create({
+        conteudo: this.newComment,
+        postId: this.postId
+      })
+      .subscribe(() => {
+        this.newComment = '';
+        this.loadComments();
       });
-
-      this.newComment = { author: '', content: '' }; // Limpa o formulário
-    }
   }
 
+  moderateComment(id: string, approved: boolean) {
+    this.comentariosService
+      .moderate(id, approved)
+      .subscribe(() => this.loadComments());
+  }
 
+  deleteComment(id: string) {
+    this.comentariosService
+      .remove(id)
+      .subscribe(() => this.loadComments());
+  }
 
-  ngOnInit(): void {
-    let comments = localStorage.getItem(`comments-${this.itemId}`)
-    this.comments = comments ? JSON.parse(comments) : []
-
+  canEditComment(comment: any): boolean {
+    // Implementar lógica de permissão
+    return this.isAdmin || comment.author.id === 'current-user-id';
   }
 }
-
