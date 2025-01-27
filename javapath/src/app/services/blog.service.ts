@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
 
-export interface Post {
+import {BlogPost} from '../components/card-blog/card-blog.component';
+import {environment} from '../enviroments/environment';
+
+export interface Post  {
   id: string;
   title: string;
   content: string;
@@ -39,14 +41,12 @@ export class BlogService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(search?: string, tags?: string[]): Observable<Post[]> {
-    let url = this.apiUrl;
+  getPosts(searchTerm: string, tags: string[]): Observable<Post[]> {
     const params: any = {};
-    
-    if (search) params.search = search;
-    if (tags?.length) params.tags = tags.join(',');
-    
-    return this.http.get<Post[]>(url, { params });
+    if (searchTerm) params.q = searchTerm;
+    if (tags.length > 0) params.tags = tags.join(',');
+
+    return this.http.get<Post[]>(this.apiUrl, { params });
   }
 
   getPost(id: string): Observable<Post> {

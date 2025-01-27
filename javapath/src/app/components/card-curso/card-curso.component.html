@@ -1,35 +1,35 @@
  <mat-card class="h-full flex flex-col">
-      <img mat-card-image [src]="course.imageUrl" [alt]="course.title">
-      
+      <img mat-card-image [src]="curso.imageUrl" [alt]="curso.title">
+
       <mat-card-content class="flex-grow">
-        <h2 class="text-xl font-semibold mb-2">{{course.title}}</h2>
-        <p class="text-gray-600 mb-4">{{course.description}}</p>
-        
+        <h2 class="text-xl font-semibold mb-2">{{curso.title}}</h2>
+        <p class="text-gray-600 mb-4">{{curso.description}}</p>
+
         <div class="flex items-center gap-4 mb-2">
           <div class="flex items-center">
             <mat-icon class="text-yellow-400">star</mat-icon>
-            <span class="ml-1">{{course.rating}}</span>
+            <span class="ml-1">{{curso.rating}}</span>
           </div>
           <div class="flex items-center">
             <mat-icon>person</mat-icon>
-            <span class="ml-1">{{course.totalStudents}} students</span>
+            <span class="ml-1">{{curso.totalStudents}} students</span>
           </div>
         </div>
-        
+
         <div class="flex items-center gap-4">
           <div class="flex items-center">
             <mat-icon>access_time</mat-icon>
-            <span class="ml-1">{{course.duration}}</span>
+            <span class="ml-1">{{curso.duration}}</span>
           </div>
           <div class="flex items-center">
             <mat-icon>school</mat-icon>
-            <span class="ml-1">{{course.level}}</span>
+            <span class="ml-1">{{curso.level}}</span>
           </div>
         </div>
       </mat-card-content>
-      
+
       <mat-card-actions>
-        <a [routerLink]="['/courses', course.id]" 
+        <a [routerLink]="['/courses', curso.id]"
            mat-raised-button color="primary">
           View Course
         </a>

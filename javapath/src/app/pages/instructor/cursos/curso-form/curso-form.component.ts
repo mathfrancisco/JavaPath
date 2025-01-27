@@ -9,8 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InstructorService } from '../../../services/instructor.service';
-import { Course } from '../../../components/shared/types/course.types';
+
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
+import {InstructorService} from '../../../../services/instructor.service';
 
 @Component({
   selector: 'app-curso-form',
@@ -23,7 +24,7 @@ import { Course } from '../../../components/shared/types/course.types';
     MatSelectModule,
     MatButtonModule,
     MatChipsModule,
-    MatIconModule],
+    MatIconModule, MatCardTitle, MatCardHeader, MatCard, MatCardContent],
   templateUrl: './curso-form.component.html',
   styleUrl: './curso-form.component.css'
 })
@@ -92,7 +93,7 @@ export class CursoFormComponent implements OnInit {
   onSubmit() {
     if (this.cursoForm.valid) {
       const cursoData = this.cursoForm.value;
-      
+
       if (this.isEditMode && this.cursoId) {
         this.instructorService.updateCurso(this.cursoId, cursoData).subscribe({
           next: () => this.router.navigate(['/instructor/cursos']),

@@ -6,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { CursosService } from '../../services/cursos.service';
+import {CourseService} from '../../services/cursos.service';
+
 
 interface BaseProfile {
   id: number;
@@ -74,7 +75,7 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private cursosService: CursosService
+    private cursosService: CourseService
   ) {}
 
   ngOnInit() {

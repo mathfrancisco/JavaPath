@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Course } from '../types/course.types';
+import {Course} from '../components/shared/types/course.types';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Course } from '../types/course.types';
 export class CourseStateService {
   private coursesSubject = new BehaviorSubject<Course[]>([]);
   private filtersSubject = new BehaviorSubject<any>({});
-  
+
   courses$ = this.coursesSubject.asObservable();
   filters$ = this.filtersSubject.asObservable();
 

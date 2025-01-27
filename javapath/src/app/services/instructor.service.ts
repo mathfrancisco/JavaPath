@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../enviroments/environment';
 import { InstructorStats, Course, CursoAnalytics } from '../components/shared/types/course.types';
@@ -45,8 +45,14 @@ export class InstructorService {
     formData.append('file', file);
     return this.http.post<{ url: string }>(`${this.apiUrl}/cursos/${cursoId}/materiais`, formData);
   }
-  getDetailedAnalytics(cursoId: number): Observable<CursoAnalytics> {
-    return this.http.get<CursoAnalytics>(`${this.apiUrl}/cursos/${cursoId}/detailed-analytics`);
+  getDetailedAnalytics(cursoId: number, filters?: any): Observable<CursoAnalytics> {
+    let params = new HttpParams();
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        params = params.set(key, filters[key]);
+      });
+    }
+    return this.http.get<CursoAnalytics>(`/api/cursos/${cursoId}/analytics`, { params });
   }
 
   getEngagementByLesson(cursoId: number): Observable<any[]> {

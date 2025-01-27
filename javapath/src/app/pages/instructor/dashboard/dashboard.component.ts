@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { NgChartsModule } from 'ng2-charts';
+import {BaseChartDirective} from 'ng2-charts';
 import { InstructorService } from '../../../services/instructor.service';
 import { Course, InstructorStats } from '../../../components/shared/types/course.types';
 
@@ -17,7 +17,7 @@ import { Course, InstructorStats } from '../../../components/shared/types/course
     MatIconModule,
     MatButtonModule,
     RouterModule,
-    NgChartsModule
+    BaseChartDirective
   ],
   templateUrl: './dashboard.component.html'
 })

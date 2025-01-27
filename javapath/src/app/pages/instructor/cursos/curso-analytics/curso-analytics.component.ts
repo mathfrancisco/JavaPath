@@ -8,16 +8,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgChartsModule } from 'ng2-charts';
+
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { InstructorService } from '../../../services/instructor.service';
-import { CursoAnalytics } from '../../../components/shared/types/course.types';
+import { CursoAnalytics } from '../../../../components/shared/types/course.types';
+import { InstructorService } from '../../../../services/instructor.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-curso-analytics',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatCardModule,
     MatTabsModule,
     MatButtonModule,
@@ -26,15 +28,28 @@ import { CursoAnalytics } from '../../../components/shared/types/course.types';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-    NgChartsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    BaseChartDirective
+  ],
   templateUrl: './curso-analytics.component.html',
-  styleUrl: './curso-analytics.component.css'
+  styleUrls: ['./curso-analytics.component.css']
 })
 export class CursoAnalyticsComponent implements OnInit {
-  analytics: CursoAnalytics | null = null;
+  analytics: CursoAnalytics = {
+    visualizacoes: 0,
+    crescimentoVisualizacoes: 0,
+    alunosAtivos: 0,
+    crescimentoAlunos: 0,
+    avaliacaoMedia: 0,
+    totalAvaliacoes: 0,
+    taxaConclusao: 0,
+    alunosConcluintes: 0,
+    engajamentoPorAula: [],
+    progressoAlunos: [],
+    receitaMensal: []
+  };
   filterForm: FormGroup;
-  
+
   // Configurações dos gráficos
   chartOptions = {
     responsive: true,
@@ -48,10 +63,10 @@ export class CursoAnalyticsComponent implements OnInit {
   // Dados dos gráficos
   engagementChartData: any[] = [];
   engagementChartLabels: string[] = [];
-  
+
   progressChartData: any[] = [];
   progressChartLabels: string[] = [];
-  
+
   revenueChartData: any[] = [];
   revenueChartLabels: string[] = [];
 
@@ -111,7 +126,7 @@ export class CursoAnalyticsComponent implements OnInit {
     if (this.filterForm.valid) {
       const cursoId = this.route.snapshot.params['id'];
       const filters = this.filterForm.value;
-      
+
       this.instructorService.getDetailedAnalytics(cursoId, filters).subscribe({
         next: (data) => {
           this.analytics = data;

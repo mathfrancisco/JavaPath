@@ -1,0 +1,44 @@
+<div class="search-container p-4">
+  <!-- Barra de busca principal -->
+  <mat-form-field class="w-full">
+    <mat-label>Buscar cursos</mat-label>
+    <input matInput
+           [formControl]="searchControl"
+           [matAutocomplete]="auto"
+           placeholder="Digite para buscar...">
+    <mat-icon matSuffix>search</mat-icon>
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let suggestion of searchSuggestions"
+                  [value]="suggestion">
+        {{suggestion}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- Buscas recentes -->
+  <div class="recent-searches mt-2" *ngIf="recentSearches.length">
+    <small class="text-gray-600">Buscas recentes:</small>
+    <mat-chip-list>
+      <mat-chip *ngFor="let term of recentSearches"
+                (click)="search(term)"
+                removable="true"
+                (removed)="removeRecentSearch(term)">
+        {{term}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <!-- Filtros ativos -->
+  <div class="active-filters mt-4" *ngIf="hasActiveFilters">
+    <small class="text-gray-600">Filtros ativos:</small>
+    <mat-chip-list>
+      <mat-chip *ngFor="let filter of activeFilters"
+                (removed)="removeFilter(filter)">
+        {{filter.label}}: {{filter.value}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { InstructorService } from '../../../../services/instructor.service';
-import {Course, CursoInstructor} from '../../../../components/shared/types/course.types';
+import {Course, CourseModule} from '../../../../components/shared/types/course.types';
 
 @Component({
   selector: 'app-cursos-list',
@@ -28,7 +28,22 @@ import {Course, CursoInstructor} from '../../../../components/shared/types/cours
 })
 export class CursosListComponent implements OnInit {
   displayedColumns: string[] = ['titulo', 'alunosMatriculados', 'avaliacaoMedia', 'status', 'ultimaAtualizacao', 'acoes'];
-  cursos: CursoInstructor [] = [];
+  cursos: {
+    id: number;
+    title: string;
+    description: string;
+    instructor: string;
+    imageUrl: string;
+    price: number;
+    duration: string;
+    level: string;
+    rating: number;
+    totalStudents: number;
+    categories: string[];
+    status: "draft" | "published" | "archived";
+    modules: CourseModule[];
+    lastUpdate: Date
+  }[] = [];
   isLoading = true;
 
   constructor(private instructorService: InstructorService) {}
@@ -40,8 +55,11 @@ export class CursosListComponent implements OnInit {
   loadCursos() {
     this.isLoading = true;
     this.instructorService.getCursos().subscribe({
-      next: (cursos) => {
-        this.cursos = cursos;
+      next: (cursos: Course[]) => {
+        this.cursos = cursos.map(course => ({
+          ...course,
+          id: Number(course.id)
+        }));
         this.isLoading = false;
       },
       error: (error) => {

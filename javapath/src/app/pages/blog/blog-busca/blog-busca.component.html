@@ -1,24 +1,40 @@
- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold">Blog</h1>
-        <div class="mt-4 flex gap-4">
-          <input
-            type="text"
-            [(ngModel)]="searchTerm"
-            (ngModelChange)="onSearch()"
-            placeholder="Buscar posts..."
-            class="px-4 py-2 border rounded-lg flex-1"
-          />
-          <div class="flex gap-2">
-            <button
-              *ngFor="let tag of availableTags"
-              (click)="toggleTag(tag)"
-              [class.bg-blue-500]="selectedTags.includes(tag)"
-              [class.text-white]="selectedTags.includes(tag)"
-              class="px-3 py-1 rounded-full border hover:bg-blue-100"
-            >
-              {{tag}}
-            </button>
-          </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Título e Barra de Busca -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold">Blog</h1>
+    <div class="mt-4 flex gap-4">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearch()"
+        placeholder="Buscar posts..."
+        class="px-4 py-2 border rounded-lg flex-1"
+      />
+      <div class="flex gap-2">
+        <button
+          *ngFor="let tag of availableTags"
+          (click)="toggleTag(tag)"
+          [class.bg-blue-500]="selectedTags.includes(tag)"
+          [class.text-white]="selectedTags.includes(tag)"
+          class="px-3 py-1 rounded-full border hover:bg-blue-100"
+        >
+          {{ tag }}
+        </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Lista de Posts -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <app-card-blog
+      *ngFor="let post of posts"
+      [post]="post"
+      class="shadow-md rounded-lg"
+    ></app-card-blog>
+  </div>
+
+  <!-- Mensagem de Nenhum Resultado -->
+  <div *ngIf="posts.length === 0" class="text-center text-gray-500 mt-8">
+    Nenhum post encontrado.
+  </div>
+</div>

@@ -1,20 +1,15 @@
 // curso-detalhe.component.ts
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle
-} from '@angular/material/expansion';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {MatInput} from '@angular/material/input';
+import {MatTab, MatTabGroup, MatTabsModule} from '@angular/material/tabs';
 import {Course} from '../../components/shared/types/course.types';
 import {CourseService} from '../../services/cursos.service';
+
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -24,8 +19,11 @@ import {CourseService} from '../../services/cursos.service';
     CommonModule,
     MatTabsModule,
     MatProgressBarModule,
-    CarrosselComponent,
-    MatIconModule
+
+    MatIconModule,
+    MatButton,
+    MatTabGroup,
+    MatTab
   ],
   templateUrl: './curso-detalhe.component.html',
   styleUrls: ['./curso-detalhe.component.css']

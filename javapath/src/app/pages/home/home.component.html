@@ -30,20 +30,37 @@
       <h2 class="text-4xl font-bold text-gray-900">Cursos em Destaque</h2>
       <a href="/cursos" class="text-blue-700 hover:text-blue-900 font-semibold transition-colors duration-300">Ver todos →</a>
     </div>
-    <mat-tab-group animationDuration="0ms" class="shadow-lg rounded-lg overflow-hidden">
-      <mat-tab label="Mais Populares">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
-          <app-card-curso *ngFor="let curso of cursosPopulares" [curso]="curso"></app-card-curso>
-        </div>
-      </mat-tab>
-      <mat-tab label="Recém Adicionados">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
-          <app-card-curso *ngFor="let curso of cursosRecentes" [curso]="curso"></app-card-curso>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+
+    <!-- Gráfico de Cursos Populares -->
+    <mat-card class="mb-8">
+      <mat-card-header>
+        <mat-card-title>Cursos Populares</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas baseChart
+                [datasets]="popularCoursesChartData"
+                [labels]="popularCoursesChartLabels"
+                [options]="chartOptions">
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Gráfico de Cursos Recentes -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Cursos Recentes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas baseChart
+                [datasets]="recentCoursesChartData"
+                [labels]="recentCoursesChartLabels"
+                [options]="chartOptions">
+        </canvas>
+      </mat-card-content>
+    </mat-card>
   </div>
 </section>
+
 
 <section class="py-16 bg-gradient-to-b from-gray-200 to-gray-300">
   <div class="container mx-auto px-4">
@@ -84,5 +101,59 @@
   </div>
 </section>
 
+<section class="py-16 bg-gradient-to-b from-gray-100 to-gray-200">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Todos os Cursos</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <!-- Itera sobre os cursos populares -->
+      <div *ngFor="let curso of cursosPopulares" class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden relative group">
+        <img [src]="curso.imageUrl" alt="{{ curso.title }}" class="w-full h-56 object-cover rounded-t-xl transform group-hover:scale-105 transition-transform duration-500">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold mb-3 text-center text-gray-900">{{ curso.title }}</h3>
+          <p class="text-gray-700 mb-4 text-center">{{ curso.description }}</p>
+          <ul class="text-gray-600 text-sm mb-4">
+            <li><strong>Autor:</strong> {{ curso.author }}</li>
+            <li><strong>Instrutor:</strong> {{ curso.instructor || 'Não informado' }}</li>
+            <li><strong>Nível:</strong> {{ curso.level }}</li>
+            <li><strong>Duração:</strong> {{ curso.duration }}</li>
+            <li><strong>Avaliação:</strong> {{ curso.rating }} ★</li>
+            <li><strong>Preço:</strong> {{ curso.price | currency:'BRL' }}</li>
+            <li><strong>Estudantes:</strong> {{ curso.totalStudents }}</li>
+            <li><strong>Status:</strong> {{ curso.status }}</li>
+            <li><strong>Última Atualização:</strong> {{ curso.lastUpdate | date:'dd/MM/yyyy' }}</li>
+          </ul>
+          <div class="text-center">
+            <a [routerLink]="'/curso/' + curso.id" class="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 inline-block">Ver Curso</a>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 rounded-xl transition-opacity duration-300"></div>
+      </div>
+
+      <!-- Itera sobre os cursos recentes -->
+      <div *ngFor="let curso of cursosRecentes" class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden relative group">
+        <img [src]="curso.imageUrl" alt="{{ curso.title }}" class="w-full h-56 object-cover rounded-t-xl transform group-hover:scale-105 transition-transform duration-500">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold mb-3 text-center text-gray-900">{{ curso.title }}</h3>
+          <p class="text-gray-700 mb-4 text-center">{{ curso.description }}</p>
+          <ul class="text-gray-600 text-sm mb-4">
+            <li><strong>Autor:</strong> {{ curso.author }}</li>
+            <li><strong>Instrutor:</strong> {{ curso.instructor || 'Não informado' }}</li>
+            <li><strong>Nível:</strong> {{ curso.level }}</li>
+            <li><strong>Duração:</strong> {{ curso.duration }}</li>
+            <li><strong>Avaliação:</strong> {{ curso.rating }} ★</li>
+            <li><strong>Preço:</strong> {{ curso.price | currency:'BRL' }}</li>
+            <li><strong>Estudantes:</strong> {{ curso.totalStudents }}</li>
+            <li><strong>Status:</strong> {{ curso.status }}</li>
+            <li><strong>Última Atualização:</strong> {{ curso.lastUpdate | date:'dd/MM/yyyy' }}</li>
+          </ul>
+          <div class="text-center">
+            <a [routerLink]="'/curso/' + curso.id" class="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 inline-block">Ver Curso</a>
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-30 rounded-xl transition-opacity duration-300"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <app-footer></app-footer>

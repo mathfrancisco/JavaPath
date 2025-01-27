@@ -1,0 +1,42 @@
+<form [formGroup]="filterForm" class="p-4">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Filtros Avançados</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Nível -->
+      <mat-radio-group formControlName="level">
+        <h4>Nível</h4>
+        <mat-radio-button value="beginner">Iniciante</mat-radio-button>
+        <mat-radio-button value="intermediate">Intermediário</mat-radio-button>
+        <mat-radio-button value="advanced">Avançado</mat-radio-button>
+      </mat-radio-group>
+
+      <!-- Duração -->
+      <div>
+        <h4>Duração</h4>
+        <mat-slider min="0" max="50" step="1" formControlName="duration">
+          <input matSliderThumb>
+        </mat-slider>
+        <span>{{filterForm.get('duration')?.value}} horas</span>
+      </div>
+
+      <!-- Avaliação -->
+      <div>
+        <h4>Avaliação Mínima</h4>
+        <mat-slider min="1" max="5" step="0.5" formControlName="rating">
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+
+      <!-- Preço -->
+      <div>
+        <h4>Faixa de Preço</h4>
+        <mat-slider min="0" max="1000" step="50" formControlName="price">
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</form>

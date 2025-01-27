@@ -4,6 +4,7 @@ export interface Course {
   title: string;
   description: string;
   instructor: string;
+  author: string;
   imageUrl: string;
   price: number;
   duration: string;
@@ -73,7 +74,7 @@ export interface CursoConteudo {
   duracao?: number;
 }
 
-eexport interface CursoAnalytics {
+export interface CursoAnalytics {
   visualizacoes: number;
   crescimentoVisualizacoes: number;
   alunosAtivos: number;
