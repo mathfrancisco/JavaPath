@@ -1,3 +1,4 @@
+/* sobre.component.css */
 h1, h2, h3 {
   font-family: 'Roboto', sans-serif;
 }
@@ -12,4 +13,46 @@ img {
 
 .mat-icon {
   font-size: 2rem;
+}
+
+/* Efeito de hover nos cards da equipe */
+.bg-white:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+/* Gradiente moderno para as seções */
+.bg-gradient-to-b {
+  background: linear-gradient(to bottom, #f0f4ff, #e6f0ff);
+}
+
+/* Sombra suave e bordas arredondadas */
+.rounded-xl {
+  border-radius: 1.5rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.hover\:shadow-xl:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Transições suaves */
+.transition-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+.transition-transform {
+  transition: transform 0.3s ease;
+}
+
+/* Cores modernas */
+.text-blue-600 {
+  color: #2563eb;
+}
+
+.border-blue-100 {
+  border-color: #dbeafe;
 }

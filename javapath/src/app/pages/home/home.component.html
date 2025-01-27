@@ -96,59 +96,13 @@
   </div>
 </section>
 
-<!-- Gráfico de Cursos Populares -->
+<!-- Substitua as seções de gráficos por FAQ -->
 <section class="py-20 bg-white">
   <div class="container mx-auto px-4">
-    <h2 class="text-4xl font-bold text-gray-900 mb-4">Avaliação dos Cursos Populares</h2>
-    <div class="chart-container">
-      <canvas baseChart
-              [data]="popularCoursesChartData"
-              [labels]="popularCoursesChartLabels"
-              [options]="chartOptions"
-              type="bar">
-      </canvas>
-    </div>
+    <app-faq></app-faq>
   </div>
 </section>
 
-<!-- Gráfico de Cursos Recentes -->
-<section class="py-20 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <h2 class="text-4xl font-bold text-gray-900 mb-4">Avaliação dos Cursos Recentes</h2>
-    <div class="chart-container">
-      <canvas baseChart
-              [data]="recentCoursesChartData"
-              [labels]="recentCoursesChartLabels"
-              [options]="chartOptions"
-              type="bar">
-      </canvas>
-    </div>
-  </div>
-</section>
-
-<!-- Estatísticas -->
-<section class="py-20 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">5000+</div>
-        <div class="text-blue-200">Alunos</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">50+</div>
-        <div class="text-blue-200">Cursos</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">30+</div>
-        <div class="text-blue-200">Instrutores</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">95%</div>
-        <div class="text-blue-200">Satisfação</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Blog -->
 <section class="py-20 bg-gray-50">

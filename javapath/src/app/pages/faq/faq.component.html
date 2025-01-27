@@ -1,1 +1,33 @@
-<p>faq works!</p>
+<!-- faq.component.html -->
+<div class="bg-gradient-to-r from-blue-50 to-indigo-50 py-20">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">
+      Perguntas Frequentes
+      <span class="block text-lg text-gray-600 mt-2 font-normal">Tire suas dúvidas sobre nossos cursos</span>
+    </h2>
+    <div class="max-w-3xl mx-auto space-y-4">
+      <div *ngFor="let faq of faqs" class="group">
+        <div
+          class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          (click)="toggleFAQ(faq)"
+        >
+          <div class="flex justify-between items-center">
+            <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+              {{ faq.question }}
+            </h3>
+            <span class="text-gray-600 transform transition-transform duration-300" [ngClass]="{ 'rotate-180': faq.isOpen }">
+              <mat-icon>expand_more</mat-icon>
+            </span>
+          </div>
+          <div
+            *ngIf="faq.isOpen"
+            @fadeInOut
+            class="mt-4 text-gray-600"
+          >
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,30 @@
-<p>curso-busca works!</p>
+<div class="search-container p-4 bg-white rounded-lg shadow-sm">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Search Input Field -->
+    <mat-form-field class="w-full">
+      <mat-label>Buscar cursos</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Digite o nome do curso"
+        type="text">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Category Selection Dropdown -->
+    <mat-form-field class="w-full">
+      <mat-label>Categoria</mat-label>
+      <mat-select
+        [(ngModel)]="selectedCategory"
+        (ngModelChange)="onCategoryChange()">
+        <mat-option value="">Todas as categorias</mat-option>
+        <mat-option
+          *ngFor="let category of categories"
+          [value]="category.id">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,19 +1,29 @@
 <app-navbar></app-navbar>
-<section class="py-16 bg-gradient-to-b from-gray-100 to-gray-200">
+
+<!-- About Section -->
+<section class="py-20 bg-gradient-to-b from-gray-50 to-white">
   <div class="container mx-auto px-4">
-    <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Sobre o Projeto</h1>
-    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed">
-      <p class="mb-6">
+    <div class="relative mb-8 text-center">
+      <h1 class="text-5xl font-bold text-gray-900 relative z-10">
+        Sobre o Projeto
+        <span class="block text-xl text-gray-600 mt-2 font-normal">Conheça nossa missão e visão</span>
+      </h1>
+      <!-- Decorative element -->
+      <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-600 rounded-full"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+      <p class="transform hover:scale-[1.02] transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm">
         Este projeto foi desenvolvido com o objetivo de oferecer uma plataforma de aprendizado online
         acessível e eficiente. Nossa missão é capacitar pessoas a aprenderem novas habilidades e
         alcançarem seus objetivos profissionais e pessoais.
       </p>
-      <p class="mb-6">
+      <p class="transform hover:scale-[1.02] transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm">
         A plataforma conta com uma ampla variedade de cursos, trilhas de aprendizado e recursos
         interativos, como vídeos, exercícios e materiais complementares. Além disso, oferecemos
         suporte contínuo por meio de uma comunidade ativa de estudantes e instrutores.
       </p>
-      <p class="mb-6">
+      <p class="transform hover:scale-[1.02] transition-transform duration-300 p-6 bg-white rounded-lg shadow-sm">
         Nosso foco está em criar uma experiência de aprendizado envolvente e prática, permitindo que
         os usuários apliquem o conhecimento adquirido em situações reais.
       </p>
@@ -21,49 +31,64 @@
   </div>
 </section>
 
-<section class="py-16 bg-gradient-to-b from-white to-gray-100">
+<!-- Team Section -->
+<section class="py-20 bg-gradient-to-b from-white to-gray-50">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Nossa Equipe</h2>
+    <div class="relative mb-12 text-center">
+      <h2 class="text-4xl font-bold text-gray-900">
+        Nossa Equipe
+        <span class="block text-xl text-gray-600 mt-2 font-normal">Conheça quem faz tudo acontecer</span>
+      </h2>
+      <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 rounded-full"></div>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="/assets/images/team/member1.jpg" alt="João Silva" class="w-24 h-24 rounded-full mx-auto mb-4">
-        <h3 class="text-xl font-semibold text-gray-900">João Silva</h3>
-        <p class="text-gray-600">Desenvolvedor Full Stack</p>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="/assets/images/team/member2.jpg" alt="Maria Souza" class="w-24 h-24 rounded-full mx-auto mb-4">
-        <h3 class="text-xl font-semibold text-gray-900">Maria Souza</h3>
-        <p class="text-gray-600">Designer de UX/UI</p>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="/assets/images/team/member3.jpg" alt="Carlos Santos" class="w-24 h-24 rounded-full mx-auto mb-4">
-        <h3 class="text-xl font-semibold text-gray-900">Carlos Santos</h3>
-        <p class="text-gray-600">Gerente de Projetos</p>
-      </div>
+      @for (member of teamMembers; track member.name) {
+        <div class="group bg-white rounded-xl shadow-lg p-6 text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+          <div class="relative inline-block">
+            <img [src]="member.image" [alt]="member.name"
+                 class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-100 group-hover:border-blue-200 transition-colors duration-300">
+            <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900">{{ member.name }}</h3>
+          <p class="text-gray-600">{{ member.role }}</p>
+          <div class="mt-4 flex justify-center space-x-4">
+            <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors duration-300">
+              <mat-icon>linkedin</mat-icon>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors duration-300">
+              <mat-icon>email</mat-icon>
+            </a>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </section>
 
-<section class="py-16 bg-gradient-to-b from-gray-200 to-gray-300">
+<!-- Values Section -->
+<section class="py-20 bg-gradient-to-b from-gray-50 to-white">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Nossos Valores</h2>
+    <div class="relative mb-12 text-center">
+      <h2 class="text-4xl font-bold text-gray-900">
+        Nossos Valores
+        <span class="block text-xl text-gray-600 mt-2 font-normal">O que nos motiva todos os dias</span>
+      </h2>
+      <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-blue-600 rounded-full"></div>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <mat-icon class="text-blue-500 text-4xl mb-4">school</mat-icon>
-        <h3 class="text-xl font-semibold text-gray-900">Educação de Qualidade</h3>
-        <p class="text-gray-600">Nosso compromisso é oferecer conteúdos de alta qualidade para todos os nossos usuários.</p>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <mat-icon class="text-blue-500 text-4xl mb-4">group</mat-icon>
-        <h3 class="text-xl font-semibold text-gray-900">Comunidade</h3>
-        <p class="text-gray-600">Acreditamos no poder da colaboração e no aprendizado em grupo.</p>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <mat-icon class="text-blue-500 text-4xl mb-4">trending_up</mat-icon>
-        <h3 class="text-xl font-semibold text-gray-900">Crescimento Contínuo</h3>
-        <p class="text-gray-600">Estamos sempre evoluindo para atender às necessidades dos nossos usuários.</p>
-      </div>
+      @for (value of values; track value.title) {
+        <div class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 text-center transform hover:-translate-y-2">
+          <mat-icon class="text-blue-600 text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+            {{ value.icon }}
+          </mat-icon>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">{{ value.title }}</h3>
+          <p class="text-gray-600">{{ value.description }}</p>
+        </div>
+      }
     </div>
   </div>
 </section>
+
 <app-footer></app-footer>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroComponent } from '../../components/hero/hero.component';
 import { CardCursoComponent } from '../../components/card-curso/card-curso.component';
 import { CommonModule, NgForOf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,11 +8,11 @@ import { RouterLink } from '@angular/router';
 import { CardBlogComponent } from '../../components/card-blog/card-blog.component';
 import { AuthService } from '../../auth/auth.service';
 import { Course } from '../../components/shared/types/course.types';
-import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import {FaqComponent} from '../faq/faq.component';
 
 interface BlogPost {
   id: number;
@@ -40,11 +39,12 @@ interface BlogPost {
     RouterLink,
     MatButtonModule,
     CardBlogComponent,
-    BaseChartDirective,
+
     NavbarComponent,
     CardCursoComponent,
     NavbarComponent,
-    CardCursoComponent
+    CardCursoComponent,
+    FaqComponent
   ],
   providers: [AuthService],
   styleUrls: ['./home.component.scss'],
@@ -265,7 +265,7 @@ export class HomeComponent implements OnInit {
         beginAtZero: true,
         grid: {
           color: 'rgba(0,0,0,0.1)',
-          
+
         },
         ticks: {
           color: 'rgba(0,0,0,0.8)'

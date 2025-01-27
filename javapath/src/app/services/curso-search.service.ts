@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Course } from '../types/course.types';
+import { Course} from '../components/shared/types/course.types';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Course } from '../types/course.types';
 export class CourseSearchService {
   private searchQuerySubject = new Subject<string>();
   private recentSearchesSubject = new BehaviorSubject<string[]>([]);
-  
+
   constructor(private http: HttpClient) {
     // Recupera buscas recentes do localStorage
     const savedSearches = localStorage.getItem('recentSearches');

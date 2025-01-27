@@ -2,8 +2,11 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { MatIconModule } from '@angular/material/icon';
 
-interface ContatoForm {
+interface ContactForm {
   nome: string;
   email: string;
   mensagem: string;
@@ -15,12 +18,15 @@ interface ContatoForm {
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NavbarComponent,
+    FooterComponent,
+    MatIconModule
   ],
   styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent {
-  formData: ContatoForm = {
+  formData: ContactForm = {
     nome: '',
     email: '',
     mensagem: ''
@@ -35,7 +41,7 @@ export class ContatoComponent {
   onSubmit(form: NgForm) {
     if (form.valid) {
       console.log('Form submitted:', this.formData);
-      // Implementar lógica de envio do formulário
+      // Implement form submission logic here
     }
   }
 }
