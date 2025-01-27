@@ -50,35 +50,58 @@ interface BlogPost {
     NavbarComponent
   ],
   providers: [AuthService],
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+   animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   cursos: any[] = [];
-  trilhas = [
+ trilhas = [
     {
       icon: 'school',
       title: 'Iniciante em Java',
       imageUrl: '/assets/courses/java-basics.jpg',
       link: '/curso-java-fundamentos',
-      description: 'Aprenda os fundamentos da linguagem Java e programação orientada a objetos.'
+      description: 'Aprenda os fundamentos da linguagem Java e programação orientada a objetos.',
+      stats: {
+        modules: 12,
+        hours: 24,
+        students: 1500
+      }
     },
     {
       icon: 'code',
       title: 'Desenvolvimento Web',
-      imageUrl: '/assets/courses/java-basics.jpg',
-      link: '/curso-java-fundamentos',
-      description: 'Domine o desenvolvimento web com Spring Boot e tecnologias modernas.'
+      imageUrl: '/assets/courses/web-dev.jpg',
+      link: '/curso-web-dev',
+      description: 'Domine o desenvolvimento web com Spring Boot e tecnologias modernas.',
+      stats: {
+        modules: 15,
+        hours: 30,
+        students: 1200
+      }
     },
     {
       icon: 'cloud',
       title: 'Arquitetura Cloud',
-      link: '/curso-java-fundamentos',
-      imageUrl: '/assets/courses/java-basics.jpg',
-      description: 'Construa aplicações escaláveis com práticas de cloud computing.'
+      link: '/curso-cloud',
+      imageUrl: '/assets/courses/cloud-arch.jpg',
+      description: 'Construa aplicações escaláveis com práticas de cloud computing.',
+      stats: {
+        modules: 10,
+        hours: 20,
+        students: 800
+      }
     }
   ];
 
-  cursosPopulares: Course[] = [
+ cursosPopulares: Course[] = [
     {
       id: '1',
       title: 'Java Fundamentos',
@@ -88,12 +111,15 @@ export class HomeComponent {
       level: 'Iniciante',
       duration: '12h',
       rating: 4.8,
-      instructor: '',
-      price: 0,
-      totalStudents: 0,
-      categories: [],
-      status: 'draft',
-      modules: [],
+      instructor: 'João Silva',
+      price: 199.90,
+      totalStudents: 2500,
+      categories: ['Java', 'Backend'],
+      status: 'published',
+      modules: [
+        { title: 'Introdução', duration: '2h' },
+        { title: 'POO', duration: '4h' }
+      ],
       lastUpdate: new Date()
     },
     {
@@ -204,7 +230,35 @@ export class HomeComponent {
       category: 'Angular'
     }
   ];
-
+ ngOnInit() {
+    this.initializeCharts();
+  }
+  private initializeCharts() {
+    // Configuração melhorada dos gráficos
+    this.chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0,0,0,0.1)'
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom'
+        }
+      }
+    };
+  }
   // Dados para os gráficos
   popularCoursesChartData = [
     {
