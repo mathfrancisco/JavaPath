@@ -6,35 +6,30 @@ import { RegisterUser } from './dto/register-user/register-user';
 import { LoginUser } from './dto/login-user/login-user';
 
 @Injectable()
+@Injectable()
 export class AuthService {
   constructor(
+    @InjectRepository(Usuario)
+    private readonly usuarioRepository: Repository<Usuario>,
     private readonly jwtService: JwtService,
-    private readonly supabase: SupabaseClient,
   ) {}
 
   async register(registerDto: RegisterUser) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
     
-    const { data: user, error } = await this.supabase
-      .from('users')
-      .insert([{
-        username: registerDto.username,
-        email: registerDto.email,
-        name: registerDto.fullName,
-        password: hashedPassword,
-        role: registerDto.role,
-        created_at: new Date(),
-      }])
-      .select()
-      .single();
+    const usuario = this.usuarioRepository.create({
+      username: registerDto.username,
+      email: registerDto.email,
+      name: registerDto.fullName,
+      password: hashedPassword,
+      role: registerDto.role,
+      created_at: new Date(),
+    });
 
-    if (error) {
-      throw new UnauthorizedException('Erro ao registrar usuário');
-    }
-
-    return this.generateToken(user);
+    const savedUser = await this.usuarioRepository.save(usuario);
+    return this.generateToken(savedUser);
   }
-
+  
   async login(loginDto: LoginUser) {
     const { data: user, error } = await this.supabase
       .from('users')
