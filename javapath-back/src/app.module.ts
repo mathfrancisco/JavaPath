@@ -12,13 +12,17 @@ import {TypeOrmModule} from "@nestjs/typeorm";
   imports: [CursosModule, BlogModule, ComentariosModule, AuthModule, DatabaseModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.SUPABASE_HOST, // Do arquivo .env
-      port: Number(process.env.SUPABASE_PORT), // Use dotenv para injetar variáveis
+      host: process.env.SUPABASE_HOST,
+      port: Number(process.env.SUPABASE_PORT),
       username: process.env.SUPABASE_USER,
       password: process.env.SUPABASE_PASSWORD,
       database: process.env.SUPABASE_DB,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: true, // Altere para "false" em produção
+      synchronize: process.env.NODE_ENV !== 'production', // Only true in development
+      ssl: {
+        rejectUnauthorized: false // Required for Supabase
+      }
     }),
     ],
   controllers: [AppController],
