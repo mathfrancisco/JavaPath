@@ -1,10 +1,9 @@
 // blog.controller.ts
 import { Controller, Get, Post, Body, Put, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { GetUser } from '../auth/decorators/get-user.decorator';
+import {CreatePostDto} from "./dto/create-post/create-post";
+import {JwtAuthGuard} from "../guards/jwt/jwt.guard";
+import {UpdatePostDto} from "./dto/update-post/update-post";
 
 @Controller('blog')
 export class BlogController {

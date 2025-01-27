@@ -1,0 +1,15 @@
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  line-height: 1.8;
+}
+
+img {
+  border-radius: 50%;
+}
+
+.mat-icon {
+  font-size: 2rem;
+}

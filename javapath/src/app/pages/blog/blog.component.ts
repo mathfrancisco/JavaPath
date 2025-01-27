@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf, DatePipe, NgClass, CommonModule } from '@angular/common';
 import {CommentsSectionComponent} from '../../components/comments-section/comments-section.component';
+import {FooterComponent} from '../../components/footer/footer.component';
+import {NavbarComponent} from '../../components/navbar/navbar.component';
 
 export interface BlogPost {
   id: number;
@@ -31,7 +33,9 @@ export interface BlogPost {
     RouterModule,
     NgIf,
     DatePipe,
-    CommentsSectionComponent
+    CommentsSectionComponent,
+    FooterComponent,
+    NavbarComponent
   ],
   styleUrls: ['./blog.component.scss']
 })

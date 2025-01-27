@@ -8,6 +8,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import { NgIf } from '@angular/common';
 import {Course, Lesson} from '../../components/shared/types/course.types';
+import {NavbarComponent} from '../../components/navbar/navbar.component';
+import {FooterComponent} from '../../components/footer/footer.component';
 
 
 @Component({
@@ -17,7 +19,7 @@ import {Course, Lesson} from '../../components/shared/types/course.types';
   imports: [
     NgForOf,
     MatCardModule, MatButtonModule, MatIconModule,
-    NgIf, RouterLink
+    NgIf, RouterLink, NavbarComponent, FooterComponent
   ],
   styleUrls: ['./curso.component.scss']
 })
