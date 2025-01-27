@@ -5,35 +5,28 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { FilterCoursesDto } from './dto/filter-courses.dto';
 
 @Injectable()
-export class CoursesService {
-  constructor(private readonly supabase: SupabaseClient) {}
+export class CursosService {
+  constructor(
+    @InjectRepository(Curso)
+    private readonly cursoRepository: Repository<Curso>,
+  ) {}
 
   async findAll(filterDto: FilterCoursesDto) {
-    let query = this.supabase.from('courses').select('*');
-
+    const queryBuilder = this.cursoRepository.createQueryBuilder('curso');
+    
     if (filterDto.search) {
-      query = query.ilike('title', `%${filterDto.search}%`);
+      queryBuilder.andWhere('curso.title ILIKE :search', { search: `%${filterDto.search}%` });
     }
-
+    
     if (filterDto.categoryId) {
-      query = query.contains('categoryIds', [filterDto.categoryId]);
+      queryBuilder.andWhere(':categoryId = ANY(curso.categoryIds)', { categoryId: filterDto.categoryId });
     }
-
+    
     if (filterDto.instructorId) {
-      query = query.eq('instructorId', filterDto.instructorId);
+      queryBuilder.andWhere('curso.instructorId = :instructorId', { instructorId: filterDto.instructorId });
     }
-
-    if (filterDto.status) {
-      query = query.eq('status', filterDto.status);
-    }
-
-    const { data: courses, error } = await query;
-
-    if (error) {
-      throw new BadRequestException('Erro ao buscar cursos');
-    }
-
-    return courses;
+    
+    return queryBuilder.getMany();
   }
 
   async findOne(id: string) {
