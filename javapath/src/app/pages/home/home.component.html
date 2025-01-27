@@ -1,17 +1,19 @@
+<!-- home.component.html -->
 <app-navbar></app-navbar>
 
 <app-hero></app-hero>
 
 <!-- Trilhas de Aprendizado -->
-<section class="py-20 bg-gray-50">
+<section class="py-24 bg-gray-50">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Trilhas de Aprendizado</h2>
-      <p class="text-xl text-gray-600">Escolha seu caminho e desenvolva suas habilidades</p>
+      <p class="text-xl text-gray-600">Escolha seu caminho e desenvolva suas habilidades com nossa metodologia estruturada</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div *ngFor="let trilha of trilhas" @fadeInUp class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+      <div *ngFor="let trilha of trilhas" 
+           class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
         <div class="relative h-48">
           <img [src]="trilha.imageUrl" [alt]="trilha.title" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -24,21 +26,22 @@
           <p class="text-gray-600 mb-6">{{ trilha.description }}</p>
 
           <div class="grid grid-cols-3 gap-4 mb-6">
-            <div class="text-center">
+            <div class="text-center p-3 bg-blue-50 rounded-lg">
               <div class="text-blue-600 font-bold text-xl">{{ trilha.stats.modules }}</div>
-              <div class="text-sm text-gray-500">Módulos</div>
+              <div class="text-sm text-gray-600">Módulos</div>
             </div>
-            <div class="text-center">
+            <div class="text-center p-3 bg-blue-50 rounded-lg">
               <div class="text-blue-600 font-bold text-xl">{{ trilha.stats.hours }}h</div>
-              <div class="text-sm text-gray-500">Duração</div>
+              <div class="text-sm text-gray-600">Duração</div>
             </div>
-            <div class="text-center">
+            <div class="text-center p-3 bg-blue-50 rounded-lg">
               <div class="text-blue-600 font-bold text-xl">{{ trilha.stats.students }}</div>
-              <div class="text-sm text-gray-500">Alunos</div>
+              <div class="text-sm text-gray-600">Alunos</div>
             </div>
           </div>
 
-          <a [routerLink]="trilha.link" class="block text-center py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
+          <a [routerLink]="['/trilhas', trilha.slug]" 
+             class="block text-center py-3 px-6 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-300">
             Começar Trilha
           </a>
         </div>
@@ -48,81 +51,80 @@
 </section>
 
 <!-- Cursos em Destaque -->
-<section class="py-20 bg-white">
+<section class="py-24 bg-white">
   <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center mb-12">
-      <div>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-16">
+      <div class="text-center md:text-left mb-8 md:mb-0">
         <h2 class="text-4xl font-bold text-gray-900 mb-4">Cursos em Destaque</h2>
         <p class="text-xl text-gray-600">Os cursos mais populares da plataforma</p>
       </div>
-      <a href="/cursos" class="flex items-center text-blue-600 hover:text-blue-800 font-semibold">
-        Ver todos
-        <mat-icon class="ml-2">chevron_right</mat-icon>
+      <a routerLink="/cursos" 
+         class="inline-flex items-center px-6 py-3 bg-blue-100 text-blue-600 rounded-xl hover:bg-blue-200 transition-all group">
+        Ver todos os cursos
+        <mat-icon class="ml-2 transform group-hover:translate-x-1 transition-transform">arrow_forward</mat-icon>
       </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <app-card-curso 
-        *ngFor="let curso of cursosPopulares" 
-        [curso]="curso"
-        @fadeInUp>
-      </app-card-curso>
+      <app-curso-card 
+        *ngFor="let curso of cursosDestaque" 
+        [curso]="curso">
+      </app-curso-card>
     </div>
   </div>
 </section>
 
-<!-- Estatísticas -->
-<section class="py-20 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">5000+</div>
-        <div class="text-blue-200">Alunos</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">50+</div>
-        <div class="text-blue-200">Cursos</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">30+</div>
-        <div class="text-blue-200">Instrutores</div>
-      </div>
-      <div class="p-6">
-        <div class="text-4xl font-bold mb-2">95%</div>
-        <div class="text-blue-200">Satisfação</div>
+<!-- Números e Estatísticas -->
+<section class="py-24 bg-gradient-to-br from-blue-900 to-blue-800 relative overflow-hidden">
+  <!-- Decorative Elements -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_70%)]"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div *ngFor="let stat of estatisticas" 
+           class="p-6 transform hover:-translate-y-2 transition-all duration-300">
+        <div class="text-4xl font-bold mb-2 text-white">{{stat.valor}}</div>
+        <div class="text-blue-200 font-medium">{{stat.label}}</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Blog -->
-<section class="py-20 bg-gray-50">
+<section class="py-24 bg-gray-50">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Blog</h2>
       <p class="text-xl text-gray-600">Últimas novidades e artigos técnicos</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <app-card-blog 
+      <app-post-card 
         *ngFor="let post of blogPosts" 
-        [post]="post"
-        @fadeInUp>
-      </app-card-blog>
+        [post]="post">
+      </app-post-card>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="py-20 bg-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-4xl font-bold text-gray-900 mb-6">Pronto para começar?</h2>
-    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-      Junte-se a milhares de desenvolvedores que já estão transformando suas carreiras com a JavaPath
-    </p>
-    <a href="/registro" class="inline-block px-8 py-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-      Criar Conta Grátis
-    </a>
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="container mx-auto px-4 text-center relative z-10">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Pronto para começar?</h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Junte-se a milhares de desenvolvedores que já estão transformando suas carreiras com a JavaPath
+      </p>
+      <a routerLink="/registro" 
+         class="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+        Criar Conta Grátis
+        <mat-icon class="ml-2">arrow_forward</mat-icon>
+      </a>
+    </div>
   </div>
 </section>
 
