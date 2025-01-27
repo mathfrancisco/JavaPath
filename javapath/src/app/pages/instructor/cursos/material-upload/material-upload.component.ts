@@ -1,13 +1,14 @@
 // material-upload.component.ts
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { InstructorService } from '../../../services/instructor.service';
-import { Material } from '../../../components/shared/types/course.types';
+import {InstructorService} from '../../../../services/instructor.service';
+import {Material} from '../../../../components/shared/types/course.types';
+
 
 @Component({
   selector: 'app-material-upload',
@@ -25,13 +26,13 @@ import { Material } from '../../../components/shared/types/course.types';
       <mat-card-header>
         <mat-card-title>Materiais do Curso</mat-card-title>
       </mat-card-header>
-      
+
       <mat-card-content>
         <div class="materials-list my-4">
           <div *ngFor="let material of materials" class="flex items-center justify-between p-2 border-b">
             <div class="flex items-center">
               <mat-icon [ngSwitch]="material.type" class="mr-2">
-                {{material.type === 'pdf' ? 'picture_as_pdf' : 
+                {{material.type === 'pdf' ? 'picture_as_pdf' :
                   material.type === 'video' ? 'video_library' : 'assignment'}}
               </mat-icon>
               <span>{{material.title}}</span>
@@ -50,7 +51,7 @@ import { Material } from '../../../components/shared/types/course.types';
             style="display: none"
             accept=".pdf,.mp4,.doc,.docx"
           >
-          
+
           <button mat-raised-button color="primary" (click)="fileInput.click()">
             <mat-icon>cloud_upload</mat-icon>
             Adicionar Material
@@ -65,7 +66,7 @@ import { Material } from '../../../components/shared/types/course.types';
     </mat-card>
   `
 })
-export class MaterialUploadComponent {
+export class MaterialUploadComponent implements OnInit{
   @Input() cursoId!: number;
   materials: Material[] = [];
   uploadProgress = 0;
@@ -105,8 +106,9 @@ export class MaterialUploadComponent {
 
       this.instructorService.uploadMaterial(this.cursoId, file).subscribe({
         next: (response) => {
+          // Certifique-se de que `response` inclui `id` e `url`
           this.materials.push({
-            id: response.id,
+            id: response.id, // `id` agora é reconhecido
             title: file.name,
             type: this.getFileType(file),
             url: response.url

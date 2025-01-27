@@ -39,12 +39,17 @@ export class InstructorService {
   getCursoAnalytics(id: number): Observable<CursoAnalytics> {
     return this.http.get<CursoAnalytics>(`${this.apiUrl}/cursos/${id}/analytics`);
   }
-
-  uploadMaterial(cursoId: number, file: File): Observable<{ url: string }> {
+  uploadMaterial(cursoId: number, file: File): Observable<{ id: string; url: string }> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<{ url: string }>(`${this.apiUrl}/cursos/${cursoId}/materiais`, formData);
+
+    // Certifique-se de que a API retorna um objeto com as propriedades `id` e `url`
+    return this.http.post<{ id: string; url: string }>(
+      `${this.apiUrl}/cursos/${cursoId}/materiais`,
+      formData
+    );
   }
+
   getDetailedAnalytics(cursoId: number, filters?: any): Observable<CursoAnalytics> {
     let params = new HttpParams();
     if (filters) {
@@ -71,5 +76,15 @@ export class InstructorService {
     return this.http.get(`${this.apiUrl}/cursos/${cursoId}/export-analytics`, {
       responseType: 'blob'
     });
+  }
+
+  getMaterials(cursoId: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/cursos/${cursoId}/materiais`);
+
+  }
+
+  deleteMaterial(cursoId: number, materialId: string) {
+     return this.http.delete(`${this.apiUrl}/cursos/${cursoId}/materiais/${materialId}`);
+
   }
 }

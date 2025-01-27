@@ -28,7 +28,7 @@ export const routes: Routes = [
       {
         path: 'buscar',
         loadComponent: () => import('./pages/curso/curso-busca/curso-busca.component')
-          .then(m => m.CursoBuscaComponent)
+          .then(m => m.CourseSearchComponent)
       },
       {
         path: 'categoria/:categoria',
@@ -56,16 +56,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./pages/instructor/dashboard/dashboard.component')
-          .then(m => m.InstructorDashboardComponent)
-      },
-      {
-    path: 'instructor',
-    canActivate: [authGuard, () => roleGuard(['instructor', 'admin'])()],
-    children: [
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./pages/instructor/dashboard/dashboard.component')
-          .then(m => m.InstructorDashboardComponent)
+          .then(m => m.DashboardComponent)
       },
       {
         path: 'cursos',
