@@ -34,7 +34,7 @@
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Trilhas de Aprendizado</h2>
       <p class="text-xl text-gray-600">Escolha seu caminho e desenvolva suas habilidades</p>
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div *ngFor="let trilha of trilhas" @fadeInUp class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
         <div class="relative h-48">
@@ -44,10 +44,10 @@
             <h3 class="text-2xl font-bold text-white">{{ trilha.title }}</h3>
           </div>
         </div>
-        
+
         <div class="p-6">
           <p class="text-gray-600 mb-6">{{ trilha.description }}</p>
-          
+
           <div class="grid grid-cols-3 gap-4 mb-6">
             <div class="text-center">
               <div class="text-blue-600 font-bold text-xl">{{ trilha.stats.modules }}</div>
@@ -62,7 +62,7 @@
               <div class="text-sm text-gray-500">Alunos</div>
             </div>
           </div>
-          
+
           <a [routerLink]="trilha.link" class="block text-center py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
             Começar Trilha
           </a>
@@ -87,11 +87,41 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <app-card-curso 
-        *ngFor="let curso of cursosPopulares" 
+      <app-card-curso
+        *ngFor="let curso of cursosPopulares"
         [curso]="curso"
         @fadeInUp>
       </app-card-curso>
+    </div>
+  </div>
+</section>
+
+<!-- Gráfico de Cursos Populares -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-gray-900 mb-4">Avaliação dos Cursos Populares</h2>
+    <div class="chart-container">
+      <canvas baseChart
+              [data]="popularCoursesChartData"
+              [labels]="popularCoursesChartLabels"
+              [options]="chartOptions"
+              type="bar">
+      </canvas>
+    </div>
+  </div>
+</section>
+
+<!-- Gráfico de Cursos Recentes -->
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-gray-900 mb-4">Avaliação dos Cursos Recentes</h2>
+    <div class="chart-container">
+      <canvas baseChart
+              [data]="recentCoursesChartData"
+              [labels]="recentCoursesChartLabels"
+              [options]="chartOptions"
+              type="bar">
+      </canvas>
     </div>
   </div>
 </section>
@@ -127,10 +157,10 @@
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Blog</h2>
       <p class="text-xl text-gray-600">Últimas novidades e artigos técnicos</p>
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <app-card-blog 
-        *ngFor="let post of blogPosts" 
+      <app-card-blog
+        *ngFor="let post of blogPosts"
         [post]="post"
         @fadeInUp>
       </app-card-blog>

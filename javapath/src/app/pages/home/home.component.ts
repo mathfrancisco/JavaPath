@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { CardCursoComponent } from '../../components/card-curso/card-curso.component';
-
 import { CommonModule, NgForOf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
 import { FooterComponent } from '../../components/footer/footer.component';
 import { RouterLink } from '@angular/router';
 import { CardBlogComponent } from '../../components/card-blog/card-blog.component';
 import { AuthService } from '../../auth/auth.service';
 import { Course } from '../../components/shared/types/course.types';
 import { BaseChartDirective } from 'ng2-charts';
-
-import {MatCard, MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
-import {NavbarComponent} from '../../components/navbar/navbar.component';
+import { ChartConfiguration, ChartData } from 'chart.js';
+import { MatCardModule } from '@angular/material/card';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 interface BlogPost {
   id: number;
@@ -34,9 +33,7 @@ interface BlogPost {
   standalone: true,
   imports: [
     NgForOf,
-
     CommonModule,
-    HeroComponent,
     MatIconModule,
     MatCardModule,
     FooterComponent,
@@ -44,10 +41,10 @@ interface BlogPost {
     MatButtonModule,
     CardBlogComponent,
     BaseChartDirective,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    NavbarComponent
+    NavbarComponent,
+    CardCursoComponent,
+    NavbarComponent,
+    CardCursoComponent
   ],
   providers: [AuthService],
   styleUrls: ['./home.component.scss'],
@@ -117,8 +114,16 @@ export class HomeComponent implements OnInit {
       categories: ['Java', 'Backend'],
       status: 'published',
       modules: [
-        { title: 'Introdução', duration: '2h' },
-        { title: 'POO', duration: '4h' }
+        {
+          title: 'Introdução', duration: '2h',
+          id: '',
+          lessons: []
+        },
+        {
+          title: 'POO', duration: '4h',
+          id: '',
+          lessons: []
+        }
       ],
       lastUpdate: new Date()
     },
@@ -230,58 +235,88 @@ export class HomeComponent implements OnInit {
       category: 'Angular'
     }
   ];
- ngOnInit() {
-    this.initializeCharts();
-  }
-  private initializeCharts() {
-    // Configuração melhorada dos gráficos
-    this.chartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true,
-          grid: {
-            color: 'rgba(0,0,0,0.1)'
-          }
-        },
-        x: {
-          grid: {
-            display: false
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom'
-        }
+  // Updated chart data with correct typing
+  popularCoursesChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Avaliação'
       }
-    };
-  }
-  // Dados para os gráficos
-  popularCoursesChartData = [
-    {
-      data: this.cursosPopulares.map(curso => curso.rating),
-      label: 'Avaliação'
-    }
-  ];
-  popularCoursesChartLabels = this.cursosPopulares.map(curso => curso.title);
+    ]
+  };
 
-  recentCoursesChartData = [
-    {
-      data: this.cursosRecentes.map(curso => curso.rating),
-      label: 'Avaliação'
-    }
-  ];
-  recentCoursesChartLabels = this.cursosRecentes.map(curso => curso.title);
+  recentCoursesChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Avaliação'
+      }
+    ]
+  };
 
-  chartOptions = {
+  // Updated chart options with correct typing
+  chartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(0,0,0,0.1)',
+          
+        },
+        ticks: {
+          color: 'rgba(0,0,0,0.8)'
+        }
+      },
+      x: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          color: 'rgba(0,0,0,0.8)'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom'
       }
     }
   };
+  popularCoursesChartLabels: any[] | undefined;
+  recentCoursesChartLabels: any[] | undefined;
+
+  ngOnInit() {
+    this.initializeCharts();
+  }
+
+  private initializeCharts() {
+    // Initialize popular courses chart
+    this.popularCoursesChartData = {
+      labels: this.cursosPopulares.map(curso => curso.title),
+      datasets: [{
+        data: this.cursosPopulares.map(curso => curso.rating),
+        label: 'Avaliação',
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    // Initialize recent courses chart
+    this.recentCoursesChartData = {
+      labels: this.cursosRecentes.map(curso => curso.title),
+      datasets: [{
+        data: this.cursosRecentes.map(curso => curso.rating),
+        label: 'Avaliação',
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    };
+  }
 }
