@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Curso } from '../cursos/entities/curso.entity';
+import { Comentario } from '../comentarios/entities/comentario.entity';
+import { Post } from '../blog/entities/post.entity';
 
 @Entity('usuarios')
 export class Usuario {
