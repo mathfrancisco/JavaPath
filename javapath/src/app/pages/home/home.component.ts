@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import {FaqComponent} from '../faq/faq.component';
+import {HeroComponent} from '../../components/hero/hero.component';
 
 interface BlogPost {
   id: number;
@@ -44,7 +45,8 @@ interface BlogPost {
     CardCursoComponent,
     NavbarComponent,
     CardCursoComponent,
-    FaqComponent
+    FaqComponent,
+    HeroComponent
   ],
   providers: [AuthService],
   styleUrls: ['./home.component.scss'],
